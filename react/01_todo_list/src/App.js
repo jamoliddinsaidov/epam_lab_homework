@@ -6,17 +6,15 @@ import TodoList from './components/TodoList'
 
 // styles
 
-const arr = ['first', 'second', 'third', 'fourth']
-
 const App = () => {
 	// states
 	const [todos, setTodos] = useState([])
-	// const [todo, setTodo] = useState()
+	const [isCompleted, setIsCompleted] = useState(false)
 
 	return (
 		<div className='app'>
 			<h1>Todo List</h1>
-			<TodoList todos={todos} />
+			<TodoList todos={todos} setTodos={setTodos} />
 			<TodoForm todos={todos} setTodos={setTodos} />
 		</div>
 	)

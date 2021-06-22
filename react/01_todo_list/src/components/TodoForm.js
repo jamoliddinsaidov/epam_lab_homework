@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 
+// generate unique id
+import { v4 as uuidv4 } from 'uuid'
+
 const TodoForm = ({ todos, setTodos }) => {
+	// states
 	const [inputValue, setInputValue] = useState('')
 
 	// handlers
@@ -11,7 +15,18 @@ const TodoForm = ({ todos, setTodos }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault()
-		setTodos([...todos, inputValue])
+
+		// creating a new todo
+		const newTodo = {
+			id: uuidv4(),
+			name: inputValue,
+			isCompleted: false,
+		}
+
+		// adding the new todo
+		setTodos([...todos, newTodo])
+
+		// clearing out the input
 		setInputValue('')
 	}
 
