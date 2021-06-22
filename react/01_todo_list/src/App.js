@@ -9,7 +9,6 @@ import TodoList from './components/TodoList'
 const App = () => {
 	// states
 	const [todos, setTodos] = useState([])
-	const [isCompleted, setIsCompleted] = useState(false)
 
 	return (
 		<div className='app'>
