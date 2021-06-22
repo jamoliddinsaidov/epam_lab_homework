@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
-// generate unique id
+// utils
 import { v4 as uuidv4 } from 'uuid'
+import { saveToLocalStorage } from '../utils'
 
 const TodoForm = ({ todos, setTodos }) => {
 	// states
@@ -25,6 +26,7 @@ const TodoForm = ({ todos, setTodos }) => {
 
 		// adding the new todo
 		setTodos([...todos, newTodo])
+		saveToLocalStorage(todos)
 
 		// clearing out the input
 		setInputValue('')

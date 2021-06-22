@@ -1,5 +1,8 @@
 import React from 'react'
 
+// utils
+import { saveToLocalStorage } from '../utils'
+
 const Todo = ({ todo, todos, setTodos }) => {
 	// handler functions
 	const findCurrentIndex = () => {
@@ -16,6 +19,7 @@ const Todo = ({ todo, todos, setTodos }) => {
 		// deleting the todo
 		todos.splice(currentIndex, 1)
 		setTodos([...todos])
+		saveToLocalStorage(todos)
 	}
 
 	const completeHandler = () => {
@@ -31,8 +35,7 @@ const Todo = ({ todo, todos, setTodos }) => {
 
 		todos[currentIndex] = updatedTodo
 		setTodos([...todos])
-
-		console.log(todo)
+		saveToLocalStorage(todos)
 	}
 
 	return (

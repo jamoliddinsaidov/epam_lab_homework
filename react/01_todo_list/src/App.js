@@ -6,9 +6,12 @@ import TodoList from './components/TodoList'
 
 // styles
 
+// utils
+import { checkLocalStorage } from './utils'
+
 const App = () => {
 	// states
-	const [todos, setTodos] = useState([])
+	const [todos, setTodos] = useState(checkLocalStorage())
 
 	return (
 		<div className='app'>
