@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 
 // components
+import Header from './components/Header'
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
 
 // styles
+import { GlobalStyles } from './components/GlobalStyles'
 
 // utils
 import { checkLocalStorage } from './utils'
@@ -14,11 +16,14 @@ const App = () => {
 	const [todos, setTodos] = useState(checkLocalStorage())
 
 	return (
-		<div className='app'>
-			<h1>Todo List</h1>
-			<TodoList todos={todos} setTodos={setTodos} />
-			<TodoForm todos={todos} setTodos={setTodos} />
-		</div>
+		<>
+			<GlobalStyles />
+			<div className='app'>
+				<Header name={'Todo List'} />
+				<TodoForm todos={todos} setTodos={setTodos} />
+				<TodoList todos={todos} setTodos={setTodos} />
+			</div>
+		</>
 	)
 }
 

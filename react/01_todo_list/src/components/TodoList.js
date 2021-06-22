@@ -1,17 +1,20 @@
 import React from 'react'
+import styled from 'styled-components'
 
 // components
 import Todo from './Todo'
 
 const TodoList = ({ todos, setTodos }) => {
 	return (
-		<div>
+		<StyledTodoList>
 			{todos[0] &&
 				todos.map((todo, index) => (
 					<Todo todo={todo} todos={todos} setTodos={setTodos} key={index} />
 				))}
-		</div>
+		</StyledTodoList>
 	)
 }
+
+const StyledTodoList = styled.div``
 
 export default TodoList

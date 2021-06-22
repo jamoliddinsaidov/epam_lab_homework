@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 
 // utils
 import { saveToLocalStorage } from '../utils'
@@ -28,22 +29,71 @@ const Todo = ({ todo, todos, setTodos }) => {
 
 		// updating the todo
 		const currentTodo = todos[currentIndex]
-		const updatedTodo = {
-			...currentTodo,
-			isCompleted: !currentTodo.isCompleted,
-		}
+		if (currentTodo) {
+			const updatedTodo = {
+				...currentTodo,
+				isCompleted: !currentTodo.isCompleted,
+			}
 
-		todos[currentIndex] = updatedTodo
-		setTodos([...todos])
-		saveToLocalStorage(todos)
+			todos[currentIndex] = updatedTodo
+			setTodos([...todos])
+			saveToLocalStorage(todos)
+		}
 	}
 
 	return (
-		<div>
-			<p onClick={completeHandler}>{todo.name}</p>
-			<button onClick={deleteBtnHandler}>Delete</button>
-		</div>
+		<StyledTodo onClick={completeHandler}>
+			<p className={`${todo.isCompleted ? 'completed' : ''}`}>{todo.name}</p>
+			<button onClick={deleteBtnHandler}>X</button>
+		</StyledTodo>
 	)
 }
+
+const StyledTodo = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 1.5em;	
+	padding: 0.2em 1em;
+	border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+
+	&:hover{
+		border-bottom: 2px solid rgba(255, 255, 255, 1);
+	}
+
+	p,
+	button {
+		font-size: 1.2rem;
+		font-weight: 600;		
+		transition: all 0.3s ease-in-out;
+	}
+
+	p {
+		opacity: 1;
+		text-decoration: none;
+	}
+
+	p.completed {
+		text-decoration: line-through;
+		opacity: 0.5;
+	}
+
+	button {
+		font-size: 0.9rem;
+		font-weight: 800;
+		border: 2px solid rgba(255, 255, 255, 0.3);
+		border-radius: 0.2em;
+		padding: 0.1em 0.5em;
+		cursor: pointer;
+		outline: none;
+
+		&:hover,
+		&:focus {
+			border: 2px solid rgba(255, 255, 255, 1);
+		}
+	}
+`
 
 export default Todo
