@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 // components
@@ -11,13 +11,19 @@ import TodoList from './pages/TodoList'
 import NotFound from './pages/NotFound'
 
 function App() {
+	// states
+	const [todos, setTodos] = useState([])
+	console.log(todos)
+
 	return (
 		<div className='app'>
 			<Nav />
 
 			<Switch>
 				<Route path='/' component={Home} exact />
-				<Route path='/create' component={Create} />
+				<Route path='/create'>
+					<Create todos={todos} setTodos={setTodos} />
+				</Route>
 				<Route path='/todolist' component={TodoList} />
 				<Route component={NotFound} />
 			</Switch>
