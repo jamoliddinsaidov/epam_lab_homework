@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom'
 // utils
 import { TodoContext } from '../TodoContext'
 import styled from 'styled-components'
-import { deleteFromLocalStorage } from '../utils'
+import {
+	deleteFromLocalStorage,
+	changeCompletePropertyInLocalStorage,
+} from '../utils'
 
 const Todo = ({ todo }) => {
 	// states
@@ -23,9 +26,22 @@ const Todo = ({ todo }) => {
 		setTodoCount((prev) => prev - 1)
 	}
 
+	const todoCompleteHandler = () => {
+		let index = todos.findIndex((t) => t.id === todo.id)
+
+		// marking the completed one
+		todos[index].isCompleted = !todos[index].isCompleted
+		setTodos([...todos])
+		changeCompletePropertyInLocalStorage(index)
+	}
+
 	return (
 		<StyledTodo>
-			<p>{todo.name}</p>
+			<p
+				onClick={todoCompleteHandler}
+				className={todo.isCompleted ? 'completed' : ''}>
+				{todo.name}
+			</p>
 			<div>
 				<Link to={`/todo/view/${todo.id}`}>View</Link>
 				<Link to={`/todo/edit/${todo.id}`}>Edit</Link>
@@ -41,6 +57,18 @@ const StyledTodo = styled.div`
 	display: flex;
 	align-items: baseline;
 	justify-content: space-between;
+
+	p {
+		cursor: pointer;
+		opacity: 1;
+		text-decoration: none;
+		transition: all 0.3s ease-in-out;
+
+		&.completed {
+			opacity: 0.5;
+			text-decoration: line-through;
+		}
+	}
 
 	div {
 		width: 30%;

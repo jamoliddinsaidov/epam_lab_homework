@@ -21,6 +21,7 @@ const DetailedTodo = () => {
 			{todo && (
 				<div>
 					<h2>{todo.name}</h2>
+					<p className='completed'>Completed: {`${todo.isCompleted}`}</p>
 					<p>{todo.description}</p>
 				</div>
 			)}
@@ -29,12 +30,15 @@ const DetailedTodo = () => {
 }
 
 const StyledDetailedTodo = styled(Container)`
-	h2 {
-		line-height: 200%;
-	}
-
+	h2,
 	p {
 		line-height: 150%;
+		margin-bottom: 0.2rem;
+	}
+
+	.completed {
+		opacity: 0.5;
+		font-size: 1rem;
 	}
 `
 

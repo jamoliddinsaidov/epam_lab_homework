@@ -21,3 +21,9 @@ export const deleteFromLocalStorage = (index) => {
 	todos.splice(index, 1)
 	localStorage.setItem('todos', JSON.stringify(todos))
 }
+
+export const changeCompletePropertyInLocalStorage = (index) => {
+	let todos = checkLocalStorage()
+	todos[index].isCompleted = !todos[index].isCompleted
+	localStorage.setItem('todos', JSON.stringify(todos))
+}
