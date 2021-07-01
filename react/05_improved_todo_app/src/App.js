@@ -13,6 +13,7 @@ import DetailedTodo from './pages/DetailedTodo'
 
 // utils
 import { TodoContext } from './TodoContext'
+import { GlobalStyles } from './GlobalStyles'
 
 function App() {
 	// states
@@ -26,20 +27,23 @@ function App() {
 	)
 
 	return (
-		<div className='app'>
-			<Nav />
+		<>
+			<GlobalStyles />
+			<div>
+				<Nav />
 
-			<Switch>
-				<TodoContext.Provider value={todoContextValues}>
-					<Route path='/' component={Home} exact />
-					<Route path='/create' component={Create} />
-					<Route path='/todolist' component={TodoList} exact />
-					<Route path='/todo/view/:id' component={DetailedTodo} exact />
-					<Route path='/todo/edit/:id' exact />
-				</TodoContext.Provider>
-				<Route component={NotFound} />
-			</Switch>
-		</div>
+				<Switch>
+					<TodoContext.Provider value={todoContextValues}>
+						<Route path='/' component={Home} exact />
+						<Route path='/create' component={Create} />
+						<Route path='/todolist' component={TodoList} exact />
+						<Route path='/todo/view/:id' component={DetailedTodo} exact />
+						<Route path='/todo/edit/:id' exact />
+					</TodoContext.Provider>
+					<Route component={NotFound} />
+				</Switch>
+			</div>
+		</>
 	)
 }
 

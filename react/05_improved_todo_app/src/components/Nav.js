@@ -1,9 +1,13 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
+// utils
+import styled from 'styled-components'
+import { Container } from '../GlobalStyles'
+
 const Nav = () => {
 	return (
-		<nav>
+		<StyledNav>
 			<ul>
 				<li>
 					<NavLink to='/' exact>
@@ -17,8 +21,20 @@ const Nav = () => {
 					<NavLink to='/todolist'>TodoList</NavLink>
 				</li>
 			</ul>
-		</nav>
+		</StyledNav>
 	)
 }
+
+const StyledNav = styled(Container)`
+	ul {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+
+		a {
+			padding: 0 0.5rem;
+		}
+	}
+`
 
 export default Nav

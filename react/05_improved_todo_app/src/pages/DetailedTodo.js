@@ -6,6 +6,8 @@ import { useFilter } from '../hooks/useFilter'
 
 // utils
 import { TodoContext } from '../TodoContext'
+import styled from 'styled-components'
+import { Container } from '../GlobalStyles'
 
 const DetailedTodo = () => {
 	const { id } = useParams()
@@ -15,11 +17,25 @@ const DetailedTodo = () => {
 	const todo = useFilter(id, todos, history)
 
 	return (
-		<div>
-			<h2>{todo.name}</h2>
-			<p>{todo.description}</p>
-		</div>
+		<StyledDetailedTodo>
+			{todo && (
+				<div>
+					<h2>{todo.name}</h2>
+					<p>{todo.description}</p>
+				</div>
+			)}
+		</StyledDetailedTodo>
 	)
 }
+
+const StyledDetailedTodo = styled(Container)`
+	h2 {
+		line-height: 200%;
+	}
+
+	p {
+		line-height: 150%;
+	}
+`
 
 export default DetailedTodo
