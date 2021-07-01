@@ -39,7 +39,6 @@ function App() {
 						<Route path='/create' component={Create} />
 						<Route path='/todolist' component={TodoList} exact />
 						<Route path='/todo/view/:id' component={DetailedTodo} exact />
-						<Route path='/todo/edit/:id' exact />
 					</TodoContext.Provider>
 					<Route component={NotFound} />
 				</Switch>

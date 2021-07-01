@@ -44,7 +44,6 @@ const Todo = ({ todo }) => {
 			</p>
 			<div>
 				<Link to={`/todo/view/${todo.id}`}>View</Link>
-				<Link to={`/todo/edit/${todo.id}`}>Edit</Link>
 				<button onClick={deleteHandler}>Delete</button>
 			</div>
 		</StyledTodo>
@@ -71,7 +70,7 @@ const StyledTodo = styled.div`
 	}
 
 	div {
-		width: 30%;
+		width: 20%;
 		display: flex;
 		align-items: baseline;
 		justify-content: space-between;
