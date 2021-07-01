@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 // components
 import Nav from './components/Nav'
@@ -39,8 +39,9 @@ function App() {
 						<Route path='/create' component={Create} />
 						<Route path='/todolist' component={TodoList} exact />
 						<Route path='/todo/view/:id' component={DetailedTodo} exact />
+						<Route path='/404' component={NotFound} />
+						<Redirect from='*' to='/404' />
 					</TodoContext.Provider>
-					<Route component={NotFound} />
 				</Switch>
 			</div>
 		</>
