@@ -29,7 +29,7 @@ const Create = () => {
 		// creating a new todo
 		const newTodo = {
 			id: uuidv4(),
-			todo: input,
+			name: input,
 			isCompleted: false,
 			description,
 		}

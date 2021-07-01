@@ -1,4 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
+
+// components
+import Todo from '../components/Todo'
 
 // utils
 import { TodoContext } from '../TodoContext'
@@ -6,14 +9,19 @@ import { TodoContext } from '../TodoContext'
 const TodoList = () => {
 	const { todos, todoCount } = useContext(TodoContext)
 
+	useEffect(() => {
+		// scroll up whenever route changes to '/todolist'
+		window.scroll(0, 0)
+	}, [])
+
 	return (
 		<div>
 			<h1>TodoList</h1>
 			{todos[0] && (
 				<div>
-					<h3>number of todos: {todoCount}</h3>
+					<h3>Number of todos: {todoCount}</h3>
 					{todos.map((todo) => (
-						<p key={todo.id}>{todo.todo}</p>
+						<Todo todo={todo} key={todo.id} />
 					))}
 				</div>
 			)}

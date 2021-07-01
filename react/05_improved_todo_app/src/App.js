@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import Create from './pages/Create'
 import TodoList from './pages/TodoList'
 import NotFound from './pages/NotFound'
+import DetailedTodo from './pages/DetailedTodo'
 
 // utils
 import { TodoContext } from './TodoContext'
@@ -32,7 +33,9 @@ function App() {
 				<TodoContext.Provider value={todoContextValues}>
 					<Route path='/' component={Home} exact />
 					<Route path='/create' component={Create} />
-					<Route path='/todolist' component={TodoList} />
+					<Route path='/todolist' component={TodoList} exact />
+					<Route path='/todo/view/:id' component={DetailedTodo} exact />
+					<Route path='/todo/edit/:id' exact />
 				</TodoContext.Provider>
 				<Route component={NotFound} />
 			</Switch>
