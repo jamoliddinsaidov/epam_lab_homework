@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useParams, useHistory, Redirect } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 
 // custom hooks
 import { useFilter } from '../hooks/useFilter'
