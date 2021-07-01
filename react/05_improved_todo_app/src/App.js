@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 // components
@@ -10,21 +10,30 @@ import Create from './pages/Create'
 import TodoList from './pages/TodoList'
 import NotFound from './pages/NotFound'
 
+// utils
+import { TodoContext } from './TodoContext'
+
 function App() {
 	// states
 	const [todos, setTodos] = useState([])
-	console.log(todos)
+	const [todoCount, setTodoCount] = useState(todos[0] ? todos.length : 0)
+
+	// context hook
+	const todoContextValues = useMemo(
+		() => ({ todos, setTodos, todoCount, setTodoCount }),
+		[todos, setTodos, todoCount, setTodoCount]
+	)
 
 	return (
 		<div className='app'>
 			<Nav />
 
 			<Switch>
-				<Route path='/' component={Home} exact />
-				<Route path='/create'>
-					<Create todos={todos} setTodos={setTodos} />
-				</Route>
-				<Route path='/todolist' component={TodoList} />
+				<TodoContext.Provider value={todoContextValues}>
+					<Route path='/' component={Home} exact />
+					<Route path='/create' component={Create} />
+					<Route path='/todolist' component={TodoList} />
+				</TodoContext.Provider>
 				<Route component={NotFound} />
 			</Switch>
 		</div>

@@ -1,12 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 
 // utils
 import { v4 as uuidv4 } from 'uuid'
+import { TodoContext } from '../TodoContext'
 
-const Create = ({ todos, setTodos }) => {
+const Create = () => {
+	const { todos, setTodos, setTodoCount } = useContext(TodoContext)
+
 	// states
 	const [input, setInput] = useState('')
 	const [description, setDescription] = useState('')
+
+	// references
+	const inputRef = useRef(null)
 
 	// handler functions
 	const inputChangeHandler = (e) => {
@@ -24,17 +30,26 @@ const Create = ({ todos, setTodos }) => {
 		const newTodo = {
 			id: uuidv4(),
 			todo: input,
-			description,
 			isCompleted: false,
+			description,
 		}
 
 		// adding the new todo
 		setTodos([...todos, newTodo])
 
 		// clearing out input areas
+		clear()
+	}
+
+	const clear = () => {
 		setInput('')
 		setDescription('')
+		inputRef.current.focus()
 	}
+
+	useEffect(() => {
+		setTodoCount(todos.length)
+	}, [todos, setTodoCount])
 
 	return (
 		<div>
@@ -48,6 +63,7 @@ const Create = ({ todos, setTodos }) => {
 					id='todo'
 					value={input}
 					onChange={inputChangeHandler}
+					ref={inputRef}
 					required
 				/>
 				<label htmlFor='description'>Description</label>
