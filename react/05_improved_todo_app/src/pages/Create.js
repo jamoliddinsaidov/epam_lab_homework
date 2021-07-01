@@ -5,6 +5,9 @@ import { v4 as uuidv4 } from 'uuid'
 import { TodoContext } from '../TodoContext'
 import styled from 'styled-components'
 import { Container } from '../GlobalStyles'
+import { saveToLocalStorage } from '../utils'
+
+// history.push('/todolist')
 
 const Create = () => {
 	// states
@@ -38,6 +41,7 @@ const Create = () => {
 
 		// adding the new todo
 		setTodos([...todos, newTodo])
+		saveToLocalStorage(newTodo)
 		setIsSubmitted(true)
 
 		// clearing out input areas
@@ -51,7 +55,7 @@ const Create = () => {
 
 		setTimeout(() => {
 			setIsSubmitted(false)
-		}, 2000)
+		}, 500)
 	}
 
 	useEffect(() => {

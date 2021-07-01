@@ -22,7 +22,7 @@ const TodoList = () => {
 		<StyledTodoList>
 			<div className='todolist__header'>
 				<h2>TodoList</h2>
-				{todoCount > 0 ? <p>number of todos: {todoCount}</p> : ''}
+				<p>number of todos: {todoCount}</p>
 			</div>
 			{todos[0] && (
 				<div>

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 // components
@@ -14,10 +14,11 @@ import DetailedTodo from './pages/DetailedTodo'
 // utils
 import { TodoContext } from './TodoContext'
 import { GlobalStyles } from './GlobalStyles'
+import { checkLocalStorage } from './utils'
 
 function App() {
 	// states
-	const [todos, setTodos] = useState([])
+	const [todos, setTodos] = useState(checkLocalStorage())
 	const [todoCount, setTodoCount] = useState(todos[0] ? todos.length : 0)
 
 	// context hook
