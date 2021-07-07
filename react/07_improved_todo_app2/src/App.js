@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
+
+// components
+import Nav from './components/Nav'
+
+// pages
+import Home from './pages/Home/Home'
+import Create from './pages/Create/Create.container'
+import TodoList from './pages/TodoList/TodoList.container'
+import NotFound from './pages/NotFound/NotFound'
+import DetailedTodo from './pages/DetailedTodo/DetailedTodo.container'
+
+// styles
+import { GlobalStyles } from './GlobalStyles'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<>
+			<GlobalStyles />
+			<div>
+				<Nav />
+				<Switch>
+					<Route path='/' component={Home} exact />
+					<Route path='/create' component={Create} exact />
+					<Route path='/todolist' component={TodoList} exact />
+					<Route path='/todo/view/:id' component={DetailedTodo} exact />
+					<Route component={NotFound} />
+				</Switch>
+			</div>
+		</>
+	)
 }
 
-export default App;
+export default App
