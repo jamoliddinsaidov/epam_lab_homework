@@ -27,3 +27,18 @@ export const changeCompletePropertyInLocalStorage = (index) => {
 	todos[index].isCompleted = !todos[index].isCompleted
 	localStorage.setItem('todos', JSON.stringify(todos))
 }
+
+export const editTodoInLocalStorage = (id, updatedTodo) => {
+	let todos = checkLocalStorage()
+	todos = todos.map((todo) =>
+		todo.id === id
+			? {
+					...todo,
+					name: updatedTodo.name,
+					description: updatedTodo.description,
+					isCompleted: updatedTodo.isCompleted,
+			  }
+			: todo
+	)
+	localStorage.setItem('todos', JSON.stringify(todos))
+}

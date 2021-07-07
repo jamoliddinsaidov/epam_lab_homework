@@ -6,6 +6,7 @@ import Nav from './components/Nav'
 
 // pages
 import Home from './pages/Home/Home'
+import Edit from './pages/Edit/Edit.container'
 import Create from './pages/Create/Create.container'
 import TodoList from './pages/TodoList/TodoList.container'
 import NotFound from './pages/NotFound/NotFound'
@@ -25,6 +26,7 @@ function App() {
 					<Route path='/create' component={Create} exact />
 					<Route path='/todolist' component={TodoList} exact />
 					<Route path='/todo/view/:id' component={DetailedTodo} exact />
+					<Route path='/todo/edit/:id' component={Edit} exact />
 					<Route component={NotFound} />
 				</Switch>
 			</div>

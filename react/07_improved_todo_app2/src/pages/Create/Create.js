@@ -94,7 +94,7 @@ export const Create = ({ addTodo, increaseCount }) => {
 	)
 }
 
-const StyledCreate = styled(Container)`
+export const StyledCreate = styled(Container)`
 	.msg {
 		opacity: 0.7;
 		display: block;

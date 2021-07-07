@@ -1,4 +1,4 @@
-import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from '../types'
+import { ADD_TODO, TOGGLE_TODO, DELETE_TODO, EDIT_TODO } from '../types'
 
 export const addTodo = ({ id, name, isCompleted, description }) => ({
 	type: ADD_TODO,
@@ -18,4 +18,9 @@ export const toggleTodo = (id) => ({
 export const deleteTodo = (index) => ({
 	type: DELETE_TODO,
 	payload: { index },
+})
+
+export const editTodo = (id, editedTodo) => ({
+	type: EDIT_TODO,
+	payload: { id, editedTodo },
 })

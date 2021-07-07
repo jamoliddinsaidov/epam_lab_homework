@@ -1,5 +1,5 @@
 // types
-import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from '../types'
+import { ADD_TODO, TOGGLE_TODO, DELETE_TODO, EDIT_TODO } from '../types'
 
 // utils
 import { checkLocalStorage } from '../../utils'
@@ -26,6 +26,17 @@ const todoReducer = (state = initState, action) => {
 		case DELETE_TODO:
 			state.splice(action.payload.index, 1)
 			return state
+		case EDIT_TODO:
+			return state.map((todo) =>
+				todo.id === action.payload.id
+					? {
+							...todo,
+							name: action.payload.editedTodo.name,
+							description: action.payload.editedTodo.description,
+							isCompleted: action.payload.editedTodo.isCompleted,
+					  }
+					: todo
+			)
 		default:
 			return state
 	}

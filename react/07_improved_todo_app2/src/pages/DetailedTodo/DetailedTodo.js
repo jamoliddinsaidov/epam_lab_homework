@@ -39,16 +39,21 @@ export const DetailedTodo = ({
 		// redirecting
 		history.push('/todolist')
 	}
+
+	const editHandler = () => {
+		history.push(`/todo/edit/${id}`)
+	}
+
 	return (
 		<StyledDetailedTodo>
 			{detailedTodo && (
 				<div>
 					<h2>{detailedTodo.name}</h2>
 					<p className='completed'>
-						{/* Completed: {`${detailedTodo.isCompleted}`} */}
 						{detailedTodo.isCompleted ? 'Completed' : 'Not completed'}
 					</p>
 					<p>{detailedTodo.description}</p>
+					<button onClick={editHandler}>Edit</button>
 					<button onClick={deleteHandler}>Delete</button>
 				</div>
 			)}
@@ -76,6 +81,7 @@ const StyledDetailedTodo = styled(Container)`
 		color: #000;
 		cursor: pointer;
 		margin-top: 1rem;
+		margin-right: 0.5rem;
 
 		&:hover,
 		&:focus {
