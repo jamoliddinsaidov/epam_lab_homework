@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 
 // utils
+import validate from 'uuid-validate'
 import { editTodoInLocalStorage } from '../../utils'
 
 // styles
@@ -12,6 +13,14 @@ export const Edit = ({ todos, detailedTodo, editTodo }) => {
 	const [input, setInput] = useState(detailedTodo.name)
 	const [description, setDescription] = useState(detailedTodo.description)
 	const history = useHistory()
+	const { id } = useParams()
+	const isExist = validate(id)
+
+	useEffect(() => {
+		if (!isExist) {
+			history.push('/todoNotFound')
+		}
+	}, [id, history, isExist])
 
 	// handler functions
 	const inputChangeHandler = (e) => {
