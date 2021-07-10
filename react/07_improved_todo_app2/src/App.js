@@ -22,11 +22,11 @@ function App() {
 			<div>
 				<Nav />
 				<Switch>
+					<Route path='/todo/view/:id' component={DetailedTodo} />
+					<Route path='/todo/edit/:id' component={Edit} />
+					<Route path='/create' component={Create} />
+					<Route path='/todolist' component={TodoList} />
 					<Route path='/' component={Home} exact />
-					<Route path='/create' component={Create} exact />
-					<Route path='/todolist' component={TodoList} exact />
-					<Route path='/todo/view/:id' component={DetailedTodo} exact />
-					<Route path='/todo/edit/:id' component={Edit} exact />
 					<Route component={NotFound} />
 				</Switch>
 			</div>
