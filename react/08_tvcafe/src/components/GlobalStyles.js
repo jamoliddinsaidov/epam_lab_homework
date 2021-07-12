@@ -16,7 +16,18 @@ export const GlobalStyles = createGlobalStyle`
         padding: 0;
         color: ${colors.textColor};
         box-sizing: border-box;
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    html{
+        scroll-behavior: smooth;
+
+        &::-webkit-scrollbar{
+            width: .4em;
+        }
+        &::-webkit-scrollbar-thumb{
+            background-color: ${colors.primaryColorTwo};
+        }
     }
 
     body{
@@ -32,10 +43,16 @@ export const GlobalStyles = createGlobalStyle`
         border-bottom: 1px solid transparent;        
         font-size: 1.1rem;
         outline: none;			
-        transition: color 300ms ease-in-out;
+        transition: 300ms ease-in-out;
+        transition-property: color, padding, border-color;
         
         &:hover, &:focus, &.active{
             color: ${colors.primaryColorTwo};
+        }
+
+        &.active{
+            border-color: ${colors.primaryColorTwo};
+            padding: 0 0.5em;
         }
     }
 
@@ -60,9 +77,31 @@ export const GlobalStyles = createGlobalStyle`
         line-height: 150%;
     }
 
+    input{        
+        border: 1.5px solid ${colors.textColor};
+        border-radius: 6px;
+        outline: none;
+        background: transparent;
+        transition: 300ms ease-in-out;
+        transition-property: border-color;
+        padding: 1em 0.5em;
+        font-size: 1rem;
+
+        &:hover,
+        &:focus{
+            border-color: ${colors.primaryColorTwo}; 
+        }        
+    }
+
     button{
+        font-size: 1rem;  
+        padding: 1em;
         cursor: pointer;
-        transition: all .3s ease-in-out;
+        border-radius: 6px;
+        border: 1.5px solid ${colors.primaryColorTwo};        
+        background: ${colors.primaryColorTwo};
+        transition: 300ms ease-in-out;     
+        transition-property: background, border-color, box-shadow;
     }
 `
 

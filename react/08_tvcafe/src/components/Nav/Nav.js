@@ -44,8 +44,12 @@ const StyledLogo = styled.div`
 		font-weight: 900;
 		margin-left: 0.1em;
 
-		&:hover {
+		&:active,
+		&:hover,
+		&:focus {
 			color: ${colors.textColor};
+			border-color: none;
+			padding: 0;
 		}
 	}
 `
