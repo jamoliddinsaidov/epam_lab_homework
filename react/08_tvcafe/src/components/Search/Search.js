@@ -37,6 +37,7 @@ const StyledSearch = styled(Container)`
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
 		border-left: none;
+		width: 6%;
 
 		&:hover,
 		&:focus {

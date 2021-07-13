@@ -2,7 +2,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 
 export const colors = {
 	bgBodyColor: '#3c414b',
-	bgNavColor: '#252429',
+	bgNavColor: '#2A2F39',
 	primaryColorOne: '#1e90ff',
 	primaryColorTwo: '#fe5a60',
 	textColor: '#F4F9FF',
@@ -32,8 +32,8 @@ export const GlobalStyles = createGlobalStyle`
 
     body{
         background: ${colors.bgBodyColor};
-        width: 100%;        
-    }
+        width: 100%;              
+    }    
 
     a{
         font-family: 'Source Sans Pro', sans-serif;
@@ -87,7 +87,7 @@ export const GlobalStyles = createGlobalStyle`
         padding: 1em 0.5em;
         font-size: 1rem;
 
-        &:hover,
+        &:active,
         &:focus{
             border-color: ${colors.primaryColorTwo}; 
         }        
@@ -100,6 +100,7 @@ export const GlobalStyles = createGlobalStyle`
         border-radius: 6px;
         border: 1.5px solid ${colors.primaryColorTwo};        
         background: ${colors.primaryColorTwo};
+        outline: none;
         transition: 300ms ease-in-out;     
         transition-property: background, border-color, box-shadow;
     }

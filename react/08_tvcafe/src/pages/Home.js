@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 // components
 import Search from '../components/Search/Search'
+import MovieList from '../components/MovieContainer/MovieList'
 
 // utils
 import { colors } from '../components/GlobalStyles'
@@ -10,7 +11,8 @@ import { colors } from '../components/GlobalStyles'
 const Home = () => {
 	return (
 		<StyledHome>
-			<Search placeholder='Search by movie name...' />
+			{/* <Search placeholder='Search movies by name...' /> */}
+			<MovieList />
 		</StyledHome>
 	)
 }

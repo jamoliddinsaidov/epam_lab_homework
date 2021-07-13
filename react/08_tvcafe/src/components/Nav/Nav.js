@@ -12,7 +12,7 @@ import SignedInLinks from './SignedInLinks'
 
 const Nav = () => {
 	return (
-		<ContainerNav>
+		<NavContainer>
 			<StyledNav>
 				<StyledLogo>
 					<FontAwesomeIcon icon={faFilm} size='2x' />
@@ -21,17 +21,22 @@ const Nav = () => {
 
 				<SignedInLinks />
 			</StyledNav>
-		</ContainerNav>
+		</NavContainer>
 	)
 }
 
-const ContainerNav = styled.nav``
+const NavContainer = styled.nav`
+	background: ${colors.bgNavColor};
+	box-shadow: 0 0 10px 2px ${colors.bgNavColor};
+	padding: 0.5em 0;
+	width: 100%;
+	position: sticky;
+`
 
 const StyledNav = styled(Container)`
 	display: flex;
 	align-items: baseline;
 	justify-content: space-between;
-	padding: 1em 0;
 
 	a {
 		letter-spacing: 2px;
