@@ -4,7 +4,8 @@ export const colors = {
 	bgBodyColor: '#3c414b',
 	bgNavColor: '#2A2F39',
 	primaryColorOne: '#1e90ff',
-	primaryColorTwo: '#fe5a60',
+	primaryColorTwo: '#ff5860',
+	primaryColorThree: '#ff55a5',
 	textColor: '#F4F9FF',
 	dangerColor: '#ff0044',
 	successClor: '#009d00',
@@ -72,6 +73,14 @@ export const GlobalStyles = createGlobalStyle`
         font-size: 2rem;
     }
 
+    h4{
+        font-size: 1.5rem;        
+    }
+
+    h1,h2,h3,h4{
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
     p{
         font-size: 1rem;
         line-height: 150%;
@@ -104,9 +113,32 @@ export const GlobalStyles = createGlobalStyle`
         transition: 300ms ease-in-out;     
         transition-property: background, border-color, box-shadow;
     }
+
+    .gradient-text{
+        background-image: -webkit-linear-gradient(0deg, ${colors.primaryColorThree} 0%, ${colors.primaryColorTwo} 100%);
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+		color: #ff5860;
+    }
+
+    .gradient-container{
+        background-image: -moz-linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
+        background-image: -webkit-linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
+        background-image: -ms-linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
+        background-image: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
+        -webkit-box-shadow: 0 0 20px 0 rgb(255 88 96 / 50%);
+        box-shadow: 0 0 20px 0 rgb(255 88 96 / 50%);
+        opacity: 0.85;
+        transition: opacity 300ms ease;
+
+        &:hover{
+            opacity: 1;
+        }
+    }
 `
 
 export const Container = styled.div`
-	width: 80%;
+	width: 90%;
 	margin: 0 auto;
 `
