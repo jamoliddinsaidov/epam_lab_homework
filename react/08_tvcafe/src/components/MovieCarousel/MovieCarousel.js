@@ -8,7 +8,7 @@ import Carousel from 'react-elastic-carousel'
 // components
 import MovieCardShort from '../MovieCards/MovieCardShort'
 import Arrow from './Arrow'
-import HeaderTitle from '../HeaderTitle'
+import HeaderTitle from '../Titles/HeaderTitle'
 
 const MovieCarousel = () => {
 	const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]

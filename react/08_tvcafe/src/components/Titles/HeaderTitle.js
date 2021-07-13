@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 // utils
-import { Container } from './GlobalStyles'
+import { Container } from '../GlobalStyles'
 
 const HeaderTitle = ({ title }) => {
 	return (

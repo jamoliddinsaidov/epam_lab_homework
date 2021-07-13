@@ -3,9 +3,10 @@ import styled from 'styled-components'
 
 // components
 import Search from '../components/Search/Search'
-import HeaderTitle from '../components/HeaderTitle'
+import HeaderTitle from '../components/Titles/HeaderTitle'
 import MovieCarousel from '../components/MovieCarousel/MovieCarousel'
 import HomeMovieList from '../components/MovieList/HomeMovieList'
+import Footer from '../components/Footer/Footer'
 
 // utils
 import { colors, Container } from '../components/GlobalStyles'
@@ -29,7 +30,10 @@ const Home = () => {
 					<button>Help Finding Favorites</button>
 				</StyledHomeOptions>
 			</StyledHomeMovieCategoryContainer>
+
 			<HomeMovieList />
+
+			<Footer />
 		</StyledHome>
 	)
 }

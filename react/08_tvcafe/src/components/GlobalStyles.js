@@ -26,8 +26,13 @@ export const GlobalStyles = createGlobalStyle`
         &::-webkit-scrollbar{
             width: .4em;
         }
+
+        &::-webkit-scrollbar-track {
+        	background-color: ${colors.primaryColorTwo};
+        }
+
         &::-webkit-scrollbar-thumb{
-            background-color: ${colors.primaryColorTwo};
+            background-color: ${colors.bgNavColor};
         }
     }
 
