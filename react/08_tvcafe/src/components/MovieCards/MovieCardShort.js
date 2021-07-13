@@ -15,10 +15,7 @@ const MovieCardShort = ({ number }) => {
 					<h4>Long Movie Title</h4>
 					<p className='gradient-text'>Action, Thiller, Romance</p>
 					<div className='rating'>
-						<FontAwesomeIcon
-							icon={faStar}
-							style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-						/>
+						<FontAwesomeIcon icon={faStar} />
 						<p>8.4</p>
 					</div>
 				</StyledShortDetails>
@@ -27,35 +24,39 @@ const MovieCardShort = ({ number }) => {
 	)
 }
 
-const StyledMovieCard = styled.div`
+export const StyledMovieCard = styled.div`
 	width: 250px;
-	min-height: 350px;
+	min-height: 400px;
 	margin: 0 0.5em;
 
 	.img {
-		height: 300px;
+		height: 350px;
 		background: black;
 	}
 `
 
-const StyledShortDetails = styled.div`
+export const StyledShortDetails = styled.div`
+	margin-top: 0.5em;
 	h4 {
 		font-weight: 600;
+		line-height: 150%;
 	}
 
 	p {
 		font-weight: 300;
+		line-height: 150%;
 	}
 
 	.rating {
+		display: flex;
+		align-items: baseline;
 		svg path {
 			color: ${colors.primaryColorThree};
 		}
 
 		p {
 			margin-left: 6px;
-			display: inline;
-			font-weight: 600;
+			font-weight: 700;
 		}
 	}
 `

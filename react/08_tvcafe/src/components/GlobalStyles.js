@@ -136,6 +136,23 @@ export const GlobalStyles = createGlobalStyle`
             opacity: 1;
         }
     }
+
+    .line{
+        /* content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;     */
+        width: 100%;
+        height: 2px;
+        display: block;
+        background-image: -moz-linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
+        background-image: -webkit-linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
+        background-image: -ms-linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
+        background-image: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
+        -webkit-box-shadow: 0 0 20px 0 rgb(255 88 96 / 50%);
+        box-shadow: 0 0 20px 0 rgb(255 88 96 / 50%);
+    }
 `
 
 export const Container = styled.div`

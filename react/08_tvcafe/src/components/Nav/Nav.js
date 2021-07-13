@@ -28,9 +28,12 @@ const Nav = () => {
 const NavContainer = styled.nav`
 	background: ${colors.bgNavColor};
 	box-shadow: 0 0 10px 2px ${colors.bgNavColor};
-	padding: 0.5em 0;
+	padding: 0.5em 0 1em;
 	width: 100%;
 	position: sticky;
+	top: 0;
+	left: 0;
+	z-index: 100;
 `
 
 const StyledNav = styled(Container)`

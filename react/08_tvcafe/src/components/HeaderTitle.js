@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
+// utils
 import { Container } from './GlobalStyles'
 
 const HeaderTitle = ({ title }) => {
@@ -12,7 +13,7 @@ const HeaderTitle = ({ title }) => {
 }
 
 const StyledHeader = styled(Container)`
-	margin: 1em 0;
+	margin: 1em auto;
 
 	h2 {
 		font-weight: 800;
