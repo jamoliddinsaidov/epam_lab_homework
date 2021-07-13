@@ -4,7 +4,9 @@ import { Switch, Route } from 'react-router-dom'
 // components
 import { GlobalStyles } from './components/GlobalStyles'
 import Nav from './components/Nav/Nav'
-import Home from './pages/Home'
+
+// pages
+import Home from './pages/Home/Home'
 
 const App = () => {
 	return (

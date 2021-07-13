@@ -4,27 +4,9 @@ import styled from 'styled-components'
 // utils
 import { Container } from '../GlobalStyles'
 import FooterLinks from './FooterLinks'
+import { content } from './Content'
 
 const FooterContent = () => {
-	const content = [
-		{
-			heading: 'Browse',
-			links: ['Live TV', 'Live News', 'Streaming'],
-		},
-		{
-			heading: 'Resources',
-			links: ['About Us', 'Pricing Plan', 'Help'],
-		},
-		{
-			heading: 'Legal',
-			links: ['Terms of Use', 'Privacy Policy', 'Security'],
-		},
-		{
-			heading: 'Contact',
-			links: ['+1 800 234-5678', 'support@tvcafe.com'],
-		},
-	]
-
 	return (
 		<StyledFooterContainer>
 			{content.map((obj) => (
@@ -45,6 +27,10 @@ const StyledFooterContainer = styled(Container)`
 `
 
 const StyledFooterColumn = styled.div`
+	h4 {
+		font-size: 1.2rem;
+	}
+
 	h4,
 	p {
 		margin-bottom: 1em;

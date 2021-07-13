@@ -1,21 +1,40 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
 // components
-import Search from '../components/Search/Search'
-import HeaderTitle from '../components/Titles/HeaderTitle'
-import MovieCarousel from '../components/MovieCarousel/MovieCarousel'
-import HomeMovieList from '../components/MovieList/HomeMovieList'
-import Footer from '../components/Footer/Footer'
+import Search from '../../components/Search/Search'
+import HeaderTitle from '../../components/Titles/HeaderTitle'
+import MovieCarousel from '../../components/MovieCarousel/MovieCarousel'
+import HomeMovieList from '../../components/MovieList/HomeMovieList'
+import Footer from '../../components/Footer/Footer'
 
 // utils
-import { colors, Container } from '../components/GlobalStyles'
+import { colors, Container } from '../../components/GlobalStyles'
+
+// redux
+import { useDispatch, useSelector } from 'react-redux'
+import { LoadMovies } from '../../store/actions/movieAction'
 
 const Home = () => {
+	// fetching data
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(LoadMovies())
+	}, [dispatch])
+
+	const { scheduledForToday, isLoading } = useSelector((state) => state.movies)
+
 	return (
 		<StyledHome>
 			{/* <Search placeholder='Search movies by name...' /> */}
-			<MovieCarousel />
+
+			{!isLoading && (
+				<div>
+					<HeaderTitle title='Today on TV' className='h2' />
+					<MovieCarousel movies={scheduledForToday} />
+				</div>
+			)}
 
 			<StyledHomeMovieCategoryContainer>
 				<div>
@@ -44,7 +63,7 @@ const StyledHome = styled.div`
 
 const StyledHomeMovieCategoryContainer = styled.div`
 	background: ${colors.bgNavColor};
-	padding: 1em 0;
+	padding: 1.5em 0;
 `
 const StyledHomeOptions = styled(Container)`
 	padding: 1.5em 0 0.5em;
@@ -76,5 +95,4 @@ const StyledHomeOptions = styled(Container)`
 		}
 	}
 `
-
 export default Home

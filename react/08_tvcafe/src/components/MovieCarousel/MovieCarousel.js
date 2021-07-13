@@ -8,23 +8,23 @@ import Carousel from 'react-elastic-carousel'
 // components
 import MovieCardShort from '../MovieCards/MovieCardShort'
 import Arrow from './Arrow'
-import HeaderTitle from '../Titles/HeaderTitle'
 
-const MovieCarousel = () => {
-	const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-
+const MovieCarousel = ({ movies }) => {
 	return (
 		<StyledMovieCarousel>
-			<HeaderTitle title='Today on TV' />
-			<Carousel
-				itemsToShow={4}
-				renderArrow={Arrow}
-				enableAutoPlay={true}
-				autoPlaySpeed='5000'>
-				{numbers.map((number) => (
-					<MovieCardShort key={number} number={number} />
-				))}
-			</Carousel>
+			{movies ? (
+				<Carousel
+					itemsToShow={4}
+					renderArrow={Arrow}
+					enableAutoPlay={true}
+					autoPlaySpeed={5000}>
+					{movies.map((movie) => (
+						<MovieCardShort key={movie.id} movie={movie} />
+					))}
+				</Carousel>
+			) : (
+				''
+			)}
 		</StyledMovieCarousel>
 	)
 }
