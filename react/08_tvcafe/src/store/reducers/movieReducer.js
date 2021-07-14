@@ -7,6 +7,7 @@ import {
 const initState = {
 	scheduledForToday: [],
 	popularShows: [],
+	animations: [],
 	isLoading: false,
 	error: null,
 }
@@ -25,6 +26,7 @@ const movieReducer = (state = initState, action) => {
 				isLoading: false,
 				scheduledForToday: action.payload.scheduledForToday,
 				popularShows: action.payload.popularShows,
+				animations: action.payload.animations,
 			}
 
 		case FETCH_MOVIES_FAIL:

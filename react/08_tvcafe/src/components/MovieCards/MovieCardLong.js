@@ -47,15 +47,34 @@ const StyledMovieCard = styled.div`
 	min-height: 270px;
 	margin-bottom: 3em;
 
+	@keyframes fadeIn {
+		0% {
+			transform: scale(0.8);
+			opacity: 0;
+		}
+		100% {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+	animation: fadeIn 700ms ease;
+
 	.img {
 		width: 200px;
 		height: 270px;
+		overflow: hidden;
 
 		img {
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
 			box-shadow: 0 0 10px 2px ${colors.bgNavColor};
+			transform: scale(1);
+			transition: transform 1000ms ease-in-out;
+
+			&:hover {
+				transform: scale(1.1);
+			}
 		}
 	}
 `

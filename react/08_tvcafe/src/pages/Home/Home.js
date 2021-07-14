@@ -18,8 +18,13 @@ import { LoadMovies } from '../../store/actions/movieAction'
 
 const Home = () => {
 	// states
-	const [popularShowsState, setPopularShowsState] = useState([])
+	const [moviesState, setMoviesState] = useState([])
 	const [limit, setLimit] = useState(16)
+	const [isActive, setIsActive] = useState({
+		popularBtn: true,
+		animationBtn: false,
+		helpBtn: false,
+	})
 
 	// fetching data
 	const dispatch = useDispatch()
@@ -29,18 +34,25 @@ const Home = () => {
 	}, [dispatch])
 
 	// extracting data
-	const { scheduledForToday, popularShows, isLoading } = useSelector(
-		(state) => state.movies
-	)
+	const { scheduledForToday, popularShows, animations, isLoading } =
+		useSelector((state) => state.movies)
 
 	useEffect(() => {
-		setPopularShowsState(popularShows.slice(0, 8))
+		setMoviesState(popularShows.slice(0, 8))
+		window.scroll(0, 0)
 	}, [popularShows])
 
 	// handlers
 	const loadMoreHandler = () => {
 		setLimit((prev) => prev + 8)
-		setPopularShowsState(popularShows.slice(0, limit))
+
+		if (isActive.popularBtn) {
+			setMoviesState(popularShows.slice(0, limit))
+		}
+
+		if (isActive.animationBtn) {
+			setMoviesState(animations.slice(0, limit))
+		}
 	}
 
 	return (
@@ -54,9 +66,13 @@ const Home = () => {
 						<MovieCarousel movies={scheduledForToday} />
 					</div>
 					<div>
-						<HomeMovieCategoryContainer />
+						<HomeMovieCategoryContainer
+							isActive={isActive}
+							setIsActive={setIsActive}
+							setMoviesState={setMoviesState}
+						/>
 						<HomeMovieList
-							movies={popularShowsState}
+							movies={moviesState}
 							loadMoreHandler={loadMoreHandler}
 						/>
 					</div>

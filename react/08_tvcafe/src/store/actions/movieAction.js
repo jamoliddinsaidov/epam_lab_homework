@@ -31,11 +31,17 @@ export const LoadMovies = () => async (dispatch) => {
 			(show) => show.rating.average >= 8
 		)
 
+		// animations
+		const animationsData = showsData.data.filter(
+			(show) => show.type === 'Animation'
+		)
+
 		dispatch({
 			type: FETCH_MOVIES_SUCCESS,
 			payload: {
 				scheduledForToday: filteredTodayMoviesData,
 				popularShows: popularShowsData,
+				animations: animationsData,
 			},
 		})
 	} catch (err) {

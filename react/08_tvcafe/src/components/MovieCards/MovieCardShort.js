@@ -37,12 +37,19 @@ export const StyledMovieCard = styled.div`
 
 	.img {
 		height: 350px;
+		overflow: hidden;
 
 		img {
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
 			box-shadow: 0 0 10px 2px ${colors.bgNavColor};
+			transform: scale(1);
+			transition: transform 1000ms ease-in-out;
+
+			&:hover {
+				transform: scale(1.1);
+			}
 		}
 	}
 `
