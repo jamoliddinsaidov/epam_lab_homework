@@ -6,29 +6,34 @@ import { colors } from '../GlobalStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { StyledShortDetails } from './MovieCardShort'
+import { truncateSummary } from '../../utils/truncateSummary'
 
-const MovieCardLong = ({ number }) => {
+const MovieCardLong = ({ movie }) => {
+	const name = movie.name
+	const image = movie.image.medium
+	const genres = movie.genres
+	const rating = movie.rating.average
+	const language = movie.language
+	const summary = truncateSummary(movie.summary)
+
 	return (
 		<>
 			<StyledMovieCard>
-				<div className='img'>{number}</div>
+				<div className='img'>
+					<img src={image} alt={name} />
+				</div>
 
 				<StyledLongDetails>
-					<h4>Long Movie Title</h4>
-					<p className='gradient-text'>Action, Thiller, Romance</p>
+					<h4>{name}</h4>
+					<p className='gradient-text'>{genres.map((genre) => `${genre} `)}</p>
 
 					<div className='rating'>
 						<FontAwesomeIcon icon={faStar} />
-						<p>8.4</p>
-						<p className='language'>Language</p>
+						<p>{rating}</p>
+						<p className='language'>{language}</p>
 					</div>
 
-					<p className='description'>
-						It is a long established fact that a reader will be distracted by
-						the readable content of a page when looking at its layout. The point
-						of using Lorem Ipsum is that it has a more-or-less normal
-						distribution of letters
-					</p>
+					<p className='description'>{summary}</p>
 				</StyledLongDetails>
 			</StyledMovieCard>
 		</>
@@ -44,7 +49,12 @@ const StyledMovieCard = styled.div`
 	.img {
 		width: 200px;
 		height: 270px;
-		background: black;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
 	}
 `
 

@@ -5,12 +5,11 @@ import styled from 'styled-components'
 import MovieCardLong from '../MovieCards/MovieCardLong'
 import { Container } from '../GlobalStyles'
 
-const HomeMovieList = () => {
-	const numbers = [1, 2, 3, 4, 5, 6]
+const HomeMovieList = ({ movies }) => {
 	return (
 		<StyledHomeMovieList>
-			{numbers.map((number) => (
-				<MovieCardLong number={number} key={number} />
+			{movies.map((movie) => (
+				<MovieCardLong movie={movie} key={movie.id} />
 			))}
 		</StyledHomeMovieList>
 	)

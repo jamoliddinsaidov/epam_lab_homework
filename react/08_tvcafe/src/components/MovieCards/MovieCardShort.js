@@ -4,7 +4,7 @@ import styled from 'styled-components'
 // utils
 import { colors } from '../GlobalStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTv } from '@fortawesome/free-solid-svg-icons'
+import { faTv, faPlay } from '@fortawesome/free-solid-svg-icons'
 
 const MovieCardShort = ({ movie }) => {
 	const name = movie._embedded.show.name
@@ -21,7 +21,7 @@ const MovieCardShort = ({ movie }) => {
 					<h4>{name}</h4>
 					<p className='gradient-text'>{genres.map((genre) => `${genre} `)}</p>
 					<div className='episode'>
-						<FontAwesomeIcon icon={faTv} />
+						<FontAwesomeIcon icon={faPlay} />
 						<p>{episode}</p>
 					</div>
 				</StyledShortDetails>
@@ -53,6 +53,8 @@ export const StyledShortDetails = styled.div`
 	h4 {
 		font-weight: 700;
 		line-height: 120%;
+		margin-bottom: 0.2em;
+		cursor: pointer;
 	}
 
 	p {
@@ -63,7 +65,7 @@ export const StyledShortDetails = styled.div`
 	.rating,
 	.episode {
 		display: flex;
-		align-items: baseline;
+		align-items: center;
 		margin-top: 0.5em;
 
 		svg path {
@@ -74,6 +76,13 @@ export const StyledShortDetails = styled.div`
 			margin-left: 6px;
 			font-weight: 700;
 			line-height: 120%;
+		}
+	}
+
+	.episode {
+		p {
+			font-weight: 600;
+			font-size: 0.8rem;
 		}
 	}
 `

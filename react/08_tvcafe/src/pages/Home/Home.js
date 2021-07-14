@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Search from '../../components/Search/Search'
 import HeaderTitle from '../../components/Titles/HeaderTitle'
 import MovieCarousel from '../../components/MovieCarousel/MovieCarousel'
-import HomeMovieList from '../../components/MovieList/HomeMovieList'
+import HomeMovieList from '../../components/MovieLists/HomeMovieList'
 import Footer from '../../components/Footer/Footer'
 
 // utils
@@ -13,17 +13,19 @@ import { colors, Container } from '../../components/GlobalStyles'
 
 // redux
 import { useDispatch, useSelector } from 'react-redux'
-import { LoadMovies } from '../../store/actions/movieAction'
+import { LoadMoviesForToday } from '../../store/actions/movieAction'
 
 const Home = () => {
 	// fetching data
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		dispatch(LoadMovies())
+		dispatch(LoadMoviesForToday())
 	}, [dispatch])
 
-	const { scheduledForToday, isLoading } = useSelector((state) => state.movies)
+	const { scheduledForToday, popularShows, isLoading } = useSelector(
+		(state) => state.movies
+	)
 
 	return (
 		<StyledHome>
@@ -50,7 +52,7 @@ const Home = () => {
 				</StyledHomeOptions>
 			</StyledHomeMovieCategoryContainer>
 
-			<HomeMovieList />
+			{!isLoading && <HomeMovieList movies={popularShows} />}
 
 			<Footer />
 		</StyledHome>
