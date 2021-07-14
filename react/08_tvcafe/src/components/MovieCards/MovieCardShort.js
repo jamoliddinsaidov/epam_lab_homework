@@ -4,7 +4,7 @@ import styled from 'styled-components'
 // utils
 import { colors } from '../GlobalStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTv, faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
 
 const MovieCardShort = ({ movie }) => {
 	const name = movie._embedded.show.name

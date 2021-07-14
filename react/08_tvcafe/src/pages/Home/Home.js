@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 // components
@@ -13,19 +13,34 @@ import { colors, Container } from '../../components/GlobalStyles'
 
 // redux
 import { useDispatch, useSelector } from 'react-redux'
-import { LoadMoviesForToday } from '../../store/actions/movieAction'
+import { LoadMovies } from '../../store/actions/movieAction'
 
 const Home = () => {
+	// states
+	const [popularShowsState, setPopularShowsState] = useState([])
+	const [limit, setLimit] = useState(16)
+
 	// fetching data
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		dispatch(LoadMoviesForToday())
+		dispatch(LoadMovies())
 	}, [dispatch])
 
+	// extracting data
 	const { scheduledForToday, popularShows, isLoading } = useSelector(
 		(state) => state.movies
 	)
+
+	useEffect(() => {
+		setPopularShowsState(popularShows.slice(0, 8))
+	}, [popularShows])
+
+	// handlers
+	const loadMoreHandler = () => {
+		setLimit((prev) => prev + 8)
+		setPopularShowsState(popularShows.slice(0, limit))
+	}
 
 	return (
 		<StyledHome>
@@ -42,9 +57,7 @@ const Home = () => {
 				<div>
 					<HeaderTitle title='we offer' />
 				</div>
-
 				<div className='line'></div>
-
 				<StyledHomeOptions>
 					<button>Popular Shows</button>
 					<button>Animations</button>
@@ -52,7 +65,12 @@ const Home = () => {
 				</StyledHomeOptions>
 			</StyledHomeMovieCategoryContainer>
 
-			{!isLoading && <HomeMovieList movies={popularShows} />}
+			{!isLoading && (
+				<HomeMovieList
+					movies={popularShowsState}
+					loadMoreHandler={loadMoreHandler}
+				/>
+			)}
 
 			<Footer />
 		</StyledHome>
@@ -61,6 +79,7 @@ const Home = () => {
 
 const StyledHome = styled.div`
 	width: 100%;
+	position: relative;
 `
 
 const StyledHomeMovieCategoryContainer = styled.div`

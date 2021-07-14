@@ -10,7 +10,7 @@ import {
 	FETCH_MOVIES_FAIL,
 } from '../types'
 
-export const LoadMoviesForToday = () => async (dispatch) => {
+export const LoadMovies = () => async (dispatch) => {
 	dispatch({
 		type: FETCH_MOVIES_LOADING,
 	})
@@ -20,14 +20,13 @@ export const LoadMoviesForToday = () => async (dispatch) => {
 		const movieForTodayData = await axios(
 			moviesScheduledForTodayUrl(currentDate)
 		)
-		const filteredMoviesData = movieForTodayData.data.filter(
+		const filteredTodayMoviesData = movieForTodayData.data.filter(
 			(movie) =>
 				movie._embedded.show.genres.length !== 0 && movie.name !== 'TBA'
 		)
 
 		// popular shows
 		const showsData = await axios(mixedMoviesUrl())
-		console.log(showsData)
 		const popularShowsData = showsData.data.filter(
 			(show) => show.rating.average >= 8
 		)
@@ -35,7 +34,7 @@ export const LoadMoviesForToday = () => async (dispatch) => {
 		dispatch({
 			type: FETCH_MOVIES_SUCCESS,
 			payload: {
-				scheduledForToday: filteredMoviesData,
+				scheduledForToday: filteredTodayMoviesData,
 				popularShows: popularShowsData,
 			},
 		})

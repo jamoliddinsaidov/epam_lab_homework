@@ -44,7 +44,8 @@ const StyledMovieCard = styled.div`
 	display: flex;
 	justify-content: space-between;
 	max-width: 50%;
-	margin-bottom: 2em;
+	min-height: 270px;
+	margin-bottom: 3em;
 
 	.img {
 		width: 200px;
@@ -54,6 +55,7 @@ const StyledMovieCard = styled.div`
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
+			box-shadow: 0 0 10px 2px ${colors.bgNavColor};
 		}
 	}
 `
