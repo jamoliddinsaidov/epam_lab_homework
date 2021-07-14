@@ -7,6 +7,7 @@ export const colors = {
 	primaryColorTwo: '#ff5860',
 	primaryColorThree: '#ff55a5',
 	textColor: '#F4F9FF',
+	darkTextColor: '#ffffff7f',
 	dangerColor: '#ff0044',
 	successClor: '#009d00',
 }
@@ -93,7 +94,7 @@ export const GlobalStyles = createGlobalStyle`
 
     input{        
         border: 1.5px solid ${colors.textColor};
-        border-radius: 6px;
+        border-radius: 4px;
         outline: none;
         background: transparent;
         transition: 300ms ease-in-out;
@@ -111,7 +112,7 @@ export const GlobalStyles = createGlobalStyle`
         font-size: 1rem;  
         padding: 1em;
         cursor: pointer;
-        border-radius: 6px;
+        border-radius: 4px;
         border: 1.5px solid ${colors.primaryColorTwo};        
         background: ${colors.primaryColorTwo};
         outline: none;

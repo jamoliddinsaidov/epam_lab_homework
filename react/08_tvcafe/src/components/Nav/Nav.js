@@ -9,6 +9,7 @@ import { Container, colors } from '../GlobalStyles'
 
 // components
 import SignedInLinks from './SignedInLinks'
+import SignedOutLinks from './SignedOutLinks'
 
 const Nav = () => {
 	return (
@@ -19,7 +20,7 @@ const Nav = () => {
 					<Link to='/'> tvcafé</Link>
 				</StyledLogo>
 
-				<SignedInLinks />
+				<SignedOutLinks />
 			</StyledNav>
 		</NavContainer>
 	)
