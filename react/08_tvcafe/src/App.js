@@ -9,6 +9,7 @@ import Nav from './components/Nav/Nav'
 import Home from './pages/Home/Home'
 import SignIn from './pages/Auth/SignIn'
 import SignUp from './pages/Auth/SignUp'
+import DetailedMovie from './pages/DetailedMovie/DetailedMovie'
 
 const App = () => {
 	return (
@@ -19,6 +20,7 @@ const App = () => {
 				<Route path='/signin' component={SignIn} />
 				<Route path='/signup' component={SignUp} />
 				<Route path='/about' />
+				<Route path='/shows/:id' component={DetailedMovie} />
 				<Route path='/dashboard' />
 				<Route path='/' component={Home} exact />
 			</Switch>

@@ -1,17 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 // utils
 import { colors } from '../GlobalStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { StyledShortDetails } from './MovieCardShort'
-import { truncateSummary } from '../../utils/truncateSummary'
+import { truncateSummary, formatWithComma } from '../../utils/formatString'
 
 const MovieCardLong = ({ movie }) => {
+	const id = movie.id
 	const name = movie.name
 	const image = movie.image.medium
-	const genres = movie.genres
+	const genres = formatWithComma(movie.genres)
 	const rating = movie.rating.average
 	const language = movie.language
 	const summary = truncateSummary(movie.summary)
@@ -20,12 +22,14 @@ const MovieCardLong = ({ movie }) => {
 		<>
 			<StyledMovieCard>
 				<div className='img'>
-					<img src={image} alt={name} />
+					<img src={image} alt={name} className='img-shadow' />
 				</div>
 
 				<StyledLongDetails>
-					<h4>{name}</h4>
-					<p className='gradient-text'>{genres.map((genre) => `${genre} `)}</p>
+					<h4>
+						<Link to={`/shows/${id}`}>{name}</Link>
+					</h4>
+					<p className='gradient-text'>{genres}</p>
 
 					<div className='rating'>
 						<FontAwesomeIcon icon={faStar} />
@@ -68,7 +72,6 @@ const StyledMovieCard = styled.div`
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
-			box-shadow: 0 0 10px 2px ${colors.bgNavColor};
 			transform: scale(1);
 			transition: transform 1000ms ease-in-out;
 
@@ -84,6 +87,16 @@ const StyledLongDetails = styled(StyledShortDetails)`
 	margin-left: 1em;
 	margin-right: 2em;
 	align-self: flex-start;
+
+	a {
+		font-weight: 700;
+		font-size: 1.5rem;
+
+		&:hover {
+			color: ${colors.textColor};
+			border-bottom: 1px solid ${colors.textColor};
+		}
+	}
 
 	.rating {
 		margin: 0.5em 0;

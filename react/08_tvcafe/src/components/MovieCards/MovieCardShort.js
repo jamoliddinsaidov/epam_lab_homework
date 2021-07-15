@@ -1,25 +1,31 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 // utils
 import { colors } from '../GlobalStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
+import { formatWithComma } from '../../utils/formatString'
 
 const MovieCardShort = ({ movie }) => {
+	const id = movie._embedded.show.id
 	const name = movie._embedded.show.name
-	const image = movie._embedded.show.image.medium
+	const image = movie._embedded.show.image.original
 	const episode = movie.name
-	const genres = movie._embedded.show.genres
+	const genres = formatWithComma(movie._embedded.show.genres)
+
 	return (
 		<>
 			<StyledMovieCard>
 				<div className='img'>
-					<img src={image} alt={name} />
+					<img src={image} alt={name} className='img-shadow' />
 				</div>
 				<StyledShortDetails>
-					<h4>{name}</h4>
-					<p className='gradient-text'>{genres.map((genre) => `${genre} `)}</p>
+					<h4>
+						<Link to={`/shows/${id}`}>{name}</Link>
+					</h4>
+					<p className='gradient-text'>{genres}</p>
 					<div className='episode'>
 						<FontAwesomeIcon icon={faPlay} />
 						<p>{episode}</p>
@@ -43,7 +49,6 @@ export const StyledMovieCard = styled.div`
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
-			box-shadow: 0 0 10px 2px ${colors.bgNavColor};
 			transform: scale(1);
 			transition: transform 1000ms ease-in-out;
 
@@ -58,10 +63,18 @@ export const StyledShortDetails = styled.div`
 	margin-top: 0.5em;
 
 	h4 {
-		font-weight: 700;
 		line-height: 120%;
 		margin-bottom: 0.2em;
-		cursor: pointer;
+
+		a {
+			font-weight: 700;
+			font-size: 1.5rem;
+
+			&:hover {
+				color: ${colors.textColor};
+				border-bottom: 1px solid ${colors.textColor};
+			}
+		}
 	}
 
 	p {

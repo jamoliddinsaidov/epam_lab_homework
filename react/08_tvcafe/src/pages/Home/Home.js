@@ -9,9 +9,6 @@ import HomeMovieList from '../../components/MovieLists/HomeMovieList'
 import Footer from '../../components/Footer/Footer'
 import HomeMovieCategoryContainer from './HomeMovieCategoryContainer'
 
-// utils
-// import { colors, Container } from '../../components/GlobalStyles'
-
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { LoadMovies } from '../../store/actions/movieAction'

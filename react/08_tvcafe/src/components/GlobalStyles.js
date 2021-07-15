@@ -128,13 +128,16 @@ export const GlobalStyles = createGlobalStyle`
 		color: #ff5860;
     }
 
-    .gradient-container{
-        background-image: -moz-linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
-        background-image: -webkit-linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
-        background-image: -ms-linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
-        background-image: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
+    .line, .gradient-container{
+        background-image: -moz-linear-gradient(90deg, ${colors.primaryColorThree} 0%, ${colors.primaryColorTwo} 100%);
+        background-image: -webkit-linear-gradient(90deg, ${colors.primaryColorThree} 0%, ${colors.primaryColorTwo} 100%);
+        background-image: -ms-linear-gradient(90deg, ${colors.primaryColorThree} 0%, ${colors.primaryColorTwo} 100%);
+        background-image: linear-gradient(90deg, ${colors.primaryColorThree} 0%, ${colors.primaryColorTwo} 100%);
         -webkit-box-shadow: 0 0 20px 0 rgb(255 88 96 / 50%);
         box-shadow: 0 0 20px 0 rgb(255 88 96 / 50%);
+    }
+
+    .gradient-container{        
         opacity: 0.85;
         transition: opacity 300ms ease;
 
@@ -147,12 +150,11 @@ export const GlobalStyles = createGlobalStyle`
         width: 100%;
         height: 2px;
         display: block;
-        background-image: -moz-linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
-        background-image: -webkit-linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
-        background-image: -ms-linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
-        background-image: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
-        -webkit-box-shadow: 0 0 20px 0 rgb(255 88 96 / 50%);
-        box-shadow: 0 0 20px 0 rgb(255 88 96 / 50%);
+        
+    }
+
+    .img-shadow{
+        box-shadow: 0 0 10px 2px ${colors.bgNavColor};
     }
 `
 

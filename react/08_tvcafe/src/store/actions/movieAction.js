@@ -17,7 +17,7 @@ export const LoadMovies = () => async (dispatch) => {
 
 	try {
 		// movies scheduled for today
-		const movieForTodayData = await axios(
+		const movieForTodayData = await axios.get(
 			moviesScheduledForTodayUrl(currentDate)
 		)
 		const filteredTodayMoviesData = movieForTodayData.data.filter(
@@ -26,7 +26,7 @@ export const LoadMovies = () => async (dispatch) => {
 		)
 
 		// popular shows
-		const showsData = await axios(mixedMoviesUrl())
+		const showsData = await axios.get(mixedMoviesUrl())
 		const popularShowsData = showsData.data.filter(
 			(show) => show.rating.average >= 8
 		)
