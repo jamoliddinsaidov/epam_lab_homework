@@ -1,17 +1,26 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, {useState, useEffect} from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
 // utils
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilm } from '@fortawesome/free-solid-svg-icons'
 import { Container, colors } from '../GlobalStyles'
+import { checkIsUserSignedIn } from './utils/localStorageConfig'
 
 // components
 import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 
 const Nav = () => {
+	// states
+	const [isSignedIn, setIsSignedIn] = useState(false)
+	const location = useLocation()
+
+	useEffect(() => {
+		setIsSignedIn(checkIsUserSignedIn())
+	}, [location, setIsSignedIn])
+
 	return (
 		<NavContainer>
 			<StyledNav>
@@ -20,7 +29,7 @@ const Nav = () => {
 					<Link to='/'> tvcafé</Link>
 				</StyledLogo>
 
-				<SignedOutLinks />
+				{isSignedIn ? <SignedInLinks /> : <SignedOutLinks />}
 			</StyledNav>
 		</NavContainer>
 	)

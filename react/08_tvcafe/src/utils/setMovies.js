@@ -8,7 +8,6 @@ export const setMovies = (
 ) => {
 	if (isActive.popularBtn) {
 		setMoviesState(popularShows.slice(0, limit))
-		console.log('hi')
 	} else if (isActive.animationBtn) {
 		setMoviesState(animations.slice(0, limit))
 	} else if (isActive.helpBtn) {

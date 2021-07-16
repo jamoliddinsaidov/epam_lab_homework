@@ -1,22 +1,65 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 // utils
 import HeaderTitle from '../../components/Titles/HeaderTitle'
+import { loginUser } from '../../utils/localStorageConfig'
 import { colors } from '../../components/GlobalStyles'
 
 const SignIn = () => {
+	// states
+	const [values, setValues] = useState({ name: '', email: '', password: '' })
+	const [error, setError] = useState('')
+	const history = useHistory()
+
+	// handlers
+	const changeHandler = (e) => {
+		setValues((prev) => ({
+			...prev,
+			[e.target.name]: e.target.value,
+		}))
+	}
+
+	const signinHandler = (e) => {
+		e.preventDefault()
+		let isSignedIn = loginUser(values)
+
+		if (typeof isSignedIn === 'boolean') {
+			history.push('/')
+		} else {
+			setError(isSignedIn)
+		}
+	}
+
 	return (
 		<StyledSignIn>
 			<div className='line'></div>
 			<HeaderTitle title='Sign In' />
 
 			<StyledFormContainer>
+				{error && <p className='error'>{error}</p>}
 				<StyledForm>
-					<input type='email' placeholder='Email' required />
-					<input type='password' placeholder='Password' required />
-					<button type='submit' className='gradient-container'>
+					<input
+						type='email'
+						placeholder='Email'
+						required
+						name='email'
+						onChange={changeHandler}
+						value={values.email}
+					/>
+					<input
+						type='password'
+						placeholder='Password'
+						required
+						name='password'
+						onChange={changeHandler}
+						value={values.password}
+					/>
+					<button
+						type='submit'
+						className='gradient-container'
+						onClick={signinHandler}>
 						Sign In
 					</button>
 				</StyledForm>
@@ -25,7 +68,7 @@ const SignIn = () => {
 					<p>
 						Already an account? <Link to='/signup'>Sign Up!</Link>
 					</p>
-					<Link to='/forgotpassword'>Forgot password?</Link>
+					{/* <Link to='/forgotpassword'>Forgot password?</Link> */}
 				</StyledFormLinks>
 			</StyledFormContainer>
 		</StyledSignIn>
@@ -46,6 +89,11 @@ export const StyledSignIn = styled.div`
 
 export const StyledFormContainer = styled.div`
 	padding: 0 1.5em 2em;
+
+	.error {
+		text-align: center;
+		color: ${colors.dangerColor};
+	}
 `
 
 export const StyledForm = styled.form`
