@@ -21,7 +21,6 @@ const Nav = () => {
 		setIsSignedIn(checkIsUserSignedIn())
 	}, [location])
 
-	console.log(isSignedIn)
 	return (
 		<NavContainer>
 			<StyledNav>
