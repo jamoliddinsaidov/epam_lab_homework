@@ -1,8 +1,17 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
+// utils
+import { logoutUser } from '../../utils/localStorageConfig'
+
 const SignedInLinks = () => {
+	const history = useHistory()
+
+	const logoutHandler = () => {
+		logoutUser()
+		history.push('/signin')
+	}
 	return (
 		<StyledLinks>
 			<li>
@@ -12,7 +21,9 @@ const SignedInLinks = () => {
 				<NavLink to='/dashboard'>Dashboard</NavLink>
 			</li>
 			<li>
-				<NavLink to='/logout'>Log Out</NavLink>
+				<Link to='/signin' onClick={logoutHandler}>
+					Log Out
+				</Link>
 			</li>
 		</StyledLinks>
 	)

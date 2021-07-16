@@ -66,9 +66,8 @@ const SignIn = () => {
 
 				<StyledFormLinks>
 					<p>
-						Already an account? <Link to='/signup'>Sign Up!</Link>
+						Need an account? <Link to='/signup'>Sign Up!</Link>
 					</p>
-					{/* <Link to='/forgotpassword'>Forgot password?</Link> */}
 				</StyledFormLinks>
 			</StyledFormContainer>
 		</StyledSignIn>

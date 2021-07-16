@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilm } from '@fortawesome/free-solid-svg-icons'
 import { Container, colors } from '../GlobalStyles'
-import { checkIsUserSignedIn } from './utils/localStorageConfig'
+import { checkIsUserSignedIn } from '../../utils/localStorageConfig'
 
 // components
 import SignedInLinks from './SignedInLinks'
@@ -19,8 +19,9 @@ const Nav = () => {
 
 	useEffect(() => {
 		setIsSignedIn(checkIsUserSignedIn())
-	}, [location, setIsSignedIn])
+	}, [location])
 
+	console.log(isSignedIn)
 	return (
 		<NavContainer>
 			<StyledNav>

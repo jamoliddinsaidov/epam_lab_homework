@@ -68,7 +68,7 @@ export const addUserCredentialsToLocalStorage = (values) => {
 
 export const loginUser = (values) => {
 	if (localStorage.getItem('users') === null) {
-		return 'Your credentials do not match. Please, sign up first.'
+		return 'You have no account yet. Please, sign up first.'
 	}
 
 	// check if the user exists
@@ -81,13 +81,18 @@ export const loginUser = (values) => {
 
 	if (user.length === 0) {
 		// if user doesn't exist
-		return 'Your credentials do not match. Please, sign up first.'
+		return 'Your credentials do not match. Please, try again or sign up.'
 	}
 
 	// set the current user
 	localStorage.setItem('user', JSON.stringify(user[0]))
 	localStorage.setItem('isSignedIn', true)
 	return true
+}
+
+export const logoutUser = () => {
+	localStorage.removeItem('isSignedIn')
+	localStorage.removeItem('user')
 }
 
 export const checkIsUserSignedIn = () => localStorage.getItem('isSignedIn')
