@@ -13,7 +13,7 @@ const Footer = () => {
 			<FooterContent />
 
 			<StyledFooterCopyright>
-				<span>© 2021 tvcafé. Create by Jamoliddin Saidov</span>
+				<span>© 2021 tvcafé. Created by Jamoliddin Saidov</span>
 				<div>
 					<p>Terms of Use</p>
 					<p>Privacy Policy</p>

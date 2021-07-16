@@ -12,3 +12,4 @@ export const fuzzySearchUrl = (searchTerm) =>
 
 export const searchByIdUrl = (id) => `${base_url}/shows/${id}`
 export const mixedMoviesUrl = () => `${base_url}/shows`
+export const pagedMoviesUrl = (page) => `${base_url}/shows/?page=${page}`

@@ -42,13 +42,14 @@ export const LoadMovies = () => async (dispatch) => {
 				scheduledForToday: filteredTodayMoviesData,
 				popularShows: popularShowsData,
 				animations: animationsData,
+				allMovies: showsData.data,
 			},
 		})
-	} catch (err) {
+	} catch (error) {
 		dispatch({
 			type: FETCH_MOVIES_FAIL,
 			payload: {
-				error: 'Failed to load movies...',
+				error,
 			},
 		})
 	}

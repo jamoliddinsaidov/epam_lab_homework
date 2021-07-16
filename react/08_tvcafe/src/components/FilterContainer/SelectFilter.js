@@ -3,13 +3,16 @@ import styled from 'styled-components'
 
 import { colors } from '../GlobalStyles'
 
-const SelectFilter = ({ list, label }) => {
+const SelectFilter = ({ list, label, optionHandler }) => {
 	return (
 		<StyledSelectFilter>
 			<label htmlFor={label}>{label}</label>
-			<select name={label} id={label}>
-				{list.map((element) => (
-					<option value={element} id={element}>
+			<select
+				name={label}
+				id={label}
+				onChange={(e) => optionHandler(e.target.name, e.target.value)}>
+				{list.map((element, index) => (
+					<option value={element} id={element} key={index}>
 						{element}
 					</option>
 				))}
@@ -25,6 +28,7 @@ const StyledSelectFilter = styled.div`
 	label {
 		font-size: 0.9rem;
 		font-weight: 300;
+		text-transform: capitalize;
 	}
 
 	select {

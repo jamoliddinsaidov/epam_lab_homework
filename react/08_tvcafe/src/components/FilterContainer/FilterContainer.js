@@ -13,15 +13,35 @@ import { ratingList } from './lists/ratingList'
 import { statusList } from './lists/statusList'
 import { colors } from '../GlobalStyles'
 
-const FilterContainer = () => {
+const FilterContainer = ({ optionHandler }) => {
 	return (
 		<StyledFilterContainer>
 			<div className='selectContainer'>
-				<SelectFilter list={countryList} label='Country' />
-				<SelectFilter list={genreList} label='Genre' />
-				<SelectFilter list={languageList} label='Language' />
-				<SelectFilter list={ratingList} label='Rating' />
-				<SelectFilter list={statusList} label='Status' />
+				<SelectFilter
+					list={countryList}
+					label='country'
+					optionHandler={optionHandler}
+				/>
+				<SelectFilter
+					list={genreList}
+					label='genres'
+					optionHandler={optionHandler}
+				/>
+				<SelectFilter
+					list={languageList}
+					label='language'
+					optionHandler={optionHandler}
+				/>
+				<SelectFilter
+					list={ratingList}
+					label='rating'
+					optionHandler={optionHandler}
+				/>
+				<SelectFilter
+					list={statusList}
+					label='status'
+					optionHandler={optionHandler}
+				/>
 			</div>
 			<Search placeholder='Search movies by name...' />
 		</StyledFilterContainer>

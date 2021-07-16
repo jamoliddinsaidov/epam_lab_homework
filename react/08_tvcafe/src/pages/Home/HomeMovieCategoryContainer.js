@@ -6,15 +6,8 @@ import HeaderTitle from '../../components/Titles/HeaderTitle'
 
 // utils
 import { colors, Container } from '../../components/GlobalStyles'
-import { useSelector } from 'react-redux'
 
-const HomeMovieCategoryContainer = ({
-	isActive,
-	setIsActive,
-	setMoviesState,
-}) => {
-	const { popularShows, animations } = useSelector((state) => state.movies)
-
+const HomeMovieCategoryContainer = ({ isActive, setIsActive }) => {
 	// handlers
 	const clickHandler = (e) => {
 		const text = e.target.innerHTML
@@ -26,7 +19,6 @@ const HomeMovieCategoryContainer = ({
 					animationBtn: false,
 					helpBtn: false,
 				}))
-				setMoviesState(popularShows.slice(0, 8))
 				break
 			case 'animations':
 				setIsActive((prevState) => ({
@@ -35,7 +27,6 @@ const HomeMovieCategoryContainer = ({
 					animationBtn: true,
 					helpBtn: false,
 				}))
-				setMoviesState(animations.slice(0, 8))
 				break
 			case 'help finding favorites':
 				setIsActive((prevState) => ({

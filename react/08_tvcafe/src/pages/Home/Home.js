@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import styled from 'styled-components'
 
 // components
@@ -13,16 +13,10 @@ import FilterContainer from '../../components/FilterContainer/FilterContainer'
 import { useDispatch, useSelector } from 'react-redux'
 import { LoadMovies } from '../../store/actions/movieAction'
 
-const Home = () => {
-	// states
-	const [moviesState, setMoviesState] = useState([])
-	const [limit, setLimit] = useState(16)
-	const [isActive, setIsActive] = useState({
-		popularBtn: true,
-		animationBtn: false,
-		helpBtn: false,
-	})
+//utils
+import { filterMovies } from '../../utils/filterMovies'
 
+const Home = () => {
 	// fetching data
 	const dispatch = useDispatch()
 
@@ -31,7 +25,7 @@ const Home = () => {
 	}, [dispatch])
 
 	// extracting data
-	const { scheduledForToday, popularShows, animations, isLoading } =
+	const { scheduledForToday, popularShows, animations, allMovies, isLoading } =
 		useSelector((state) => state.movies)
 
 	useEffect(() => {
@@ -39,18 +33,60 @@ const Home = () => {
 		window.scroll(0, 0)
 	}, [popularShows])
 
+	// states
+	const [moviesState, setMoviesState] = useState([])
+	const [limit, setLimit] = useState(16)
+	const [isActive, setIsActive] = useState({
+		popularBtn: true,
+		animationBtn: false,
+		helpBtn: false,
+	})
+	const [options, setOptions] = useState({ type: '', value: '' })
+
 	// handlers
+	const optionHandler = (type, value) => {
+		setOptions((prev) => ({
+			...prev,
+			type,
+			value,
+		}))
+	}
+
+	// filtering the data according to user's selected options
+	const filteredData = useMemo(
+		() => filterMovies(allMovies, options),
+		[options, allMovies]
+	)
+
 	const loadMoreHandler = () => {
 		setLimit((prev) => prev + 8)
 
 		if (isActive.popularBtn) {
 			setMoviesState(popularShows.slice(0, limit))
-		}
-
-		if (isActive.animationBtn) {
+		} else if (isActive.animationBtn) {
 			setMoviesState(animations.slice(0, limit))
+		} else if (isActive.helpBtn) {
+			setMoviesState(filteredData.slice(0, limit))
 		}
 	}
+
+	// setting movies data according to the clicked category buttons
+	useEffect(() => {
+		if (isActive.popularBtn) {
+			setMoviesState(popularShows.slice(0, 8))
+		} else if (isActive.animationBtn) {
+			setMoviesState(animations.slice(0, 8))
+		} else if (isActive.helpBtn) {
+			setMoviesState(filteredData.slice(0, 8))
+		}
+	}, [
+		isActive.popularBtn,
+		isActive.animationBtn,
+		isActive.helpBtn,
+		popularShows,
+		animations,
+		filteredData,
+	])
 
 	return (
 		<StyledHome>
@@ -65,8 +101,11 @@ const Home = () => {
 							isActive={isActive}
 							setIsActive={setIsActive}
 							setMoviesState={setMoviesState}
+							filteredMovies={filteredData}
 						/>
-						{isActive.helpBtn && <FilterContainer />}
+						{isActive.helpBtn && (
+							<FilterContainer optionHandler={optionHandler} />
+						)}
 						<HomeMovieList
 							movies={moviesState}
 							loadMoreHandler={loadMoreHandler}

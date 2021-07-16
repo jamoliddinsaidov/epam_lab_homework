@@ -11,7 +11,7 @@ import { formatWithComma } from '../../utils/formatString'
 const MovieCardShort = ({ movie }) => {
 	const id = movie._embedded.show.id
 	const name = movie._embedded.show.name
-	const image = movie._embedded.show.image.original
+	const image = movie._embedded.show.image?.original
 	const episode = movie.name
 	const genres = formatWithComma(movie._embedded.show.genres)
 
