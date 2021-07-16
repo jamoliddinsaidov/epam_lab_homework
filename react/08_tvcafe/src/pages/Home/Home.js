@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 // components
-// import Search from '../../components/Search/Search'
 import HeaderTitle from '../../components/Titles/HeaderTitle'
 import MovieCarousel from '../../components/MovieCarousel/MovieCarousel'
 import HomeMovieList from '../../components/MovieLists/HomeMovieList'
 import Footer from '../../components/Footer/Footer'
 import HomeMovieCategoryContainer from './HomeMovieCategoryContainer'
+import FilterContainer from '../../components/FilterContainer/FilterContainer'
 
 // redux
 import { useDispatch, useSelector } from 'react-redux'
@@ -54,8 +54,6 @@ const Home = () => {
 
 	return (
 		<StyledHome>
-			{/* <Search placeholder='Search movies by name...' /> */}
-
 			{!isLoading && (
 				<>
 					<div>
@@ -68,6 +66,7 @@ const Home = () => {
 							setIsActive={setIsActive}
 							setMoviesState={setMoviesState}
 						/>
+						{isActive.helpBtn && <FilterContainer />}
 						<HomeMovieList
 							movies={moviesState}
 							loadMoreHandler={loadMoreHandler}
@@ -75,7 +74,6 @@ const Home = () => {
 					</div>
 				</>
 			)}
-
 			<Footer />
 		</StyledHome>
 	)

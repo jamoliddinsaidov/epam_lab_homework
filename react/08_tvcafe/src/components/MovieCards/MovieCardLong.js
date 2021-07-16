@@ -50,17 +50,6 @@ const StyledMovieCard = styled.div`
 	max-width: 50%;
 	min-height: 270px;
 	margin-bottom: 3em;
-
-	@keyframes fadeIn {
-		0% {
-			transform: scale(0.8);
-			opacity: 0;
-		}
-		100% {
-			transform: scale(1);
-			opacity: 1;
-		}
-	}
 	animation: fadeIn 700ms ease;
 
 	.img {

@@ -38,10 +38,12 @@ const StyledSearch = styled(Container)`
 		border-bottom-left-radius: 0;
 		border-left: none;
 		width: 6%;
+		opacity: 0.95;
+		transition-property: border-color, opacity;
 
 		&:hover,
 		&:focus {
-			background: transparent;
+			opacity: 1;
 			border-color: ${colors.textColor};
 		}
 	}
