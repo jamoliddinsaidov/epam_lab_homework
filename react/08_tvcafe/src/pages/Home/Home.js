@@ -28,10 +28,17 @@ const Home = () => {
 	const { scheduledForToday, popularShows, animations, allMovies, isLoading } =
 		useSelector((state) => state.movies)
 
+	const scheduledForTodayData = useMemo(
+		() => scheduledForToday,
+		[scheduledForToday]
+	)
+	const popularShowsData = useMemo(() => popularShows, [popularShows])
+	const animationsData = useMemo(() => animations, [animations])
+
 	useEffect(() => {
-		setMoviesState(popularShows.slice(0, 8))
+		setMoviesState(popularShowsData.slice(0, 8))
 		window.scroll(0, 0)
-	}, [popularShows])
+	}, [popularShowsData])
 
 	// states
 	const [moviesState, setMoviesState] = useState([])
@@ -62,9 +69,9 @@ const Home = () => {
 		setLimit((prev) => prev + 8)
 
 		if (isActive.popularBtn) {
-			setMoviesState(popularShows.slice(0, limit))
+			setMoviesState(popularShowsData.slice(0, limit))
 		} else if (isActive.animationBtn) {
-			setMoviesState(animations.slice(0, limit))
+			setMoviesState(animationsData.slice(0, limit))
 		} else if (isActive.helpBtn) {
 			setMoviesState(filteredData.slice(0, limit))
 		}
@@ -73,9 +80,9 @@ const Home = () => {
 	// setting movies data according to the clicked category buttons
 	useEffect(() => {
 		if (isActive.popularBtn) {
-			setMoviesState(popularShows.slice(0, 8))
+			setMoviesState(popularShowsData.slice(0, 8))
 		} else if (isActive.animationBtn) {
-			setMoviesState(animations.slice(0, 8))
+			setMoviesState(animationsData.slice(0, 8))
 		} else if (isActive.helpBtn) {
 			setMoviesState(filteredData.slice(0, 8))
 		}
@@ -83,8 +90,8 @@ const Home = () => {
 		isActive.popularBtn,
 		isActive.animationBtn,
 		isActive.helpBtn,
-		popularShows,
-		animations,
+		popularShowsData,
+		animationsData,
 		filteredData,
 	])
 
@@ -94,7 +101,7 @@ const Home = () => {
 				<>
 					<div>
 						<HeaderTitle title='Today on TV' className='h2' />
-						<MovieCarousel movies={scheduledForToday} />
+						<MovieCarousel movies={scheduledForTodayData} />
 					</div>
 					<div>
 						<HomeMovieCategoryContainer
