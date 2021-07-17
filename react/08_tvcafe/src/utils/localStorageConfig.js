@@ -112,3 +112,25 @@ export const addFavoriteMovies = (movie) => {
 	localStorage.setItem('user', JSON.stringify(user))
 	return true
 }
+
+export const removeFromFavorites = (id) => {
+	let users = checkLocalStorageUsers()
+	let user = checkLocalStorageCurrentUser()
+
+	// removing movie from user's favorite list
+	let index = user.movies.favorites.findIndex((movie) => movie.id === id)
+	user.movies.favorites.splice(index, 1)
+	users.filter((u) => u.id === user.id)[0] = user
+
+	localStorage.setItem('users', JSON.stringify(users))
+	localStorage.setItem('user', JSON.stringify(user))
+	return true
+}
+
+export const checkIsMovieFavorite = (id) => {
+	let user = checkLocalStorageCurrentUser()
+	let isFavorite = user.movies.favorites.filter((movie) => movie.id === id)[0]
+		?.isFavorite
+
+	return isFavorite
+}

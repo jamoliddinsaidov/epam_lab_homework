@@ -31,7 +31,9 @@ const DetailedMovie = () => {
 			{!isLoading && (
 				<StyledDetailedMovieContainer>
 					<HeaderTitle title={details.name} />
-					<DetailedMovieContent details={details} />
+					{details.image?.original && (
+						<DetailedMovieContent details={details} />
+					)}
 				</StyledDetailedMovieContainer>
 			)}
 		</div>
