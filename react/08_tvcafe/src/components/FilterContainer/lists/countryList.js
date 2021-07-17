@@ -1,6 +1,7 @@
 // List of all countries in a simple list / array.
 // Sorted alphabetical by country name
 export const countryList = [
+	'Select',
 	'Afghanistan',
 	'Albania',
 	'Algeria',

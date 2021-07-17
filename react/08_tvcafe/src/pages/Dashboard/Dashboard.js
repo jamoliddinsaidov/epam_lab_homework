@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 // components
 import Header from '../../components/DashboardContent/Header'
+import DashboardMoviesContainer from '../../components/DashboardContent/DashboardMoviesContainer'
 
 // utils
 import { Container } from '../../components/GlobalStyles'
@@ -14,11 +15,7 @@ const Dashboard = () => {
 	return (
 		<StyledDashboard>
 			<Header user={user} />
-
-			<div>
-				<div className='favorites'></div>
-				<div className='recommended'></div>
-			</div>
+			<DashboardMoviesContainer user={user} />
 		</StyledDashboard>
 	)
 }

@@ -26,7 +26,7 @@ const SignIn = () => {
 		let isSignedIn = loginUser(values)
 
 		if (typeof isSignedIn === 'boolean') {
-			history.push('/')
+			history.push('/dashboard')
 		} else {
 			setError(isSignedIn)
 		}

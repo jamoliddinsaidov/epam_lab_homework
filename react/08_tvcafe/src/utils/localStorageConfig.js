@@ -24,13 +24,7 @@ export const checkLocalStorageCurrentUser = () => {
 				password: '',
 			},
 			movies: {
-				favoritesID: [
-					{
-						id: '',
-						name: '',
-						image: '',
-					},
-				],
+				favorites: [],
 				recommended: [
 					{
 						id: '',
@@ -104,3 +98,17 @@ export const logoutUser = () => {
 }
 
 export const checkIsUserSignedIn = () => localStorage.getItem('isSignedIn')
+
+export const addFavoriteMovies = (movie) => {
+	let users = checkLocalStorageUsers()
+	let user = checkLocalStorageCurrentUser()
+
+	// setting favorite movie properties
+	user.movies.favorites.push(movie)
+	users.filter((u) => u.id === user.id)[0] = user
+
+	// saving to local storage
+	localStorage.setItem('users', JSON.stringify(users))
+	localStorage.setItem('user', JSON.stringify(user))
+	return true
+}

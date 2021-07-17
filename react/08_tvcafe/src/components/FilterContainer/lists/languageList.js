@@ -1,4 +1,5 @@
 export const languageList = [
+	'Select',
 	'English',
 	'Russian',
 	'Afar',

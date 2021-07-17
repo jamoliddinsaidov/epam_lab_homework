@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 // components
@@ -18,10 +18,34 @@ import {
 	faPlayCircle,
 	faShapes,
 } from '@fortawesome/free-solid-svg-icons'
-import { checkIsUserSignedIn } from '../../utils/localStorageConfig'
+import {
+	checkIsUserSignedIn,
+	addFavoriteMovies,
+} from '../../utils/localStorageConfig'
 
 const DetailedMovieContent = ({ details }) => {
+	// states
+	const [favoriteText, setFavoriteText] = useState('Add to favorites')
 	const isUserSignedIn = checkIsUserSignedIn()
+
+	// handlers
+	const favoriteClickHandler = () => {
+		const movieDetails = {
+			id: details.id,
+			name: details.name,
+			image: details.image.medium,
+			rating: details.rating.average,
+			genres: formatWithComma(details.genres),
+		}
+
+		const isAdded = addFavoriteMovies(movieDetails)
+
+		if (isAdded) {
+			setFavoriteText('Remove from favorites')
+		} else {
+			setFavoriteText('Add to favorites')
+		}
+	}
 
 	return (
 		<>
@@ -67,7 +91,11 @@ const DetailedMovieContent = ({ details }) => {
 						</p>
 						{isUserSignedIn && (
 							<div>
-								<button className='gradient-container'>Add to favorites</button>
+								<button
+									className='gradient-container'
+									onClick={favoriteClickHandler}>
+									{favoriteText}
+								</button>
 								<button className='gradient-container'>Recommend</button>
 							</div>
 						)}
@@ -101,6 +129,7 @@ const StyledDetails = styled.div`
 	button {
 		padding: 0.6em 0.8em;
 		margin-top: 0.5em;
+		margin-right: 2em;
 	}
 `
 

@@ -1,4 +1,5 @@
 export const genreList = [
+	'Select',
 	'Comedy',
 	'Fantasy',
 	'Crime',
@@ -7,7 +8,6 @@ export const genreList = [
 	'Adventure',
 	'History',
 	'Thriller',
-	'Animation',
 	'Family',
 	'Mystery',
 	'Biography',

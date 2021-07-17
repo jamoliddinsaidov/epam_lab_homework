@@ -153,10 +153,6 @@ export const GlobalStyles = createGlobalStyle`
         
     }
 
-    .img-shadow{
-        box-shadow: 0 0 10px 2px ${colors.bgNavColor};
-    }
-
     @keyframes fadeIn {
 		0% {
 			transform: scale(0.8);
