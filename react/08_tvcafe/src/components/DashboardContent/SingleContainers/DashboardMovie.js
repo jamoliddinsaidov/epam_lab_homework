@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom'
 // components
 import ImageContainer, {
 	StyledImageContainer,
-} from '../MovieCards/ImageContainer'
+} from '../../MovieCards/ImageContainer'
 
 // utils
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
-import { colors } from '../GlobalStyles'
+import { colors } from '../../GlobalStyles'
 
 const DashboardMovie = ({ movie }) => {
 	return (

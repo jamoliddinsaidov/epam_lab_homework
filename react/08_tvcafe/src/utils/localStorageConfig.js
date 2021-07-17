@@ -105,7 +105,8 @@ export const addFavoriteMovies = (movie) => {
 
 	// setting favorite movie properties
 	user.movies.favorites.push(movie)
-	users.filter((u) => u.id === user.id)[0] = user
+	let index = users.findIndex((u) => u.id === user.id)
+	users[index] = user
 
 	// saving to local storage
 	localStorage.setItem('users', JSON.stringify(users))
