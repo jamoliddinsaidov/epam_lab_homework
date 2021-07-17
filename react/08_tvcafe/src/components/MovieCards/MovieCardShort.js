@@ -2,6 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
+// components
+import ImageContainer, { StyledImageContainer } from './ImageContainer'
+
 // utils
 import { colors } from '../GlobalStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,9 +21,9 @@ const MovieCardShort = ({ movie }) => {
 	return (
 		<>
 			<StyledMovieCard>
-				<div className='img'>
-					<img src={image} alt={name} className='img-shadow' />
-				</div>
+				<ImageContainerStyled>
+					<ImageContainer source={image} name={name} className='img' />
+				</ImageContainerStyled>
 				<StyledShortDetails>
 					<h4>
 						<Link to={`/shows/${id}`}>{name}</Link>
@@ -40,23 +43,10 @@ export const StyledMovieCard = styled.div`
 	width: 250px;
 	min-height: 400px;
 	margin: 0 0.5em;
+`
 
-	.img {
-		height: 350px;
-		overflow: hidden;
-
-		img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			transform: scale(1);
-			transition: transform 1000ms ease-in-out;
-
-			&:hover {
-				transform: scale(1.1);
-			}
-		}
-	}
+const ImageContainerStyled = styled(StyledImageContainer)`
+	height: 350px;
 `
 
 export const StyledShortDetails = styled.div`

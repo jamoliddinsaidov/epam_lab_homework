@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
+// components
+import ImageContainer, { StyledImageContainer } from './ImageContainer'
+
 // utils
 import { colors } from '../../components/GlobalStyles'
 import { formatSummary, formatWithComma } from '../../utils/formatString'
@@ -15,19 +18,22 @@ import {
 	faPlayCircle,
 	faShapes,
 } from '@fortawesome/free-solid-svg-icons'
+import { checkIsUserSignedIn } from '../../utils/localStorageConfig'
 
 const DetailedMovieContent = ({ details }) => {
+	const isUserSignedIn = checkIsUserSignedIn()
+
 	return (
 		<>
 			{details.image?.original && (
 				<StyledDetails>
-					<div className='img'>
-						<img
-							src={details.image.original}
-							alt={details.name}
-							className='img-shadow'
+					<ImageContainerStyled>
+						<ImageContainer
+							source={details.image.original}
+							name={details.name}
+							className='img'
 						/>
-					</div>
+					</ImageContainerStyled>
 					<div className='description'>
 						<p className='summary'>{formatSummary(details.summary)}</p>
 						<p>
@@ -59,7 +65,12 @@ const DetailedMovieContent = ({ details }) => {
 						<p>
 							<FontAwesomeIcon icon={faFilm} /> Premeried on {details.premiered}
 						</p>
-						<button className='gradient-container'>Add to favorites</button>
+						{isUserSignedIn && (
+							<div>
+								<button className='gradient-container'>Add to favorites</button>
+								<button className='gradient-container'>Recommend</button>
+							</div>
+						)}
 					</div>
 				</StyledDetails>
 			)}
@@ -69,20 +80,6 @@ const DetailedMovieContent = ({ details }) => {
 
 const StyledDetails = styled.div`
 	display: flex;
-
-	.img {
-		min-width: 400px;
-		max-width: 450px;
-		height: 500px;
-		overflow: hidden;
-		margin-right: 2em;
-
-		img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-		}
-	}
 
 	.description {
 		p {
@@ -105,6 +102,13 @@ const StyledDetails = styled.div`
 		padding: 0.6em 0.8em;
 		margin-top: 0.5em;
 	}
+`
+
+const ImageContainerStyled = styled(StyledImageContainer)`
+	min-width: 400px;
+	max-width: 450px;
+	height: 500px;
+	margin-right: 2em;
 `
 
 export default DetailedMovieContent

@@ -24,10 +24,18 @@ export const checkLocalStorageCurrentUser = () => {
 				password: '',
 			},
 			movies: {
-				favoritesID: [],
+				favoritesID: [
+					{
+						id: '',
+						name: '',
+						image: '',
+					},
+				],
 				recommended: [
 					{
-						Id: [],
+						id: '',
+						name: '',
+						image: '',
 						friendId: '',
 					},
 				],
