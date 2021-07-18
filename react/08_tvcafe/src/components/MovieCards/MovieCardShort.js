@@ -3,7 +3,9 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 // components
-import ImageContainer, { StyledImageContainer } from './ImageContainer'
+import ImageContainer, {
+	StyledImageContainer,
+} from '../DetailedMovie/ImageContainer'
 
 // utils
 import { colors } from '../GlobalStyles'

@@ -1,17 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 // components
 import ImageContainer, { StyledImageContainer } from './ImageContainer'
 import MovieDetails from './MovieDetails'
 import FavoriteRecommendButtons from './FavoriteRecommendButtons'
+import RecommendMoviePopup from './RecommendMoviePopup'
 
 // utils
-import { colors } from '../../components/GlobalStyles'
+import { colors } from '../GlobalStyles'
 import { checkIsUserSignedIn } from '../../utils/localStorageConfig'
 
-const DetailedMovieContent = ({ details }) => {
+const DetailedMovieContainer = ({ details }) => {
+	// states
 	const isUserSignedIn = checkIsUserSignedIn()
+	const [isRecommendClicked, setIsRecommendClicked] = useState(false)
 
 	return (
 		<StyledDetails>
@@ -23,13 +26,23 @@ const DetailedMovieContent = ({ details }) => {
 				/>
 			</ImageContainerStyled>
 			<div className='description'>
-				<MovieDetails details={MovieDetails} />
+				<MovieDetails details={details} />
 				{isUserSignedIn && (
 					<div>
-						<FavoriteRecommendButtons details={details} />
+						<FavoriteRecommendButtons
+							details={details}
+							isRecommendClicked={isRecommendClicked}
+							setIsRecommendClicked={setIsRecommendClicked}
+						/>
 					</div>
 				)}
 			</div>
+
+			<RecommendMoviePopup
+				details={details}
+				isRecommendClicked={isRecommendClicked}
+				setIsRecommendClicked={setIsRecommendClicked}
+			/>
 		</StyledDetails>
 	)
 }
@@ -68,4 +81,4 @@ const ImageContainerStyled = styled(StyledImageContainer)`
 	margin-right: 2em;
 `
 
-export default DetailedMovieContent
+export default DetailedMovieContainer

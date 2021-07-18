@@ -27,15 +27,11 @@ const DashboardUser = ({ user, setUser, setUsers, isUserFriends }) => {
 
 			const followed = followFriend(values)
 
-			console.log(`followed: ${followed}`)
-
 			if (followed) {
 				setText('Unfollow')
 			}
 		} else if (text === 'Unfollow') {
 			const unfollowed = unfollowFriend(user.id)
-
-			console.log(`unfollowed: ${unfollowed}`)
 
 			if (unfollowed) {
 				setText('Follow')

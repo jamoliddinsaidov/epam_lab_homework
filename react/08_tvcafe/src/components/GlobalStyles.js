@@ -150,8 +150,7 @@ export const GlobalStyles = createGlobalStyle`
         width: 100%;
         height: 2px;
         display: block;
-        
-    }
+    }    
 
     @keyframes fadeIn {
 		0% {

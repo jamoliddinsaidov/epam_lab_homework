@@ -10,10 +10,12 @@ const DashboardMoviesContainer = ({ user }) => {
 			<DashboardMovieList
 				movies={user.movies.favorites}
 				title='Your Favorite Movies'
+				key={user.id}
 			/>
 			<DashboardMovieList
 				movies={user.movies.recommended}
 				title='Recommended Movies'
+				key={user.email}
 			/>
 		</StyledUserMoviesContainer>
 	)
@@ -22,6 +24,7 @@ const DashboardMoviesContainer = ({ user }) => {
 export const StyledUserMoviesContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
+	align-items: flex-start;
 	padding-bottom: 3em;
 `
 

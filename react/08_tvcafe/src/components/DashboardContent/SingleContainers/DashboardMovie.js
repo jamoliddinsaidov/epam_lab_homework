@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 // components
 import ImageContainer, {
 	StyledImageContainer,
-} from '../../MovieCards/ImageContainer'
+} from '../../DetailedMovie/ImageContainer'
 
 // utils
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,6 +28,9 @@ const DashboardMovie = ({ movie }) => {
 					<FontAwesomeIcon icon={faStar} />
 					{movie.rating}
 				</p>
+				{movie.friendName && (
+					<p className='friend-recommend'>recommended by {movie.friendName}</p>
+				)}
 			</StyledDetailsContainer>
 		</StyledDashboardMovie>
 	)
@@ -40,7 +43,7 @@ const StyledDashboardMovie = styled.div`
 `
 
 const StyledDetailsContainer = styled.div`
-	padding: 1em;
+	padding: 0 1em;
 
 	p,
 	a {
@@ -63,6 +66,11 @@ const StyledDetailsContainer = styled.div`
 		path {
 			color: ${colors.primaryColorThree};
 		}
+	}
+
+	.friend-recommend {
+		font-weight: 500;
+		opacity: 0.8;
 	}
 `
 

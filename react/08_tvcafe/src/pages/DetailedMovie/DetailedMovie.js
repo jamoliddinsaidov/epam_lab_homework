@@ -8,7 +8,7 @@ import { LoadMovieById } from '../../store/actions/detailedMovieAction'
 
 // components
 import HeaderTitle from '../../components/Titles/HeaderTitle'
-import DetailedMovieContent from '../../components/MovieCards/DetailedMovieContent'
+import DetailedMovieContainer from '../../components/DetailedMovie/DetailedMovieContainer'
 
 // utils
 import { Container } from '../../components/GlobalStyles'
@@ -32,7 +32,7 @@ const DetailedMovie = () => {
 				<StyledDetailedMovieContainer>
 					<HeaderTitle title={details.name} />
 					{details.image?.original && (
-						<DetailedMovieContent details={details} />
+						<DetailedMovieContainer details={details} />
 					)}
 				</StyledDetailedMovieContainer>
 			)}

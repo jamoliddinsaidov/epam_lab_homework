@@ -23,7 +23,10 @@ const App = () => {
 				<PrivateRouteSignedIn path='/signin' component={SignIn} />
 				<PrivateRouteSignedIn path='/signup' component={SignUp} />
 				<Route path='/about' />
-				<Route path='/shows/:id' component={DetailedMovie} />
+				<Route
+					path={['/shows/:id', '/dashboard/shows/:id']}
+					component={DetailedMovie}
+				/>
 				<PrivateRouteSignedOut path='/dashboard' component={Dashboard} />
 				<Route path='/' component={Home} exact />
 			</Switch>

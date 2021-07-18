@@ -8,7 +8,11 @@ import {
 	removeFromFavorites,
 } from '../../utils/localStorageConfig'
 
-const FavoriteRecommendButtons = ({ details }) => {
+const FavoriteRecommendButtons = ({
+	details,
+	isRecommendClicked,
+	setIsRecommendClicked,
+}) => {
 	// states
 	const isFavoriteMovie = checkIsMovieFavorite(details.id)
 	const [favoriteText, setFavoriteText] = useState(
@@ -41,24 +45,19 @@ const FavoriteRecommendButtons = ({ details }) => {
 		}
 	}
 
-	// const recommendClickHandler = () => {
-	// 	const movieDetails = {
-	// 		id: details.id,
-	// 		name: details.name,
-	// 		image: details.image.medium,
-	// 		rating: details.rating.average,
-	// 		genres: formatWithComma(details.genres),
-	// 		friendName: '',
-	// 		description: '',
-	// 	}
-	// }
+	const recommendClickHandler = () => {
+		setIsRecommendClicked(!isRecommendClicked)
+		document.body.style.overflow = 'hidden'
+	}
 
 	return (
 		<>
 			<button className='gradient-container' onClick={favoriteClickHandler}>
 				{favoriteText}
 			</button>
-			<button className='gradient-container'>Recommend</button>
+			<button className='gradient-container' onClick={recommendClickHandler}>
+				Recommend
+			</button>
 		</>
 	)
 }

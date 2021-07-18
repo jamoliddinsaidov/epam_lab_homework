@@ -20,7 +20,7 @@ const MovieDetails = ({ details }) => {
 			<p className='summary'>{formatSummary(details.summary)}</p>
 			<p>
 				<FontAwesomeIcon icon={faStar} /> Rating:{' '}
-				{details.rating?.average ? details.rating?.average : 'not available'}
+				{details.rating.average ? details.rating.average : 'not available'}
 			</p>
 			<p>
 				<FontAwesomeIcon icon={faGlobe} /> Country:{' '}
