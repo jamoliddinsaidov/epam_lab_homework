@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Route, useHistory } from 'react-router-dom'
 
 // components
-import Header from '../../components/DashboardContent/Header'
+import Header from '../../components/DashboardContent/DashboardHeader'
 import DashboardMoviesContainer from '../../components/DashboardContent/DashboardMoviesContainer'
 import DashboardUsersContainer from '../../components/DashboardContent/DashboardUsersContainer'
 import NotificationsContainer from '../../components/DashboardContent/NotificationsContainer'
@@ -16,8 +16,8 @@ import {
 } from '../../utils/localStorageConfig'
 
 const Dashboard = () => {
-	const users = checkLocalStorageUsers()
-	const user = checkLocalStorageCurrentUser()
+	const [users, setUsers] = useState(checkLocalStorageUsers())
+	const [user, setUser] = useState(checkLocalStorageCurrentUser())
 	const history = useHistory()
 
 	useEffect(() => {
@@ -27,6 +27,15 @@ const Dashboard = () => {
 		}
 	}, [history])
 
+	// const updateFollowers = () => {
+	// 	// realtime updating friends section
+	// 	const updatedUsers = checkLocalStorageUsers()
+	// 	const updatedUser = checkLocalStorageCurrentUser()
+
+	// 	setUsers(updatedUsers)
+	// 	setUser(updatedUser)
+	// }
+
 	return (
 		<StyledDashboard>
 			<Header user={user} />
@@ -35,7 +44,12 @@ const Dashboard = () => {
 				<DashboardMoviesContainer user={user} />
 			</Route>
 			<Route path='/dashboard/friends'>
-				<DashboardUsersContainer users={users} />
+				<DashboardUsersContainer
+					users={users}
+					user={user}
+					setUser={setUser}
+					setUsers={setUsers}
+				/>
 			</Route>
 			<Route
 				path='/dashboard/notifications'

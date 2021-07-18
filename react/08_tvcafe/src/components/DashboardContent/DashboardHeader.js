@@ -43,19 +43,14 @@ const StyledHeader = styled.div`
 		path {
 			transition: color 200ms ease-in-out;
 		}
-
-		&:hover,
-		&:focus {
-			path {
-				color: ${colors.primaryColorTwo};
-			}
-		}
 	}
 
 	a {
 		border-bottom: none;
 
-		&.active {
+		&.active,
+		&:hover,
+		&:focus {
 			border-bottom: none;
 
 			path {

@@ -17,7 +17,7 @@ export const checkLocalStorageCurrentUser = () => {
 
 	if (localStorage.getItem('user') === null) {
 		user = {
-			id: uuidv4(),
+			id: '',
 			name: '',
 			credentials: {
 				email: '',
@@ -57,6 +57,7 @@ export const addUserCredentialsToLocalStorage = (values) => {
 	let user = checkLocalStorageCurrentUser()
 
 	// setting the user input values
+	user.id = uuidv4()
 	user.name = values.name
 	user.credentials.email = values.email
 	user.credentials.password = values.password
@@ -134,4 +135,41 @@ export const checkIsMovieFavorite = (id) => {
 		?.isFavorite
 
 	return isFavorite
+}
+
+export const followFriend = (values) => {
+	let users = checkLocalStorageUsers()
+	let user = checkLocalStorageCurrentUser()
+
+	// adding a friend in friends array
+	let index = users.findIndex((u) => u.id === user.id)
+	user.friends.push(values)
+	users[index] = user
+
+	localStorage.setItem('users', JSON.stringify(users))
+	localStorage.setItem('user', JSON.stringify(user))
+	return true
+}
+
+export const unfollowFriend = (id) => {
+	let users = checkLocalStorageUsers()
+	let user = checkLocalStorageCurrentUser()
+
+	// removing a friend from friend array
+	let friendIndex = user.friends.findIndex((u) => u.id === id)
+	user.friends.splice(friendIndex, 1)
+	let userIndex = users.findIndex((u) => u.id === user.id)
+	users[userIndex] = user
+
+	localStorage.setItem('users', JSON.stringify(users))
+	localStorage.setItem('user', JSON.stringify(user))
+	return true
+}
+
+export const checkIsFollowed = (id) => {
+	let user = checkLocalStorageCurrentUser()
+	let isFollowed = user.friends.filter((friend) => friend.id === id)[0]
+		?.isFollowed
+
+	return isFollowed
 }
