@@ -6,7 +6,7 @@ import { Route, useHistory } from 'react-router-dom'
 import Header from '../../components/DashboardContent/DashboardHeader'
 import DashboardMoviesContainer from '../../components/DashboardContent/DashboardMoviesContainer'
 import DashboardUsersContainer from '../../components/DashboardContent/DashboardUsersContainer'
-import NotificationsContainer from '../../components/DashboardContent/NotificationsContainer'
+import DashboardNotificationsContainer from '../../components/DashboardContent/DashboardNotificationsContainer'
 
 // utils
 import { Container } from '../../components/GlobalStyles'
@@ -53,7 +53,7 @@ const Dashboard = () => {
 			</Route>
 			<Route
 				path='/dashboard/notifications'
-				component={NotificationsContainer}
+				component={DashboardNotificationsContainer}
 			/>
 		</StyledDashboard>
 	)

@@ -52,7 +52,7 @@ const DashboardUser = ({ user, setUser, setUsers, isUserFriends }) => {
 	)
 }
 
-const StyledDashboardUser = styled.div`
+export const StyledDashboardUser = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

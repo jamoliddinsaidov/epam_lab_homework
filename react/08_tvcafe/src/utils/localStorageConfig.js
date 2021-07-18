@@ -28,6 +28,7 @@ export const checkLocalStorageCurrentUser = () => {
 				recommended: [],
 			},
 			friends: [],
+			notifications: [],
 		}
 	} else {
 		user = JSON.parse(localStorage.getItem('user'))
@@ -171,9 +172,32 @@ export const recommendMovie = (values) => {
 	let users = checkLocalStorageUsers()
 
 	// adding recommended movie
-	let index = users.findIndex((u) => u.id === values.friendId)
+	let index = users.findIndex((user) => user.id === values.friendId)
 	users[index].movies.recommended.push(values)
 
+	// setting notification
+	const notificationValues = {
+		movieId: values.movieId,
+		movieName: values.name,
+		friendId: values.friendId,
+		friendName: values.friendName,
+	}
+	users[index].notifications.push(notificationValues)
+
 	localStorage.setItem('users', JSON.stringify(users))
+	return true
+}
+
+export const clearNotification = (id) => {
+	let users = checkLocalStorageUsers()
+	let user = checkLocalStorageCurrentUser()
+
+	// clearing notification array
+	let index = users.findIndex((u) => u.id === user.id)
+	user.notifications = []
+	users[index] = user
+
+	localStorage.setItem('users', JSON.stringify(users))
+	localStorage.setItem('user', JSON.stringify(user))
 	return true
 }

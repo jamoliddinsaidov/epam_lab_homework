@@ -7,6 +7,7 @@ import DashboardUser from '../DashboardContent/SingleContainers/DashboardUser'
 
 // utils
 import { StyledDashboardMovieList } from './DashboardMovieList'
+import { v4 as uuidv4 } from 'uuid'
 
 const DashboardUsersList = ({
 	users,
@@ -23,7 +24,7 @@ const DashboardUsersList = ({
 				return (
 					<DashboardUser
 						user={user}
-						key={user.id}
+						key={uuidv4()}
 						setUser={setUser}
 						setUsers={setUsers}
 						isUserFriends={isUserFriends}
@@ -34,7 +35,7 @@ const DashboardUsersList = ({
 	)
 }
 
-const StyledDashboardUsersList = styled(StyledDashboardMovieList)`
+export const StyledDashboardUsersList = styled(StyledDashboardMovieList)`
 	width: 40%;
 `
 
