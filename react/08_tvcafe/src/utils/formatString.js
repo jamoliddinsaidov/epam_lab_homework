@@ -10,4 +10,4 @@ export const formatSummary = (summary) =>
 		? summary.replace(/(<([^>]+)>)/gi, '')
 		: 'Movie description is not available...'
 
-export const formatWithComma = (arr) => arr.join(', ')
+export const formatWithComma = (arr) => arr?.join(', ')

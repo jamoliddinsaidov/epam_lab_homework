@@ -25,14 +25,7 @@ export const checkLocalStorageCurrentUser = () => {
 			},
 			movies: {
 				favorites: [],
-				recommended: [
-					{
-						id: '',
-						name: '',
-						image: '',
-						friendId: '',
-					},
-				],
+				recommended: [],
 			},
 			friends: [],
 		}
@@ -172,4 +165,18 @@ export const checkIsFollowed = (id) => {
 		?.isFollowed
 
 	return isFollowed
+}
+
+export const recommendMovie = (values) => {
+	let users = checkLocalStorageUsers()
+	let user = checkLocalStorageCurrentUser()
+
+	// adding recommended movie
+	let index = users.findIndex((u) => u.id === user.id)
+	user.movies.recommended.push(values)
+	users[index] = user
+
+	localStorage.setItem('users', JSON.stringify(users))
+	localStorage.setItem('user', JSON.stringify(user))
+	return true
 }
