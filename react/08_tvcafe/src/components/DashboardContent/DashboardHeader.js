@@ -79,7 +79,7 @@ const StyledHeader = styled.div`
 			height: 12px;
 			border-radius: 50%;
 			background: ${colors.primaryColorTwo};
-			box-shadow: 0 0 2px 1px ${colors.primaryColorTwo};
+			box-shadow: 0 0 3px 0.5px ${colors.primaryColorTwo};
 		}
 	}
 `

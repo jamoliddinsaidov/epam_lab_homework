@@ -52,6 +52,11 @@ const RecommendMoviePopup = ({
 						{friend.name}
 					</h4>
 				))}
+				{user.friends.length === 0 ? (
+					<h4>Seems like you are not following anyone...</h4>
+				) : (
+					''
+				)}
 			</div>
 		</StyledRecommendContainer>
 	)

@@ -19,7 +19,6 @@ const SearchedMovies = () => {
 			{searched.length > 0 ? (
 				<StyledSearchedMovies>
 					<div className='line'></div>
-
 					<DashboardMovieList movies={searched} title='Searched Movies' />
 				</StyledSearchedMovies>
 			) : (

@@ -55,12 +55,12 @@ export const StyledShortDetails = styled.div`
 	margin-top: 0.5em;
 
 	h4 {
-		line-height: 120%;
 		margin-bottom: 0.2em;
 
 		a {
 			font-weight: 700;
 			font-size: 1.5rem;
+			line-height: 80%;
 
 			&:hover {
 				color: ${colors.textColor};

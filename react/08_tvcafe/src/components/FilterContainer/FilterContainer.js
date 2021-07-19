@@ -13,25 +13,37 @@ import { languageList } from './lists/languageList'
 import { ratingList } from './lists/ratingList'
 import { statusList } from './lists/statusList'
 import { colors } from '../GlobalStyles'
-import { v4 as uuidv4 } from 'uuid'
 
 const FilterContainer = ({ optionHandler }) => {
-	// states
-	const lists = [countryList, genreList, languageList, ratingList, statusList]
-	const labels = ['country', 'genres', 'language', 'rating', 'status']
-
 	return (
 		<StyledFilterContainer>
 			<p>You can filter by selecting only one option</p>
 			<div className='selectContainer'>
-				{lists.map((list, index) => (
-					<SelectFilter
-						key={uuidv4()}
-						list={list}
-						label={labels[index]}
-						optionHandler={optionHandler}
-					/>
-				))}
+				<SelectFilter
+					list={countryList}
+					label='country'
+					optionHandler={optionHandler}
+				/>
+				<SelectFilter
+					list={genreList}
+					label='genres'
+					optionHandler={optionHandler}
+				/>
+				<SelectFilter
+					list={languageList}
+					label='language'
+					optionHandler={optionHandler}
+				/>
+				<SelectFilter
+					list={ratingList}
+					label='rating'
+					optionHandler={optionHandler}
+				/>
+				<SelectFilter
+					list={statusList}
+					label='status'
+					optionHandler={optionHandler}
+				/>
 			</div>
 			<Search placeholder='Search movies by name...' />
 			<SearchedMovies />

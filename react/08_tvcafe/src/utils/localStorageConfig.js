@@ -1,10 +1,15 @@
 import { v4 as uuidv4 } from 'uuid'
+import { preMadeUsers } from './preMadeUsers'
 
 export const checkLocalStorageUsers = () => {
 	let users
 
 	if (localStorage.getItem('users') === null) {
 		users = []
+		// adding premade users so that there will be users to follow in the first sign in/up
+		preMadeUsers.forEach((preMadeUser) => {
+			users.push(preMadeUser)
+		})
 	} else {
 		users = JSON.parse(localStorage.getItem('users'))
 	}
@@ -37,9 +42,21 @@ export const checkLocalStorageCurrentUser = () => {
 	return user
 }
 
+const getDataFromLocalStorage = () => {
+	let users = checkLocalStorageUsers()
+	let user = checkLocalStorageCurrentUser()
+
+	return [user, users]
+}
+
+const saveToLocalStorage = (user, users) => {
+	localStorage.setItem('users', JSON.stringify(users))
+	localStorage.setItem('user', JSON.stringify(user))
+}
+
 export const addUserCredentialsToLocalStorage = (values) => {
 	// checking if a user already exists
-	let users = checkLocalStorageUsers()
+	const [user, users] = getDataFromLocalStorage()
 	let alreadyExists = users.some(
 		(user) => user.credentials.email === values.email
 	)
@@ -47,8 +64,6 @@ export const addUserCredentialsToLocalStorage = (values) => {
 	if (alreadyExists) {
 		return 'Account with this email already exists'
 	}
-
-	let user = checkLocalStorageCurrentUser()
 
 	// setting the user input values
 	user.id = uuidv4()
@@ -58,8 +73,7 @@ export const addUserCredentialsToLocalStorage = (values) => {
 
 	// adding a new user
 	users.push(user)
-	localStorage.setItem('users', JSON.stringify(users))
-	localStorage.setItem('user', JSON.stringify(user))
+	saveToLocalStorage(user, users)
 	return true
 }
 
@@ -95,8 +109,8 @@ export const logoutUser = () => {
 export const checkIsUserSignedIn = () => localStorage.getItem('isSignedIn')
 
 export const addFavoriteMovies = (movie) => {
-	let users = checkLocalStorageUsers()
-	let user = checkLocalStorageCurrentUser()
+	const [user, users] = getDataFromLocalStorage()
+	saveToLocalStorage(user, users)
 
 	// setting favorite movie properties
 	user.movies.favorites.push(movie)
@@ -104,22 +118,19 @@ export const addFavoriteMovies = (movie) => {
 	users[index] = user
 
 	// saving to local storage
-	localStorage.setItem('users', JSON.stringify(users))
-	localStorage.setItem('user', JSON.stringify(user))
+	saveToLocalStorage(user, users)
 	return true
 }
 
 export const removeFromFavorites = (id) => {
-	let users = checkLocalStorageUsers()
-	let user = checkLocalStorageCurrentUser()
+	const [user, users] = getDataFromLocalStorage()
 
 	// removing movie from user's favorite list
 	let index = user.movies.favorites.findIndex((movie) => movie.id === id)
 	user.movies.favorites.splice(index, 1)
 	users.filter((u) => u.id === user.id)[0] = user
 
-	localStorage.setItem('users', JSON.stringify(users))
-	localStorage.setItem('user', JSON.stringify(user))
+	saveToLocalStorage(user, users)
 	return true
 }
 
@@ -132,22 +143,19 @@ export const checkIsMovieFavorite = (id) => {
 }
 
 export const followFriend = (values) => {
-	let users = checkLocalStorageUsers()
-	let user = checkLocalStorageCurrentUser()
+	const [user, users] = getDataFromLocalStorage()
 
 	// adding a friend in friends array
 	let index = users.findIndex((u) => u.id === user.id)
 	user.friends.push(values)
 	users[index] = user
 
-	localStorage.setItem('users', JSON.stringify(users))
-	localStorage.setItem('user', JSON.stringify(user))
+	saveToLocalStorage(user, users)
 	return true
 }
 
 export const unfollowFriend = (id) => {
-	let users = checkLocalStorageUsers()
-	let user = checkLocalStorageCurrentUser()
+	const [user, users] = getDataFromLocalStorage()
 
 	// removing a friend from friend array
 	let friendIndex = user.friends.findIndex((u) => u.id === id)
@@ -155,8 +163,7 @@ export const unfollowFriend = (id) => {
 	let userIndex = users.findIndex((u) => u.id === user.id)
 	users[userIndex] = user
 
-	localStorage.setItem('users', JSON.stringify(users))
-	localStorage.setItem('user', JSON.stringify(user))
+	saveToLocalStorage(user, users)
 	return true
 }
 
@@ -189,16 +196,14 @@ export const recommendMovie = (values) => {
 }
 
 export const clearNotification = (id) => {
-	let users = checkLocalStorageUsers()
-	let user = checkLocalStorageCurrentUser()
+	const [user, users] = getDataFromLocalStorage()
 
 	// clearing notification array
 	let index = users.findIndex((u) => u.id === user.id)
 	user.notifications = []
 	users[index] = user
 
-	localStorage.setItem('users', JSON.stringify(users))
-	localStorage.setItem('user', JSON.stringify(user))
+	saveToLocalStorage(user, users)
 	return true
 }
 
