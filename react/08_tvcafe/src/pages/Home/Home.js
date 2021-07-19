@@ -44,6 +44,7 @@ const Home = () => {
 	const [moviesState, setMoviesState] = useState([])
 	const [limit, setLimit] = useState(16)
 	const [isActive, setIsActive] = useState({
+		// according to these buttons' states, the movies change in the home category section
 		popularBtn: true,
 		animationBtn: false,
 		helpBtn: false,

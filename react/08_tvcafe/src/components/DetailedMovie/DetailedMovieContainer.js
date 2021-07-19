@@ -19,11 +19,7 @@ const DetailedMovieContainer = ({ details }) => {
 	return (
 		<StyledDetails>
 			<ImageContainerStyled>
-				<ImageContainer
-					source={details.image.original}
-					name={details.name}
-					className='img'
-				/>
+				<ImageContainer source={details.image.original} name={details.name} />
 			</ImageContainerStyled>
 			<div className='description'>
 				<MovieDetails details={details} />
@@ -79,6 +75,10 @@ const ImageContainerStyled = styled(StyledImageContainer)`
 	max-width: 450px;
 	height: 500px;
 	margin-right: 2em;
+
+	/* img {
+		object-fit: contain;
+	} */
 `
 
 export default DetailedMovieContainer

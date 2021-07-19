@@ -1,12 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
 
+// redux
+import { useDispatch } from 'react-redux'
+import { SearchMovie } from '../../store/actions/searchMovieAction'
+
 // utils
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Container, colors } from '../GlobalStyles'
 
 const Search = ({ placeholder }) => {
+	// fetching data
+	const dispatch = useDispatch()
+
+	const inputHandler = (e) => {
+		dispatch(SearchMovie(e.target.value))
+	}
+
 	return (
 		<StyledSearch>
 			<input
@@ -14,10 +23,8 @@ const Search = ({ placeholder }) => {
 				required
 				name='searchMovieInput'
 				placeholder={placeholder}
+				onChange={inputHandler}
 			/>
-			<button>
-				<FontAwesomeIcon icon={faSearch} />
-			</button>
 		</StyledSearch>
 	)
 }
@@ -28,22 +35,15 @@ const StyledSearch = styled(Container)`
 	margin: 1.5em auto;
 
 	input {
-		border-top-right-radius: 0;
-		border-bottom-right-radius: 0;
+		border-radius: 6px;
 		width: 60%;
-	}
+		padding: 0.5em 1em;
+		background: ${colors.bgBodyColor};
+		border: 1px solid transparent;
+		transition: border-color 300ms ease;
 
-	button {
-		border-top-left-radius: 0;
-		border-bottom-left-radius: 0;
-		border-left: none;
-		width: 6%;
-		opacity: 0.95;
-		transition-property: border-color, opacity;
-
-		&:hover,
+		&:active,
 		&:focus {
-			opacity: 1;
 			border-color: ${colors.textColor};
 		}
 	}

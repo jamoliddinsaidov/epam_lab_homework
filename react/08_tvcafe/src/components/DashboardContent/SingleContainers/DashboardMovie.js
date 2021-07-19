@@ -11,30 +11,44 @@ import ImageContainer, {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { colors } from '../../GlobalStyles'
+import { formatWithComma } from '../../../utils/formatString'
 
-const DashboardMovie = ({ movie }) => {
+const DashboardMovie = ({ movie, isSearched }) => {
 	return (
-		<StyledDashboardMovie>
-			<StyledContainerForImage>
-				<ImageContainer source={movie.image} name={movie.name} />
-			</StyledContainerForImage>
+		<>
+			{movie.image && (
+				<StyledDashboardMovie>
+					<StyledContainerForImage>
+						<ImageContainer
+							source={isSearched ? movie.image.medium : movie.image}
+							name={movie.name}
+						/>
+					</StyledContainerForImage>
 
-			<StyledDetailsContainer>
-				<p>
-					<Link to={`shows/${movie.id || movie.movieId}`}>{movie.name}</Link>
-				</p>
-				<p className='gradient-text'>{movie.genres}</p>
-				{movie.rating && (
-					<p>
-						<FontAwesomeIcon icon={faStar} />
-						{movie.rating}
-					</p>
-				)}
-				{movie.friendName && (
-					<p className='friend-recommend'>recommended by {movie.friendName}</p>
-				)}
-			</StyledDetailsContainer>
-		</StyledDashboardMovie>
+					<StyledDetailsContainer>
+						<p>
+							<Link to={`shows/${movie.id || movie.movieId}`}>
+								{movie.name}
+							</Link>
+						</p>
+						<p className='gradient-text'>
+							{isSearched ? formatWithComma(movie.genres) : movie.genres}
+						</p>
+						{movie.rating && (
+							<p>
+								<FontAwesomeIcon icon={faStar} />
+								{isSearched ? movie.rating.average : movie.rating}
+							</p>
+						)}
+						{movie.friendName && (
+							<p className='friend-recommend'>
+								recommended by {movie.friendName}
+							</p>
+						)}
+					</StyledDetailsContainer>
+				</StyledDashboardMovie>
+			)}
+		</>
 	)
 }
 
