@@ -21,13 +21,15 @@ const DashboardMovie = ({ movie }) => {
 
 			<StyledDetailsContainer>
 				<p>
-					<Link to={`shows/${movie.id}`}>{movie.name}</Link>
+					<Link to={`shows/${movie.id || movie.movieId}`}>{movie.name}</Link>
 				</p>
 				<p className='gradient-text'>{movie.genres}</p>
-				<p>
-					<FontAwesomeIcon icon={faStar} />
-					{movie.rating}
-				</p>
+				{movie.rating && (
+					<p>
+						<FontAwesomeIcon icon={faStar} />
+						{movie.rating}
+					</p>
+				)}
 				{movie.friendName && (
 					<p className='friend-recommend'>recommended by {movie.friendName}</p>
 				)}

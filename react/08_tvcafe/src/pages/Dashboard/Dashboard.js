@@ -27,15 +27,6 @@ const Dashboard = () => {
 		}
 	}, [history])
 
-	// const updateFollowers = () => {
-	// 	// realtime updating friends section
-	// 	const updatedUsers = checkLocalStorageUsers()
-	// 	const updatedUser = checkLocalStorageCurrentUser()
-
-	// 	setUsers(updatedUsers)
-	// 	setUser(updatedUser)
-	// }
-
 	return (
 		<StyledDashboard>
 			<Header user={user} />

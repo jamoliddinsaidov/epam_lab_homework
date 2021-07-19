@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
@@ -10,8 +10,19 @@ import {
 	faUserFriends,
 	faBell,
 } from '@fortawesome/free-solid-svg-icons'
+import { getNotificationsLength } from '../../utils/localStorageConfig'
 
 const Header = ({ user }) => {
+	// states
+	const [notificationsLength, setNotificationsLength] = useState(
+		getNotificationsLength()
+	)
+
+	// handlers
+	const notificationHandler = () => {
+		setNotificationsLength(0)
+	}
+
 	return (
 		<StyledHeader>
 			<h2>Welcome, {user.name}</h2>
@@ -22,8 +33,9 @@ const Header = ({ user }) => {
 				<NavLink to='/dashboard/friends'>
 					<FontAwesomeIcon icon={faUserFriends} size='2x' />
 				</NavLink>
-				<NavLink to='/dashboard/notifications'>
+				<NavLink to='/dashboard/notifications' onClick={notificationHandler}>
 					<FontAwesomeIcon icon={faBell} size='2x' />
+					{notificationsLength === 0 ? '' : <div className='notify'></div>}
 				</NavLink>
 			</div>
 		</StyledHeader>
@@ -47,6 +59,7 @@ const StyledHeader = styled.div`
 
 	a {
 		border-bottom: none;
+		position: relative;
 
 		&.active,
 		&:hover,
@@ -56,6 +69,16 @@ const StyledHeader = styled.div`
 			path {
 				color: ${colors.primaryColorTwo};
 			}
+		}
+
+		.notify {
+			position: absolute;
+			top: -10px;
+			right: -2px;
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			background: ${colors.primaryColorTwo};
 		}
 	}
 `

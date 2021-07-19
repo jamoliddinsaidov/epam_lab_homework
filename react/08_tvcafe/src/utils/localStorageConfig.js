@@ -201,3 +201,8 @@ export const clearNotification = (id) => {
 	localStorage.setItem('user', JSON.stringify(user))
 	return true
 }
+
+export const getNotificationsLength = () => {
+	let user = checkLocalStorageCurrentUser()
+	return user.notifications.length
+}
