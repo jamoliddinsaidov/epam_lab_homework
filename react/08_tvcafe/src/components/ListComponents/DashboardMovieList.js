@@ -10,20 +10,12 @@ import { colors } from '../GlobalStyles'
 import { v4 as uuidv4 } from 'uuid'
 
 const DashboardMovieList = ({ movies, title }) => {
-	const isSearched = title.includes('Searched')
-
 	return (
-		<StyledDashboardMovieList
-			className={isSearched ? 'searchedMoviesContainer' : ''}>
-			{!isSearched && <div className='line'></div>}
+		<StyledDashboardMovieList>
+			<div className='line'></div>
 			<DashboardTitle title={title} />
 			{movies.map((movie) => (
-				<DashboardMovie
-					className={isSearched ? 'searchedMovie' : ''}
-					key={uuidv4()}
-					movie={isSearched ? movie.show : movie}
-					isSearched={isSearched}
-				/>
+				<DashboardMovie key={uuidv4()} movie={movie} />
 			))}
 		</StyledDashboardMovieList>
 	)

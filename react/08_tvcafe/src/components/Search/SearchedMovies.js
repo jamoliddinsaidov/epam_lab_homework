@@ -1,64 +1,110 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 // redux
 import { useSelector } from 'react-redux'
 
 // components
-import DashboardMovieList from '../ListComponents/DashboardMovieList'
+import DashboardTitle from '../Titles/DashboardTitle'
+import ImageContainer from '../DetailedMovie/ImageContainer'
 
 // utils
 import { colors } from '../GlobalStyles'
+import { formatWithComma } from '../../utils/formatString'
 
 const SearchedMovies = () => {
 	// extracting data
-	const { searched } = useSelector((state) => state.searchedMovies)
+	const { searched, isLoading } = useSelector((state) => state.searchedMovies)
 
 	return (
 		<>
-			{searched.length > 0 ? (
+			{searched[0] && (
 				<StyledSearchedMovies>
 					<div className='line'></div>
-					<DashboardMovieList movies={searched} title='Searched Movies' />
+					<DashboardTitle title='Searched Movies' />
+					{!isLoading && searched[0]
+						? searched.map((movie) => (
+								<div className='searchedMovie'>
+									<StyledContainerForImage>
+										<ImageContainer
+											source={movie.show.image ? movie.show.image.medium : ''}
+											name={movie.show.name}
+										/>
+									</StyledContainerForImage>
+									<div className='details'>
+										<p>
+											<Link to={`shows/${movie.show.id}`}>
+												{movie.show.name}
+											</Link>
+										</p>
+										<p className='gradient-text'>
+											{formatWithComma(movie.show.genres)}
+										</p>
+									</div>
+								</div>
+						  ))
+						: ''}
 				</StyledSearchedMovies>
-			) : (
-				''
 			)}
 		</>
 	)
 }
 
 const StyledSearchedMovies = styled.div`
-	.line,
-	.searchedMoviesContainer {
-		width: 40%;
-		margin: 0 auto;
+	width: 40%;
+	margin: 0 auto;
+	animation: appear 300ms ease;
+	max-height: 50vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+
+	img {
+		object-fit: contain;
 	}
 
-	.searchedMoviesContainer {
-		animation: appear 300ms ease;
-		max-height: 40vh;
-		overflow-y: scroll;
+	&::-webkit-scrollbar {
+		width: 0.4em;
+	}
 
-		img {
-			object-fit: contain;
-		}
+	&::-webkit-scrollbar-track {
+		background-color: ${colors.bgNavColor};
+	}
 
-		&::-webkit-scrollbar {
-			width: 0.4em;
-		}
-
-		&::-webkit-scrollbar-track {
-			background-color: ${colors.bgNavColor};
-		}
-
-		&::-webkit-scrollbar-thumb {
-			background-color: ${colors.primaryColorTwo};
-		}
+	&::-webkit-scrollbar-thumb {
+		background-color: ${colors.primaryColorTwo};
 	}
 
 	.searchedMovie {
 		width: 100%;
+		margin-bottom: 1em;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.details {
+		width: 100%;
+
+		p {
+			font-weight: 300;
+		}
+
+		a {
+			font-weight: 800;
+			font-size: 1.3rem;
+		}
+	}
+`
+
+const StyledContainerForImage = styled.div`
+	width: 100%;
+	max-height: 200px;
+	overflow: hidden;
+
+	img {
+		object-fit: contain;
 	}
 `
 

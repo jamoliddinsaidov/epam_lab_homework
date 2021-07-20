@@ -29,6 +29,8 @@ const DashboardUsersContainer = ({ users, user, setUser, setUsers }) => {
 	)
 }
 
-const StyledUsersContainer = styled(StyledUserMoviesContainer)``
+const StyledUsersContainer = styled(StyledUserMoviesContainer)`
+	animation: appear 300ms ease;
+`
 
 export default DashboardUsersContainer

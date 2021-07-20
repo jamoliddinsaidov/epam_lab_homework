@@ -49,6 +49,7 @@ const StyledDashboardNotifications = styled(StyledDashboardUsersList)`
 	width: 55%;
 	margin: 0 auto;
 	padding-bottom: 1em;
+	animation: appear 300ms ease;
 `
 
 const StyledNotification = styled(StyledDashboardUser)`

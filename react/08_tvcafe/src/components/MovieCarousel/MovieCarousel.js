@@ -31,6 +31,7 @@ const MovieCarousel = ({ movies }) => {
 
 const StyledMovieCarousel = styled(Container)`
 	margin: 3em auto;
+	animation: appear 300ms ease;
 
 	.arrow {
 		cursor: pointer;

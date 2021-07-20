@@ -45,6 +45,7 @@ const DetailedMovieContainer = ({ details }) => {
 
 const StyledDetails = styled.div`
 	display: flex;
+	animation: appear 300ms ease;
 
 	.description {
 		p {
@@ -75,10 +76,6 @@ const ImageContainerStyled = styled(StyledImageContainer)`
 	max-width: 450px;
 	height: 500px;
 	margin-right: 2em;
-
-	/* img {
-		object-fit: contain;
-	} */
 `
 
 export default DetailedMovieContainer

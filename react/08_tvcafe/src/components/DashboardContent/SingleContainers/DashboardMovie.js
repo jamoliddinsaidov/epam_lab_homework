@@ -11,18 +11,14 @@ import ImageContainer, {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { colors } from '../../GlobalStyles'
-import { formatWithComma } from '../../../utils/formatString'
 
-const DashboardMovie = ({ movie, isSearched }) => {
+const DashboardMovie = ({ movie }) => {
 	return (
 		<>
 			{movie.image && (
 				<StyledDashboardMovie>
 					<StyledContainerForImage>
-						<ImageContainer
-							source={isSearched ? movie.image.medium : movie.image}
-							name={movie.name}
-						/>
+						<ImageContainer source={movie.image} name={movie.name} />
 					</StyledContainerForImage>
 
 					<StyledDetailsContainer>
@@ -31,13 +27,11 @@ const DashboardMovie = ({ movie, isSearched }) => {
 								{movie.name}
 							</Link>
 						</p>
-						<p className='gradient-text'>
-							{isSearched ? formatWithComma(movie.genres) : movie.genres}
-						</p>
+						<p className='gradient-text'>{movie.genres}</p>
 						{movie.rating && (
 							<p>
 								<FontAwesomeIcon icon={faStar} />
-								{isSearched ? movie.rating.average : movie.rating}
+								{movie.rating}
 							</p>
 						)}
 						{movie.friendName && (

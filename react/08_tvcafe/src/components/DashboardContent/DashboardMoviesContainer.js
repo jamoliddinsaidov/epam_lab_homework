@@ -26,6 +26,7 @@ export const StyledUserMoviesContainer = styled.div`
 	justify-content: space-between;
 	align-items: flex-start;
 	padding-bottom: 3em;
+	animation: appear 300ms ease;
 `
 
 export default DashboardMoviesContainer

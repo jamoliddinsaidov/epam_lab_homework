@@ -78,6 +78,7 @@ export const StyledSignIn = styled.div`
 	width: 30%;
 	margin: 4em auto;
 	background: ${colors.bgNavColor};
+	animation: appear 1000ms ease;
 
 	h2 {
 		font-weight: 600;
