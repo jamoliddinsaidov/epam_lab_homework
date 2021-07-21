@@ -13,6 +13,7 @@ import SignIn from './pages/Auth/SignIn'
 import SignUp from './pages/Auth/SignUp'
 import DetailedMovie from './pages/DetailedMovie/DetailedMovie'
 import Dashboard from './pages/Dashboard/Dashboard'
+import NotFound from './pages/NotFound/NotFound'
 
 const App = () => {
 	return (
@@ -28,6 +29,7 @@ const App = () => {
 				/>
 				<PrivateRouteSignedOut path='/dashboard' component={Dashboard} />
 				<Route path='/' component={Home} exact />
+				<Route component={NotFound} />
 			</Switch>
 		</>
 	)
