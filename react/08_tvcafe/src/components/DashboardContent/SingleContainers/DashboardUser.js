@@ -80,6 +80,28 @@ export const StyledDashboardUser = styled.div`
 		opacity: 0.5;
 		font-size: 0.8rem;
 	}
+
+	@media screen and (max-width: 924px) {
+		h4 {
+			font-size: 1.3rem;
+		}
+
+		button {
+			font-size: 0.8rem;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		padding: 0em 1em;
+
+		h4 {
+			font-size: 1.1rem;
+		}
+
+		p {
+			font-size: 0.7rem;
+		}
+	}
 `
 
 export default DashboardUser

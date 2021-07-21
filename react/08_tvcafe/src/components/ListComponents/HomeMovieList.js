@@ -13,6 +13,7 @@ const HomeMovieList = ({ movies, loadMoreHandler }) => {
 					<MovieCardLong movie={movie} key={movie.id} />
 				))}
 			</StyledHomeMovieList>
+
 			<StyledLoadMoreDiv>
 				<button onClick={loadMoreHandler} className='gradient-container'>
 					Load More
@@ -27,6 +28,13 @@ const StyledHomeMovieList = styled(Container)`
 	justify-content: space-between;
 	flex-wrap: wrap;
 	margin-top: 2em;
+
+	@media screen and (max-width: 924px) {
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-items: center;
+	}
 `
 const StyledLoadMoreDiv = styled.div`
 	display: flex;

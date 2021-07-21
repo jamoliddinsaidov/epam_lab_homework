@@ -26,6 +26,7 @@ const MovieCardShort = ({ movie }) => {
 				<ImageContainerStyled>
 					<ImageContainer source={image} name={name} className='img' />
 				</ImageContainerStyled>
+
 				<StyledShortDetails>
 					<h4>
 						<Link to={`/shows/${id}`}>{name}</Link>
@@ -45,10 +46,21 @@ export const StyledMovieCard = styled.div`
 	width: 250px;
 	min-height: 400px;
 	margin: 0 0.5em;
+
+	@media screen and (max-width: 600px) {
+		width: 400px;
+		min-height: 550px;
+	}
 `
 
 const ImageContainerStyled = styled(StyledImageContainer)`
 	height: 350px;
+
+	@media screen and (max-width: 600px) {
+		width: 350px;
+		min-height: 500px;
+		margin: 0 auto;
+	}
 `
 
 export const StyledShortDetails = styled.div`
@@ -95,6 +107,36 @@ export const StyledShortDetails = styled.div`
 		p {
 			font-weight: 600;
 			font-size: 0.8rem;
+		}
+	}
+
+	@media screen and (max-width: 600px) {
+		text-align: center;
+		margin-top: 1em;
+
+		h4 a {
+			font-size: 2rem;
+			line-height: 130%;
+		}
+
+		.episode p,
+		p {
+			font-size: 1.2rem;
+		}
+
+		.episode {
+			justify-content: center;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		h4 a {
+			font-size: 1.6rem;
+		}
+
+		.episode p,
+		p {
+			font-size: 1rem;
 		}
 	}
 `

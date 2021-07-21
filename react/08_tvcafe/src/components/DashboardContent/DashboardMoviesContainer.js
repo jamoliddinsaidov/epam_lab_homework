@@ -6,7 +6,7 @@ import DashboardMovieList from '../ListComponents/DashboardMovieList'
 
 const DashboardMoviesContainer = ({ user }) => {
 	return (
-		<StyledUserMoviesContainer>
+		<StyledDashboardMoviesContainer>
 			<DashboardMovieList
 				movies={user.movies.favorites}
 				title='Your Favorite Movies'
@@ -17,16 +17,22 @@ const DashboardMoviesContainer = ({ user }) => {
 				title='Recommended Movies'
 				key={user.email}
 			/>
-		</StyledUserMoviesContainer>
+		</StyledDashboardMoviesContainer>
 	)
 }
 
-export const StyledUserMoviesContainer = styled.div`
+export const StyledDashboardMoviesContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
 	padding-bottom: 3em;
 	animation: appear 300ms ease;
+
+	@media screen and (max-width: 768px) {
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
 `
 
 export default DashboardMoviesContainer

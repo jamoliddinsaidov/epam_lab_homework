@@ -29,6 +29,7 @@ const MovieCardLong = ({ movie }) => {
 				<ImageContainerStyled>
 					<ImageContainer source={image} name={name} className='img' />
 				</ImageContainerStyled>
+
 				<StyledLongDetails>
 					<h4>
 						<Link to={`/shows/${id}`}>{name}</Link>
@@ -56,12 +57,34 @@ const StyledMovieCard = styled.div`
 	margin-bottom: 3em;
 	animation: fadeIn 700ms ease;
 
-	&.img {
+	@media screen and (max-width: 924px) {
+		max-width: 90%;
+	}
+
+	@media screen and (max-width: 768px) {
+		max-width: 95%;
+	}
+
+	@media screen and (max-width: 600px) {
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
 	}
 `
 const ImageContainerStyled = styled(StyledImageContainer)`
 	width: 200px;
 	height: 270px;
+
+	@media screen and (max-width: 924px) {
+		width: 250px;
+		height: 320px;
+	}
+
+	@media screen and (max-width: 600px) {
+		width: 280px;
+		height: 350px;
+		margin: 0 auto;
+	}
 `
 
 const StyledLongDetails = styled(StyledShortDetails)`
@@ -93,6 +116,41 @@ const StyledLongDetails = styled(StyledShortDetails)`
 			border-radius: 5px;
 			font-size: 0.9rem;
 			font-weight: 400;
+		}
+	}
+
+	@media screen and (max-width: 924px) {
+		h4 a {
+			font-size: 2rem;
+		}
+
+		.gradient-text {
+			font-size: 1rem;
+		}
+
+		.rating {
+			.language {
+				margin-left: 1em;
+			}
+		}
+
+		.description {
+			font-size: 1.1rem;
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		margin-right: 0;
+	}
+
+	@media screen and (max-width: 600px) {
+		.rating {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.description {
 		}
 	}
 `

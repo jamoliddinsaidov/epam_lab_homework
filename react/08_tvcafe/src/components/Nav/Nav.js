@@ -25,7 +25,10 @@ const Nav = () => {
 		<NavContainer>
 			<StyledNav>
 				<StyledLogo>
-					<FontAwesomeIcon icon={faFilm} size='2x' />
+					<FontAwesomeIcon
+						icon={faFilm}
+						size={window.innerWidth < 480 ? '1x' : '2x'}
+					/>
 					<Link to='/'> tvcafé</Link>
 				</StyledLogo>
 
@@ -54,6 +57,12 @@ const StyledNav = styled(Container)`
 	a {
 		letter-spacing: 2px;
 	}
+
+	@media screen and (max-width: 600px) {
+		a {
+			letter-spacing: 1px;
+		}
+	}
 `
 
 const StyledLogo = styled.div`
@@ -68,6 +77,18 @@ const StyledLogo = styled.div`
 			color: ${colors.textColor};
 			border-color: none;
 			padding: 0;
+		}
+	}
+
+	@media screen and (max-width: 600px) {
+		a {
+			font-size: 1.9rem;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		a {
+			font-size: 1.5rem;
 		}
 	}
 `

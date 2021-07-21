@@ -32,11 +32,13 @@ const Search = ({ placeholder }) => {
 const StyledSearch = styled(Container)`
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	margin: 1.5em auto;
 
 	input {
 		border-radius: 6px;
 		width: 60%;
+		justify-self: center;
 		padding: 0.5em 1em;
 		background: ${colors.bgBodyColor};
 		border: 1px solid transparent;
@@ -45,6 +47,18 @@ const StyledSearch = styled(Container)`
 		&:active,
 		&:focus {
 			border-color: ${colors.textColor};
+		}
+	}
+
+	@media screen and (max-width: 924px) {
+		input {
+			width: 80%;
+		}
+	}
+
+	@media screen and (max-width: 600px) {
+		input {
+			width: 100%;
 		}
 	}
 `

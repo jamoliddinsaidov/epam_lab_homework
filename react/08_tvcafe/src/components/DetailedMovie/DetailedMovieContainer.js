@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 // components
@@ -16,11 +16,16 @@ const DetailedMovieContainer = ({ details }) => {
 	const isUserSignedIn = checkIsUserSignedIn()
 	const [isRecommendClicked, setIsRecommendClicked] = useState(false)
 
+	useEffect(() => {
+		window.scroll(0, 0)
+	}, [isRecommendClicked])
+
 	return (
 		<StyledDetails>
 			<ImageContainerStyled>
 				<ImageContainer source={details.image.original} name={details.name} />
 			</ImageContainerStyled>
+
 			<div className='description'>
 				<MovieDetails details={details} />
 				{isUserSignedIn && (
@@ -69,6 +74,10 @@ const StyledDetails = styled.div`
 		margin-top: 0.5em;
 		margin-right: 2em;
 	}
+
+	@media screen and (max-width: 924px) {
+		flex-direction: column;
+	}
 `
 
 const ImageContainerStyled = styled(StyledImageContainer)`
@@ -76,6 +85,18 @@ const ImageContainerStyled = styled(StyledImageContainer)`
 	max-width: 450px;
 	height: 500px;
 	margin-right: 2em;
+
+	@media screen and (max-width: 924px) {
+		min-width: 400px;
+		max-width: 100%;
+		height: 100%;
+		margin-right: 0;
+		margin-bottom: 2em;
+	}
+
+	@media screen and (max-width: 480px) {
+		min-width: 280px;
+	}
 `
 
 export default DetailedMovieContainer

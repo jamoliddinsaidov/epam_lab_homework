@@ -67,10 +67,6 @@ export const GlobalStyles = createGlobalStyle`
         list-style-type: none;
     }
 
-    h1{
-        font-size: 3rem;
-    }
-
     h2{
         font-size: 2.5rem;
     }
@@ -83,7 +79,7 @@ export const GlobalStyles = createGlobalStyle`
         font-size: 1.5rem;        
     }
 
-    h1,h2,h3,h4{
+    h2,h3,h4{
         font-family: 'Source Sans Pro', sans-serif;
     }
 
@@ -171,9 +167,31 @@ export const GlobalStyles = createGlobalStyle`
 			opacity: 1;
 		}
 	}
+
+    @media screen and (max-width: 1024px){
+        h2{
+            font-size: 2.2rem;
+        }
+
+        h3{
+            font-size: 1.7rem;
+        }
+
+        h4{
+            font-size: 1.3rem;        
+        }
+    }
+
+    @media screen and (max-width: 480px){
+
+    }
 `
 
 export const Container = styled.div`
 	width: 90%;
 	margin: 0 auto;
+
+	@media screen and (max-width: 1024px) {
+		width: 95%;
+	}
 `

@@ -24,6 +24,10 @@ const StyledFooterContainer = styled(Container)`
 	align-items: baseline;
 	justify-content: space-between;
 	padding: 3em 0;
+
+	@media screen and (max-width: 480px) {
+		padding: 2em 1em;
+	}
 `
 
 const StyledFooterColumn = styled.div`
@@ -34,6 +38,28 @@ const StyledFooterColumn = styled.div`
 	h4,
 	p {
 		margin-bottom: 1em;
+	}
+
+	@media screen and (max-width: 768px) {
+		h4 {
+			font-size: 1rem;
+		}
+
+		p {
+			font-size: 0.85rem;
+		}
+	}
+
+	@media screen and (max-width: 600px) {
+		&:nth-child(1) {
+			display: none;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		&:nth-child(2) {
+			display: none;
+		}
 	}
 `
 

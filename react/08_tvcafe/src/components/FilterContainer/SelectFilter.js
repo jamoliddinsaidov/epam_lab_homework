@@ -57,6 +57,12 @@ const StyledSelectFilter = styled.div`
 			border-color: ${colors.textColor};
 		}
 	}
+
+	@media screen and (max-width: 1024px) {
+		select {
+			margin-bottom: 1.5em;
+		}
+	}
 `
 
 export default SelectFilter

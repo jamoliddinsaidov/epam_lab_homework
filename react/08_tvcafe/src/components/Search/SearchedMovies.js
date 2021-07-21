@@ -12,6 +12,7 @@ import ImageContainer from '../DetailedMovie/ImageContainer'
 // utils
 import { colors } from '../GlobalStyles'
 import { formatWithComma } from '../../utils/formatString'
+import { v4 as uuidv4 } from 'uuid'
 
 const SearchedMovies = () => {
 	// extracting data
@@ -25,13 +26,14 @@ const SearchedMovies = () => {
 					<DashboardTitle title='Searched Movies' />
 					{!isLoading && searched[0]
 						? searched.map((movie) => (
-								<div className='searchedMovie'>
+								<div className='searchedMovie' key={uuidv4()}>
 									<StyledContainerForImage>
 										<ImageContainer
 											source={movie.show.image ? movie.show.image.medium : ''}
 											name={movie.show.name}
 										/>
 									</StyledContainerForImage>
+
 									<div className='details'>
 										<p>
 											<Link to={`shows/${movie.show.id}`}>
@@ -95,6 +97,19 @@ const StyledSearchedMovies = styled.div`
 			font-weight: 800;
 			font-size: 1.3rem;
 		}
+	}
+
+	@media screen and (max-width: 1024px) {
+		width: 55%;
+	}
+
+	@media screen and (max-width: 924px) {
+		width: 75%;
+	}
+
+	@media screen and (max-width: 600px) {
+		width: 95%;
+		max-height: 60vh;
 	}
 `
 

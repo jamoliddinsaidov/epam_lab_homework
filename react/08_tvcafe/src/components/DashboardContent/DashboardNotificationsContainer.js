@@ -50,6 +50,22 @@ const StyledDashboardNotifications = styled(StyledDashboardUsersList)`
 	margin: 0 auto;
 	padding-bottom: 1em;
 	animation: appear 300ms ease;
+
+	@media screen and (max-width: 1024px) {
+		width: 65%;
+	}
+
+	@media screen and (max-width: 924px) {
+		width: 75%;
+	}
+
+	@media screen and (max-width: 768px) {
+		width: 85%;
+	}
+
+	@media screen and (max-width: 480px) {
+		width: 90%;
+	}
 `
 
 const StyledNotification = styled(StyledDashboardUser)`

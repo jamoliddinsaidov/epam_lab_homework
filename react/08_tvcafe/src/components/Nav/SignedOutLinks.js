@@ -6,9 +6,6 @@ const SignedInLinks = () => {
 	return (
 		<StyledLinks>
 			<li>
-				<NavLink to='/about'>About</NavLink>
-			</li>
-			<li>
 				<NavLink to='/signin'>Sign In</NavLink>
 			</li>
 			<li>

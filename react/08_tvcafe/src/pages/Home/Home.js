@@ -104,6 +104,7 @@ const Home = () => {
 						<HeaderTitle title='Today on TV' className='h2' />
 						<MovieCarousel movies={scheduledForTodayData} />
 					</div>
+
 					<div>
 						<HomeMovieCategoryContainer
 							isActive={isActive}

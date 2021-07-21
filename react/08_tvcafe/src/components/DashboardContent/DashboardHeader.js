@@ -26,7 +26,7 @@ const Header = ({ user }) => {
 	return (
 		<StyledHeader>
 			<h2>Welcome, {user.name}</h2>
-			<div>
+			<div className='links'>
 				<NavLink to='/dashboard/movies'>
 					<FontAwesomeIcon icon={faFilm} size='2x' />
 				</NavLink>
@@ -81,6 +81,44 @@ const StyledHeader = styled.div`
 			border-radius: 50%;
 			background: ${colors.primaryColorTwo};
 			box-shadow: 0 0 3px 0.5px ${colors.primaryColorTwo};
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		width: 100%;
+		flex-direction: column;
+		justify-content: center;
+
+		h2 {
+			text-align: center;
+		}
+
+		.links {
+			margin-top: 2em;
+			margin-bottom: 1em;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 50%;
+
+			a {
+				display: block;
+
+				.notify {
+					top: 2px;
+					right: 0px;
+				}
+			}
+
+			svg {
+				margin-left: 0;
+			}
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		.links {
+			width: 70%;
 		}
 	}
 `

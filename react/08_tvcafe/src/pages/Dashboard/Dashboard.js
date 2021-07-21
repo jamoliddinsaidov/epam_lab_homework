@@ -52,6 +52,14 @@ const Dashboard = () => {
 
 const StyledDashboard = styled(Container)`
 	width: 85%;
+
+	@media screen and (max-width: 1024px) {
+		width: 90%;
+	}
+
+	@media screen and (max-width: 924px) {
+		width: 95%;
+	}
 `
 
 export default Dashboard

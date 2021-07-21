@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 // utils
 import { Container, colors } from '../GlobalStyles'
@@ -13,8 +14,16 @@ const Footer = () => {
 			<FooterContent />
 
 			<StyledFooterCopyright>
-				<span>© 2021 tvcafé. Created by Jamoliddin Saidov</span>
-				<div>
+				<span>
+					© 2021 tvcafé. Created by{' '}
+					<Link
+						to='https://github.com/sjamoliddin'
+						target='_blank'
+						rel='noopener noreferrer'>
+						Jamoliddin Saidov
+					</Link>
+				</span>
+				<div className='privacy-terms'>
 					<p>Terms of Use</p>
 					<p>Privacy Policy</p>
 				</div>
@@ -51,6 +60,31 @@ const StyledFooterCopyright = styled(Container)`
 		justify-content: space-between;
 		p {
 			margin-left: 1em;
+		}
+	}
+
+	a {
+		font-family: 'Open Sans', sans-serif;
+
+		&:hover,
+		&:focus {
+			color: ${colors.primaryColorThree};
+		}
+
+		font-size: 1rem;
+	}
+
+	@media screen and (max-width: 768px) {
+		span,
+		p,
+		a {
+			font-size: 0.85rem;
+		}
+	}
+
+	@media screen and (max-width: 600px) {
+		.privacy-terms {
+			display: none;
 		}
 	}
 `

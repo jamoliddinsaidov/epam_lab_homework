@@ -47,11 +47,13 @@ const RecommendMoviePopup = ({
 			<div>
 				<h3>Choose one of your friends to recommend</h3>
 				<p onClick={closeHandler}>x</p>
+
 				{user.friends.map((friend) => (
 					<h4 key={friend.id} onClick={() => recommendClickHandler(friend.id)}>
 						{friend.name}
 					</h4>
 				))}
+
 				{user.friends.length === 0 ? (
 					<h4>Seems like you are not following anyone...</h4>
 				) : (
@@ -69,9 +71,9 @@ const StyledRecommendContainer = styled.div`
 	top: 0;
 	left: 0;
 	width: 100%;
-	min-height: 120vh;
+	height: 100vh;
 	pointer-events: none;
-	transition: all 300ms ease;
+	transition: all 500ms ease;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -133,6 +135,26 @@ const StyledRecommendContainer = styled.div`
 		opacity: 1;
 		pointer-events: all;
 		z-index: 100;
+	}
+
+	@media screen and (max-width: 1024px) {
+		div {
+			width: 60%;
+		}
+	}
+
+	@media screen and (max-width: 600px) {
+		div {
+			width: 80%;
+		}
+
+		h3 {
+			font-size: 1.3rem;
+		}
+
+		h4 {
+			font-size: 1.3rem;
+		}
 	}
 `
 

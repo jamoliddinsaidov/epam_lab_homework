@@ -41,7 +41,7 @@ const DetailedMovie = () => {
 }
 
 const StyledDetailedMovieContainer = styled(Container)`
-	width: 80%;
+	width: 90%;
 	margin: 2em auto;
 `
 

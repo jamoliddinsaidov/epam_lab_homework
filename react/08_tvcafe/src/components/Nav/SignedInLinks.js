@@ -15,9 +15,6 @@ const SignedInLinks = () => {
 	return (
 		<StyledLinks>
 			<li>
-				<NavLink to='/about'>About</NavLink>
-			</li>
-			<li>
 				<NavLink to='/dashboard'>Dashboard</NavLink>
 			</li>
 			<li>
@@ -41,6 +38,22 @@ export const StyledLinks = styled.ul`
 	a {
 		text-transform: uppercase;
 		font-weight: 300;
+	}
+
+	@media screen and (max-width: 600px) {
+		a {
+			font-size: 1rem;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		li {
+			margin-left: 1em;
+		}
+
+		a {
+			font-size: 0.9rem;
+		}
 	}
 `
 

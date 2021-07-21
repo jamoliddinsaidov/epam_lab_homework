@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import DashboardUsersList from '../ListComponents/DashboardUsersList'
 
 // utils
-import { StyledUserMoviesContainer } from './DashboardMoviesContainer'
+import { StyledDashboardMoviesContainer } from './DashboardMoviesContainer'
 
 const DashboardUsersContainer = ({ users, user, setUser, setUsers }) => {
 	const usersOnPlatformExceptCurrent = users.filter((u) => u.id !== user.id)
@@ -29,8 +29,14 @@ const DashboardUsersContainer = ({ users, user, setUser, setUsers }) => {
 	)
 }
 
-const StyledUsersContainer = styled(StyledUserMoviesContainer)`
+const StyledUsersContainer = styled(StyledDashboardMoviesContainer)`
 	animation: appear 300ms ease;
+
+	@media screen and (max-width: 768px) {
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
 `
 
 export default DashboardUsersContainer

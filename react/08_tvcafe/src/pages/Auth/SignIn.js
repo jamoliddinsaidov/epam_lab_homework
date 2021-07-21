@@ -85,6 +85,27 @@ export const StyledSignIn = styled.div`
 		margin-top: 1em;
 		font-size: 2rem;
 	}
+
+	@media screen and (max-width: 1024px) {
+		width: 45%;
+	}
+
+	@media screen and (max-width: 924px) {
+		width: 55%;
+	}
+
+	@media screen and (max-width: 768px) {
+		width: 65%;
+	}
+
+	@media screen and (max-width: 600px) {
+		width: 75%;
+	}
+
+	@media screen and (max-width: 480px) {
+		width: 90%;
+		margin: 2em auto;
+	}
 `
 
 export const StyledFormContainer = styled.div`
@@ -112,6 +133,13 @@ export const StyledForm = styled.form`
 
 		&::placeholder {
 			font-size: 0.9rem;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		input,
+		button {
+			width: 100%;
 		}
 	}
 `

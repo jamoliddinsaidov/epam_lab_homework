@@ -46,7 +46,9 @@ const HomeMovieCategoryContainer = ({ isActive, setIsActive }) => {
 			<div>
 				<HeaderTitle title='we offer' />
 			</div>
+
 			<div className='line'></div>
+
 			<StyledHomeOptions>
 				<button
 					onClick={clickHandler}
@@ -100,6 +102,13 @@ const StyledHomeOptions = styled(Container)`
 			border-color: ${colors.primaryColorTwo};
 			padding: 0 0.5em;
 		}
+	}
+
+	@media screen and (max-width: 924px) {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
 	}
 `
 
