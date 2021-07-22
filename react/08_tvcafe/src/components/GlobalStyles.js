@@ -13,7 +13,7 @@ export const colors = {
 }
 
 export const GlobalStyles = createGlobalStyle`
-    *{
+    * {
         margin: 0;
         padding: 0;
         color: ${colors.textColor};
@@ -21,10 +21,10 @@ export const GlobalStyles = createGlobalStyle`
         font-family: 'Open Sans', sans-serif;
     }
 
-    html{
+    html {
         scroll-behavior: smooth;
 
-        &::-webkit-scrollbar{
+        &::-webkit-scrollbar {
             width: .4em;
         }
 
@@ -32,17 +32,17 @@ export const GlobalStyles = createGlobalStyle`
         	background-color: ${colors.primaryColorTwo};
         }
 
-        &::-webkit-scrollbar-thumb{
+        &::-webkit-scrollbar-thumb {
             background-color: ${colors.bgNavColor};
         }
     }
 
-    body{
+    body {
         background: ${colors.bgBodyColor};
         width: 100%;              
     }    
 
-    a{
+    a { 
         font-family: 'Source Sans Pro', sans-serif;
         font-weight: 500;
         text-decoration: none;
@@ -53,42 +53,46 @@ export const GlobalStyles = createGlobalStyle`
         transition: 300ms ease-in-out;
         transition-property: color, padding, border-color;
         
-        &:hover, &:focus, &.active{
+        &:hover, 
+        &:focus, 
+        &.active {
             color: ${colors.primaryColorTwo};
         }
 
-        &.active{
+        &.active {
             border-color: ${colors.primaryColorTwo};
             padding: 0 0.5em;
         }
     }
 
-    ul{
+    ul {
         list-style-type: none;
     }
 
-    h2{
+    h2 {
         font-size: 2.5rem;
     }
 
-    h3{
+    h3 {
         font-size: 2rem;
     }
 
-    h4{
+    h4 {
         font-size: 1.5rem;        
     }
 
-    h2,h3,h4{
+    h2,
+    h3,
+    h4 {
         font-family: 'Source Sans Pro', sans-serif;
     }
 
-    p{
+    p {
         font-size: 1rem;
         line-height: 150%;
     }
 
-    input{        
+    input {        
         border: 1.5px solid ${colors.textColor};
         border-radius: 4px;
         outline: none;
@@ -99,12 +103,12 @@ export const GlobalStyles = createGlobalStyle`
         font-size: 1rem;
 
         &:active,
-        &:focus{
+        &:focus {
             border-color: ${colors.primaryColorTwo}; 
         }        
     }
 
-    button{
+    button {
         font-size: 1rem;  
         padding: 1em;
         cursor: pointer;
@@ -116,7 +120,7 @@ export const GlobalStyles = createGlobalStyle`
         transition-property: background, border-color, box-shadow;
     }
 
-    .gradient-text{
+    .gradient-text {
         background-image: -webkit-linear-gradient(0deg, ${colors.primaryColorThree} 0%, ${colors.primaryColorTwo} 100%);
 		-webkit-background-clip: text;
 		background-clip: text;
@@ -124,7 +128,7 @@ export const GlobalStyles = createGlobalStyle`
 		color: #ff5860;
     }
 
-    .line, .gradient-container{
+    .line, .gradient-container {
         background-image: -moz-linear-gradient(90deg, ${colors.primaryColorThree} 0%, ${colors.primaryColorTwo} 100%);
         background-image: -webkit-linear-gradient(90deg, ${colors.primaryColorThree} 0%, ${colors.primaryColorTwo} 100%);
         background-image: -ms-linear-gradient(90deg, ${colors.primaryColorThree} 0%, ${colors.primaryColorTwo} 100%);
@@ -133,16 +137,16 @@ export const GlobalStyles = createGlobalStyle`
         box-shadow: 0 0 20px 0 rgb(255 88 96 / 50%);
     }
 
-    .gradient-container{        
+    .gradient-container {        
         opacity: 0.85;
         transition: opacity 300ms ease;
 
-        &:hover{
+        &:hover {
             opacity: 1;
         }
     }
 
-    .line{
+    .line {
         width: 100%;
         height: 2px;
         display: block;
@@ -168,8 +172,8 @@ export const GlobalStyles = createGlobalStyle`
 		}
 	}
 
-    @media screen and (max-width: 1024px){
-        h2{
+    @media screen and (max-width: 1024px) {
+        h2 {
             font-size: 2.2rem;
         }
 
@@ -180,11 +184,7 @@ export const GlobalStyles = createGlobalStyle`
         h4{
             font-size: 1.3rem;        
         }
-    }
-
-    @media screen and (max-width: 480px){
-
-    }
+    } 
 `
 
 export const Container = styled.div`

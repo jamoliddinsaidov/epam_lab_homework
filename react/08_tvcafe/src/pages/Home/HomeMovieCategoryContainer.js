@@ -109,6 +109,10 @@ const StyledHomeOptions = styled(Container)`
 		align-items: center;
 		justify-content: center;
 		flex-wrap: wrap;
+
+		button {
+			margin-right: 0;
+		}
 	}
 `
 

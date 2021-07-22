@@ -15,13 +15,7 @@ const Footer = () => {
 
 			<StyledFooterCopyright>
 				<span>
-					© 2021 tvcafé. Created by{' '}
-					<Link
-						to='https://github.com/sjamoliddin'
-						target='_blank'
-						rel='noopener noreferrer'>
-						Jamoliddin Saidov
-					</Link>
+					© 2021 tvcafé. Created by <Link to='#'>Jamoliddin Saidov</Link>
 				</span>
 				<div className='privacy-terms'>
 					<p>Terms of Use</p>
