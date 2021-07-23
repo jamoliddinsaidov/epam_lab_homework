@@ -8,6 +8,7 @@ import HomeMovieList from '../../components/ListComponents/HomeMovieList'
 import Footer from '../../components/Footer/Footer'
 import HomeMovieCategoryContainer from './HomeMovieCategoryContainer'
 import FilterContainer from '../../components/FilterContainer/FilterContainer'
+import LoadSpinner from '../../components/LoadSpinner'
 
 // redux
 import { useDispatch, useSelector } from 'react-redux'
@@ -98,7 +99,7 @@ const Home = () => {
 
 	return (
 		<StyledHome>
-			{!isLoading && (
+			{!isLoading ? (
 				<>
 					<div>
 						<HeaderTitle title='Today on TV' className='h2' />
@@ -120,9 +121,11 @@ const Home = () => {
 							loadMoreHandler={loadMoreHandler}
 						/>
 					</div>
+					<Footer />
 				</>
+			) : (
+				<LoadSpinner />
 			)}
-			<Footer />
 		</StyledHome>
 	)
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 // utils
@@ -13,6 +13,7 @@ const RecommendMoviePopup = ({
 	isRecommendClicked,
 	setIsRecommendClicked,
 	details,
+	setShowSuccessMsg,
 }) => {
 	// states
 	const user = checkLocalStorageCurrentUser()
@@ -21,6 +22,7 @@ const RecommendMoviePopup = ({
 	const closeHandler = () => {
 		setIsRecommendClicked(!isRecommendClicked)
 		document.body.style.overflow = 'visible'
+		setShowSuccessMsg(false)
 	}
 
 	const recommendClickHandler = (friendId) => {
@@ -36,6 +38,7 @@ const RecommendMoviePopup = ({
 
 		// adding the recommended movie to user's movielist
 		recommendMovie(movieDetails)
+		setShowSuccessMsg(true)
 
 		// closing the popup
 		setIsRecommendClicked(!isRecommendClicked)
@@ -77,6 +80,10 @@ const StyledRecommendContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	span {
+		margin-bottom: 1.5em;
+	}
 
 	div {
 		position: relative;

@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom'
 
 // utils
 import HeaderTitle from '../../components/Titles/HeaderTitle'
-import { loginUser } from '../../utils/localStorageConfig'
+import { loginUser, checkIsUserSignedUp } from '../../utils/localStorageConfig'
 import { colors } from '../../components/GlobalStyles'
 
 const SignIn = () => {
@@ -12,6 +12,7 @@ const SignIn = () => {
 	const [values, setValues] = useState({ name: '', email: '', password: '' })
 	const [error, setError] = useState('')
 	const history = useHistory()
+	const isUserSignedUp = checkIsUserSignedUp()
 
 	// handlers
 	const changeHandler = (e) => {
@@ -36,8 +37,10 @@ const SignIn = () => {
 		<StyledSignIn>
 			<div className='line'></div>
 			<HeaderTitle title='Sign In' />
-
 			<StyledFormContainer>
+				{isUserSignedUp && !error && (
+					<p className='success'>Account is created. You can sign in now.</p>
+				)}
 				{error && <p className='error'>{error}</p>}
 				<StyledForm>
 					<input
@@ -110,11 +113,6 @@ export const StyledSignIn = styled.div`
 
 export const StyledFormContainer = styled.div`
 	padding: 0 1.5em 2em;
-
-	.error {
-		text-align: center;
-		color: ${colors.dangerColor};
-	}
 `
 
 export const StyledForm = styled.form`

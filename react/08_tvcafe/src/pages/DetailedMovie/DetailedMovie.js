@@ -9,6 +9,7 @@ import { LoadMovieById } from '../../store/actions/detailedMovieAction'
 // components
 import HeaderTitle from '../../components/Titles/HeaderTitle'
 import DetailedMovieContainer from '../../components/DetailedMovie/DetailedMovieContainer'
+import LoadSpinner from '../../components/LoadSpinner'
 
 // utils
 import { Container } from '../../components/GlobalStyles'
@@ -28,13 +29,15 @@ const DetailedMovie = () => {
 
 	return (
 		<div>
-			{!isLoading && (
+			{!isLoading ? (
 				<StyledDetailedMovieContainer>
 					<HeaderTitle title={details.name} />
 					{details.image?.original && (
 						<DetailedMovieContainer details={details} />
 					)}
 				</StyledDetailedMovieContainer>
+			) : (
+				<LoadSpinner />
 			)}
 		</div>
 	)

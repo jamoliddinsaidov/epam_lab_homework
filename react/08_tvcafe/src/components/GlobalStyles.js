@@ -152,6 +152,19 @@ export const GlobalStyles = createGlobalStyle`
         display: block;
     }    
 
+    .error,
+	.success {
+		text-align: center;
+	}
+
+    .error{
+        color: ${colors.dangerColor};
+    }
+
+    .success{
+        color: ${colors.successClor};
+    }
+
     @keyframes fadeIn {
 		0% {
 			transform: scale(0.8);

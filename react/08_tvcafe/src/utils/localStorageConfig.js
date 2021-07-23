@@ -74,8 +74,11 @@ export const addUserCredentialsToLocalStorage = (values) => {
 	// adding a new user
 	users.push(user)
 	saveToLocalStorage(user, users)
+	localStorage.setItem('isSignedUp', true)
 	return true
 }
+
+export const checkIsUserSignedUp = () => localStorage.getItem('isSignedUp')
 
 export const loginUser = (values) => {
 	if (localStorage.getItem('users') === null) {
@@ -98,6 +101,7 @@ export const loginUser = (values) => {
 	// set the current user
 	localStorage.setItem('user', JSON.stringify(user[0]))
 	localStorage.setItem('isSignedIn', true)
+	localStorage.removeItem('isSignedUp')
 	return true
 }
 

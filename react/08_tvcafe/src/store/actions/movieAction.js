@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {
 	moviesScheduledForTodayUrl,
-	mixedMoviesUrl,
+	pagedMoviesUrl,
 } from '../../utils/tvmazeApi'
 import { currentDate } from '../../utils/getDates'
 import {
@@ -26,15 +26,15 @@ export const LoadMovies = () => async (dispatch) => {
 		)
 
 		// popular shows
-		const showsData = await axios.get(mixedMoviesUrl())
-		const popularShowsData = showsData.data.filter(
+		const showsDataPageZero = await axios.get(pagedMoviesUrl(0))
+		const showsDataPageOne = await axios.get(pagedMoviesUrl(1))
+		const showsData = [...showsDataPageZero.data, ...showsDataPageOne.data]
+		const popularShowsData = showsData.filter(
 			(show) => show.rating.average >= 8
 		)
 
 		// animations
-		const animationsData = showsData.data.filter(
-			(show) => show.type === 'Animation'
-		)
+		const animationsData = showsData.filter((show) => show.type === 'Animation')
 
 		dispatch({
 			type: FETCH_MOVIES_SUCCESS,
@@ -42,7 +42,7 @@ export const LoadMovies = () => async (dispatch) => {
 				scheduledForToday: filteredTodayMoviesData,
 				popularShows: popularShowsData,
 				animations: animationsData,
-				allMovies: showsData.data,
+				allMovies: showsData,
 			},
 		})
 	} catch (error) {

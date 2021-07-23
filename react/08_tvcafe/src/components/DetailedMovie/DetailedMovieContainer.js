@@ -15,6 +15,7 @@ const DetailedMovieContainer = ({ details }) => {
 	// states
 	const isUserSignedIn = checkIsUserSignedIn()
 	const [isRecommendClicked, setIsRecommendClicked] = useState(false)
+	const [showSuccessMsg, setShowSuccessMsg] = useState(false)
 
 	useEffect(() => {
 		window.scroll(0, 0)
@@ -28,6 +29,9 @@ const DetailedMovieContainer = ({ details }) => {
 
 			<div className='description'>
 				<MovieDetails details={details} />
+				{showSuccessMsg && (
+					<p className='success'>Movie's successfully recommended</p>
+				)}
 				{isUserSignedIn && (
 					<div>
 						<FavoriteRecommendButtons
@@ -43,6 +47,7 @@ const DetailedMovieContainer = ({ details }) => {
 				details={details}
 				isRecommendClicked={isRecommendClicked}
 				setIsRecommendClicked={setIsRecommendClicked}
+				setShowSuccessMsg={setShowSuccessMsg}
 			/>
 		</StyledDetails>
 	)
@@ -66,6 +71,10 @@ const StyledDetails = styled.div`
 
 		.summary {
 			font-weight: 400;
+		}
+
+		.success {
+			text-align: left;
 		}
 	}
 
