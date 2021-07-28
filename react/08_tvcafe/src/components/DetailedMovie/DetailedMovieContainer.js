@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
 // components
-import ImageContainer, { StyledImageContainer } from './ImageContainer'
-import MovieDetails from './MovieDetails'
-import FavoriteRecommendButtons from './FavoriteRecommendButtons'
-import RecommendMoviePopup from './RecommendMoviePopup'
+import ImageContainer, { StyledImageContainer } from './ImageContainer';
+import MovieDetails from './MovieDetails';
+import FavoriteRecommendButtons from './FavoriteRecommendButtons';
+import RecommendMoviePopup from './RecommendMoviePopup';
 
 // utils
-import { colors } from '../GlobalStyles'
-import { checkIsUserSignedIn } from '../../utils/localStorageConfig'
+import { colors, Container } from '../GlobalStyles';
+import { checkIsUserSignedIn } from '../../utils/localStorageConfig';
 
 const DetailedMovieContainer = ({ details }) => {
 	// states
-	const isUserSignedIn = checkIsUserSignedIn()
-	const [isRecommendClicked, setIsRecommendClicked] = useState(false)
-	const [showSuccessMsg, setShowSuccessMsg] = useState(false)
+	const isUserSignedIn = checkIsUserSignedIn();
+	const [isRecommendClicked, setIsRecommendClicked] = useState(false);
+	const [showSuccessMsg, setShowSuccessMsg] = useState(false);
 
 	useEffect(() => {
-		window.scroll(0, 0)
-	}, [isRecommendClicked])
+		window.scroll(0, 0);
+	}, [isRecommendClicked]);
 
 	return (
 		<StyledDetails>
@@ -50,10 +50,10 @@ const DetailedMovieContainer = ({ details }) => {
 				setShowSuccessMsg={setShowSuccessMsg}
 			/>
 		</StyledDetails>
-	)
-}
+	);
+};
 
-const StyledDetails = styled.div`
+const StyledDetails = styled(Container)`
 	display: flex;
 	animation: appear 300ms ease;
 
@@ -87,7 +87,7 @@ const StyledDetails = styled.div`
 	@media screen and (max-width: 924px) {
 		flex-direction: column;
 	}
-`
+`;
 
 const ImageContainerStyled = styled(StyledImageContainer)`
 	min-width: 400px;
@@ -106,6 +106,6 @@ const ImageContainerStyled = styled(StyledImageContainer)`
 	@media screen and (max-width: 480px) {
 		min-width: 280px;
 	}
-`
+`;
 
-export default DetailedMovieContainer
+export default DetailedMovieContainer;

@@ -4,13 +4,8 @@ export const countryList = [
 	'Select',
 	'Afghanistan',
 	'Africa',
-	'Albania',
-	'Algeria',
-	'Antarctica',
-	'Antigua and Barbuda',
 	'Argentina',
 	'Armenia',
-	'Aruba',
 	'Australia',
 	'Austria',
 	'Azerbaijan',
@@ -130,4 +125,4 @@ export const countryList = [
 	'Yemen',
 	'Zambia',
 	'Zimbabwe',
-]
+];

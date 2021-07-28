@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 // utils
 import {
 	checkLocalStorageCurrentUser,
 	recommendMovie,
-} from '../../utils/localStorageConfig'
-import { colors } from '../GlobalStyles'
-import { formatWithComma } from '../../utils/formatString'
+} from '../../utils/localStorageConfig';
+import { colors } from '../GlobalStyles';
+import { formatWithComma } from '../../utils/formatString';
 
 const RecommendMoviePopup = ({
 	isRecommendClicked,
@@ -16,14 +16,14 @@ const RecommendMoviePopup = ({
 	setShowSuccessMsg,
 }) => {
 	// states
-	const user = checkLocalStorageCurrentUser()
+	const user = checkLocalStorageCurrentUser();
 
 	// handlers
 	const closeHandler = () => {
-		setIsRecommendClicked(!isRecommendClicked)
-		document.body.style.overflow = 'visible'
-		setShowSuccessMsg(false)
-	}
+		setIsRecommendClicked(!isRecommendClicked);
+		document.body.style.overflow = 'visible';
+		setShowSuccessMsg(false);
+	};
 
 	const recommendClickHandler = (friendId) => {
 		const movieDetails = {
@@ -34,16 +34,16 @@ const RecommendMoviePopup = ({
 			genres: formatWithComma(details.genres),
 			friendName: user.name,
 			friendId,
-		}
+		};
 
 		// adding the recommended movie to user's movielist
-		recommendMovie(movieDetails)
-		setShowSuccessMsg(true)
+		recommendMovie(movieDetails);
+		setShowSuccessMsg(true);
 
 		// closing the popup
-		setIsRecommendClicked(!isRecommendClicked)
-		document.body.style.overflow = 'visible'
-	}
+		setIsRecommendClicked(!isRecommendClicked);
+		document.body.style.overflow = 'visible';
+	};
 
 	return (
 		<StyledRecommendContainer className={isRecommendClicked ? 'popup' : ''}>
@@ -64,8 +64,8 @@ const RecommendMoviePopup = ({
 				)}
 			</div>
 		</StyledRecommendContainer>
-	)
-}
+	);
+};
 
 const StyledRecommendContainer = styled.div`
 	opacity: 0;
@@ -163,6 +163,6 @@ const StyledRecommendContainer = styled.div`
 			font-size: 1.3rem;
 		}
 	}
-`
+`;
 
-export default RecommendMoviePopup
+export default RecommendMoviePopup;

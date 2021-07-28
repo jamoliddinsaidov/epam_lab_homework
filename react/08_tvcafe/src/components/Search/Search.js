@@ -1,20 +1,20 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 // redux
-import { useDispatch } from 'react-redux'
-import { SearchMovie } from '../../store/actions/searchMovieAction'
+import { useDispatch } from 'react-redux';
+import { SearchMovie } from '../../store/actions/searchMovieAction';
 
 // utils
-import { Container, colors } from '../GlobalStyles'
+import { Container, colors } from '../GlobalStyles';
 
 const Search = ({ placeholder }) => {
 	// fetching data
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 
 	const inputHandler = (e) => {
-		dispatch(SearchMovie(e.target.value))
-	}
+		dispatch(SearchMovie(e.target.value));
+	};
 
 	return (
 		<StyledSearch>
@@ -24,10 +24,11 @@ const Search = ({ placeholder }) => {
 				name='searchMovieInput'
 				placeholder={placeholder}
 				onChange={inputHandler}
+				autoComplete='off'
 			/>
 		</StyledSearch>
-	)
-}
+	);
+};
 
 const StyledSearch = styled(Container)`
 	display: flex;
@@ -61,6 +62,6 @@ const StyledSearch = styled(Container)`
 			width: 100%;
 		}
 	}
-`
+`;
 
-export default Search
+export default Search;
