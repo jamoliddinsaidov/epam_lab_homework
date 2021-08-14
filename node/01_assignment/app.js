@@ -1,9 +1,13 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 
-app.get('/', (req, res) => {
-	res.json({ msg: 'hello' })
-})
+// setup middlewares
+app.use(morgan('tiny'))
+app.use(express.json())
+
+// routes
+app.use('/api/files', require('./routes/files'))
 
 app.listen(8080, (error) => {
 	if (error) console.log(error)

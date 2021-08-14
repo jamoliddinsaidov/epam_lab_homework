@@ -1,9 +1,4 @@
 {
-	"dependencies": {
-		"express": "^4.17.1",
-		"morgan": "^1.10.0",
-		"nodemon": "^2.0.12"
-	},
 	"name": "01_assignment",
 	"version": "1.0.0",
 	"description": "a simple web-server which hosts and serves files",
@@ -11,6 +6,11 @@
 	"scripts": {
 		"start": "node app.js",
 		"dev": "nodemon app.js"
+	},
+	"dependencies": {
+		"express": "^4.17.1",
+		"morgan": "^1.10.0",
+		"nodemon": "^2.0.12"
 	},
 	"author": "jamoliddin saidov",
 	"license": "ISC"
