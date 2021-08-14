@@ -1,6 +1,6 @@
-const { writeFile } = require('fs').promises
+const { writeFile, readdir } = require('fs')
 const path = require('path')
-const absolutePath = path.resolve('./files')
+const filesFolder = path.resolve('./files')
 const supportedExtensions = ['log', 'txt', 'json', 'yaml', 'xml', 'js']
 
 const createFile = (req, res) => {
@@ -24,7 +24,9 @@ const createFile = (req, res) => {
 
 		// check if the extension is valid
 		if (supportedExtensions.includes(extension)) {
-			writeFile(`${absolutePath}/${filename}`, content)
+			writeFile(`${filesFolder}/${filename}`, content, (err) => {
+				if (err) throw err
+			})
 
 			res.status(200).json({ message: 'File created successfully' })
 			return
@@ -38,4 +40,25 @@ const createFile = (req, res) => {
 	}
 }
 
-module.exports = { createFile }
+const getFiles = (req, res) => {
+	try {
+		let files = []
+
+		readdir(filesFolder, (err, result) => {
+			if (err) {
+				res.status(400).json({ message: 'Client error' })
+				return
+			}
+
+			result.forEach((file) => {
+				files.push(file)
+			})
+		})
+
+		res.status(200).json({ message: 'Success', files })
+	} catch (error) {
+		res.status(500).json({ message: 'Server error' })
+	}
+}
+
+module.exports = { createFile, getFiles }
