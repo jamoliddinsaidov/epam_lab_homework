@@ -1,6 +1,9 @@
-const { writeFile, readdir } = require('fs')
+const { writeFile, readdir, readFile, stat } = require('fs')
 const path = require('path')
 const filesFolder = path.resolve('./files')
+
+// utils
+const { getFileExtension } = require('../utils/getFileExtension')
 const supportedExtensions = ['log', 'txt', 'json', 'yaml', 'xml', 'js']
 
 const createFile = (req, res) => {
@@ -19,8 +22,7 @@ const createFile = (req, res) => {
 		}
 
 		// extractiong extention of the file
-		const filenameArr = filename.split('.')
-		const extension = filenameArr[filenameArr.length - 1]
+		const extension = getFileExtension(filename)
 
 		// check if the extension is valid
 		if (supportedExtensions.includes(extension)) {
@@ -46,19 +48,52 @@ const getFiles = (req, res) => {
 
 		readdir(filesFolder, (err, result) => {
 			if (err) {
-				res.status(400).json({ message: 'Client error' })
+				res.status(500).json({ message: 'Server error' })
 				return
 			}
 
 			result.forEach((file) => {
 				files.push(file)
 			})
-		})
 
-		res.status(200).json({ message: 'Success', files })
+			res.status(200).json({ message: 'Success', files })
+		})
+	} catch (error) {
+		res.status(400).json({ message: 'Client error' })
+	}
+}
+
+const getFile = (req, res) => {
+	try {
+		const { filename } = req.params
+		const extension = getFileExtension(filename)
+
+		stat(`${filesFolder}\\${filename}`, (err, stats) => {
+			if (err) {
+				res.status(400).json({ message: `No file with '${filename}' filename found` })
+				return
+			}
+
+			let uploadedDate = stats.birthtime
+
+			readFile(`${filesFolder}\\${filename}`, 'utf8', (err, content) => {
+				if (err) {
+					res.status(500).json({ message: 'Server error' })
+					return
+				}
+
+				res.json({
+					message: 'Success',
+					filename,
+					content,
+					extension,
+					uploadedDate,
+				})
+			})
+		})
 	} catch (error) {
 		res.status(500).json({ message: 'Server error' })
 	}
 }
 
-module.exports = { createFile, getFiles }
+module.exports = { createFile, getFiles, getFile }
