@@ -27,11 +27,13 @@ const createFile = (req, res) => {
 		// check if the extension is valid
 		if (supportedExtensions.includes(extension)) {
 			writeFile(`${filesFolder}/${filename}`, content, (err) => {
-				if (err) throw err
+				if (err) {
+					res.status(500).json({ message: 'Server error' })
+					return
+				}
 			})
 
 			res.status(200).json({ message: 'File created successfully' })
-			return
 		} else {
 			res.status(400).json({
 				message: `File extention should be one of the followings: ${supportedExtensions.map((ext) => ext)}`,
@@ -113,4 +115,39 @@ const deleteFile = (req, res) => {
 	}
 }
 
-module.exports = { createFile, getFiles, getFile, deleteFile }
+const updateFile = (req, res) => {
+	try {
+		const { filename, content } = req.body
+
+		// checking if filename and content parameters are provided
+		if (filename === undefined) {
+			res.status(400).json({ message: "Please specify 'filename' parameter" })
+			return
+		}
+
+		if (content === undefined) {
+			res.status(400).json({ message: "Please specify 'content' parameter" })
+			return
+		}
+
+		stat(path.join(filesFolder, filename), (err, stats) => {
+			if (err) {
+				res.status(400).json({ message: `No file with '${filename}' filename found` })
+				return
+			}
+
+			writeFile(path.join(filesFolder, filename), content, (err) => {
+				if (err) {
+					res.status(500).json({ message: 'Server error' })
+					return
+				}
+
+				res.status(200).json({ message: `${filename} is successfully updated` })
+			})
+		})
+	} catch (error) {
+		res.status(500).json({ message: 'Server error' })
+	}
+}
+
+module.exports = { createFile, getFiles, getFile, deleteFile, updateFile }
