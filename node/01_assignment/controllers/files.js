@@ -1,4 +1,4 @@
-const { writeFile, readdir, readFile, stat } = require('fs')
+const { writeFile, readdir, readFile, stat, unlink } = require('fs')
 const path = require('path')
 const filesFolder = path.resolve('./files')
 
@@ -76,13 +76,13 @@ const getFile = (req, res) => {
 
 			let uploadedDate = stats.birthtime
 
-			readFile(`${filesFolder}\\${filename}`, 'utf8', (err, content) => {
+			readFile(path.join(filesFolder, filename), 'utf8', (err, content) => {
 				if (err) {
 					res.status(500).json({ message: 'Server error' })
 					return
 				}
 
-				res.json({
+				res.status(200).json({
 					message: 'Success',
 					filename,
 					content,
@@ -96,4 +96,21 @@ const getFile = (req, res) => {
 	}
 }
 
-module.exports = { createFile, getFiles, getFile }
+const deleteFile = (req, res) => {
+	try {
+		const { filename } = req.params
+
+		unlink(path.join(filesFolder, filename), (err) => {
+			if (err) {
+				res.status(400).json({ message: `No file with '${filename}' filename found` })
+				return
+			}
+
+			res.status(200).send(`${filename} is successfully deleted`)
+		})
+	} catch (error) {
+		res.status(500).json({ message: 'Server error' })
+	}
+}
+
+module.exports = { createFile, getFiles, getFile, deleteFile }
