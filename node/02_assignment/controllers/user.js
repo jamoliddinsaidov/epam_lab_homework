@@ -3,7 +3,8 @@ const { BadRequest } = require('../errors')
 const bcrypt = require('bcrypt')
 
 const getUser = (req, res) => {
-	res.status(200).json({ user: req.user })
+	const { _id, username, createdDate } = req.user
+	res.status(200).json({ user: { _id, username, createdDate } })
 }
 
 const deleteUser = async (req, res) => {
@@ -13,6 +14,9 @@ const deleteUser = async (req, res) => {
 
 const updatePassword = async (req, res) => {
 	const { _id, password } = req.user
+
+	if (Object.keys(req.body).length === 0) throw new BadRequestError('Please provide a valid password')
+
 	const { oldPassword, newPassword } = req.body
 
 	// comparing old and current passwords

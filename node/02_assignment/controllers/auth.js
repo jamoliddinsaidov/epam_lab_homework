@@ -4,6 +4,8 @@ const User = require('../models/user')
 const { BadRequestError } = require('../errors')
 
 const register = async (req, res) => {
+	if (Object.keys(req.body).length === 0) throw new BadRequestError('Please provide credentials')
+
 	const { username, password } = req.body
 
 	// check if credentials are provided
@@ -19,6 +21,8 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
+	if (Object.keys(req.body).length === 0) throw new BadRequestError('Please provide credentials')
+
 	const { username, password } = req.body
 
 	// check if credentials are provided

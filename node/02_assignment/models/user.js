@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const noteSchema = require('./note')
 
 const UserSchema = new mongoose.Schema({
 	username: {
@@ -15,6 +16,7 @@ const UserSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now(),
 	},
+	notes: [noteSchema],
 })
 
 module.exports = mongoose.model('User', UserSchema)
