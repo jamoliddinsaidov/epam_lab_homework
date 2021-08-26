@@ -4,6 +4,7 @@ const { Unauthorized } = require('../errors')
 const authMiddleware = async (req, res, next) => {
 	const headers = req.headers.authorization
 	let token
+
 	if (!headers) throw new Unauthorized('No token provided')
 
 	if (headers.startsWith('Bearer ')) token = headers.split(' ')[1]
