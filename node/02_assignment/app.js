@@ -14,9 +14,7 @@ app.use(cors({ origin: '*' }))
 app.use(express.json())
 
 // routes
-app.get('/', (req, res) => {
-	res.status(200).json({ mgs: 'success' })
-})
+app.use('/api/auth', require('./routes/auth'))
 
 const port = process.env.PORT || 8080
 const start = async () => {

@@ -18,6 +18,7 @@
 	},
 	"homepage": "https://github.com/sjamoliddin/epam_lab_homework/tree/main#readme",
 	"dependencies": {
+		"bcrypt": "^5.0.1",
 		"cors": "^2.8.5",
 		"dotenv": "^10.0.0",
 		"eslint": "^7.32.0",
@@ -26,7 +27,7 @@
 		"express-async-errors": "^3.1.1",
 		"http-status-codes": "^2.1.4",
 		"jsonwebtoken": "^8.5.1",
-		"mongoose": "^6.0.1",
+		"mongoose": "^5.11.10",
 		"morgan": "^1.10.0"
 	},
 	"devDependencies": {
