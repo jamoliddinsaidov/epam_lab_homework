@@ -1,12 +1,13 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
+const { BadRequestError } = require('../errors')
 
 const register = async (req, res) => {
 	const { username, password } = req.body
 
 	// check if credentials are provided
-	if (!username || !password) return res.status(400).json({ message: 'Please provide username and password' })
+	if (!username || !password) throw new BadRequestError('Please provide username and password')
 
 	const user = new User({
 		username,
@@ -21,13 +22,12 @@ const login = async (req, res) => {
 	const { username, password } = req.body
 
 	// check if credentials are provided
-	if (!username || !password) return res.status(400).json({ message: 'Please provide username and password' })
-
+	if (!username || !password) throw new BadRequestError('Please provide username and password')
 	const user = await User.findOne({ username })
 
-	// check if user exists and password matches
-	if (!user) return res.status(400).json({ message: 'Wrong username or password' })
-	if (!(await bcrypt.compare(password, user.password))) return res.status(400).json({ message: 'Wrong username or password' })
+	// check if user exists and password is correct
+	if (!user) throw new BadRequestError('Wrong username or password')
+	if (!(await bcrypt.compare(password, user.password))) throw new BadRequestError('Wrong username or password')
 
 	const jwt_token = jwt.sign(
 		{
