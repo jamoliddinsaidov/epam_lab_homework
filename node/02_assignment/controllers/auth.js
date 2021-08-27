@@ -17,7 +17,7 @@ const register = async (req, res) => {
 	})
 
 	await user.save()
-	res.status(200).json({ message: 'Success' })
+	res.status(200).json({ message: 'Success! Your account has been created.' })
 }
 
 const login = async (req, res) => {

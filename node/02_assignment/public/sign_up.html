@@ -20,7 +20,7 @@
 		<div class="container my-5 sign_in_container">
 			<h2 class="text-center">Sign up</h2>
 
-			<form class="my-5">
+			<form class="form my-5">
 				<div class="mb-3 input-group">
 					<span class="input-group-text" id="addon">Username</span>
 					<input type="text" class="form-control" id="usernameInput" />
@@ -31,10 +31,20 @@
 					<input type="password" class="form-control" id="passwordInput" />
 				</div>
 
-				<button type="submit" class="btn btn-primary">Sign Up</button>
+				<button type="submit" class="btn btn-primary mb-3">Sign Up</button>
+				<div class="text-small form-alert text-center"></div>
 			</form>
 
 			<p class="text-center">Already have an acoount? <a href="./index.html">Sign in!</a></p>
 		</div>
+
+		<!-- axios -->
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+			integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script src="./scripts/sign_up.js"></script>
 	</body>
 </html>
