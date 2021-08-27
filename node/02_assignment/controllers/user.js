@@ -22,13 +22,7 @@ const updatePassword = async (req, res) => {
 	// comparing old and current passwords
 	if ((await bcrypt.compare(oldPassword, password)) && !(await bcrypt.compare(newPassword, password))) {
 		// updating the password
-		await User.findOneAndUpdate(
-			{ _id },
-			{ password: await bcrypt.hash(newPassword, 10) },
-			{
-				new: true,
-			}
-		)
+		await User.findOneAndUpdate({ _id }, { password: await bcrypt.hash(newPassword, 10) })
 	} else {
 		throw new BadRequest('Please provide a valid password')
 	}

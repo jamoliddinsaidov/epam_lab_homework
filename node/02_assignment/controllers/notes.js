@@ -1,5 +1,5 @@
 const User = require('../models/user')
-const { BadRequestError } = require('../errors')
+const { BadRequestError, NotFoundError } = require('../errors')
 
 const getNotes = async (req, res) => {
 	const { _id } = req.user
@@ -33,4 +33,19 @@ const createNote = async (req, res) => {
 	res.status(200).json({ message: 'Success' })
 }
 
-module.exports = { getNotes, createNote }
+const getNoteById = async (req, res) => {
+	const { _id } = req.user
+	const noteId = req.params.id
+
+	// getting notes
+	const user = await User.findOne({ _id })
+	const { notes } = user
+	let note = notes.filter((n) => JSON.stringify(n._id) === JSON.stringify(noteId))[0]
+
+	// check if required note exists
+	if (!note) throw new NotFound('The note you are looking for does not exist')
+
+	res.status(200).json({ note })
+}
+
+module.exports = { getNotes, createNote, getNoteById }
