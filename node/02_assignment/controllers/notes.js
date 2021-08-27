@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const { BadRequestError, NotFoundError } = require('../errors')
+const getNoteById = require('../utils/getNoteById')
 
 const getNotes = async (req, res) => {
 	const { _id } = req.user
@@ -9,9 +10,8 @@ const getNotes = async (req, res) => {
 	const limit = Number(req.query.limit) || 10
 
 	// extracting requested notes
-	const user = User.find({ _id })
-	const response = user.select('notes -_id')
-	const [{ notes }] = await response
+	const user = await User.findOne({ _id })
+	const { notes } = user
 	const limitedNotes = notes.slice(offset, limit)
 
 	res.status(200).json({ offset, limit, count: limitedNotes.length, notes: limitedNotes })
@@ -33,39 +33,30 @@ const createNote = async (req, res) => {
 	res.status(200).json({ message: 'Success' })
 }
 
-const getNoteById = async (req, res) => {
+const getNote = async (req, res) => {
 	const { _id } = req.user
 	const noteId = req.params.id
 
-	// getting note
-	const user = await User.findOne({ _id })
-	const { notes } = user
-	let note = notes.filter((n) => JSON.stringify(n._id) === JSON.stringify(noteId))[0]
+	// getting the required note
+	let [notes, note, index] = await getNoteById(_id, noteId)
 
-	// check if required note exists
+	// check if note exists
 	if (!note) throw new NotFound('The note you are looking for does not exist')
 
 	res.status(200).json({ note })
 }
 
-const editNoteById = async (req, res) => {
+const editNote = async (req, res) => {
 	const { _id } = req.user
 	const noteId = req.params.id
 
 	if (Object.keys(req.body).length === 0) throw new BadRequestError('Please provide a valid note')
 	const { text } = req.body
 
-	// getting notes
-	const user = await User.findOne({ _id })
-	const { notes } = user
-	let index
-	let note = notes.filter((n, i) => {
-		if (JSON.stringify(n._id) === JSON.stringify(noteId)) {
-			index = i
-			return n
-		}
-	})[0]
+	// getting the required note
+	let [notes, note, index] = await getNoteById(_id, noteId)
 
+	// check if note exists
 	if (!note) throw new NotFound('The note you are looking for does not exist')
 
 	// edit note
@@ -76,4 +67,22 @@ const editNoteById = async (req, res) => {
 	res.status(200).json({ message: 'Success' })
 }
 
-module.exports = { getNotes, createNote, getNoteById, editNoteById }
+const updateNote = async (req, res) => {
+	const { _id } = req.user
+	const noteId = req.params.id
+
+	// getting the required note
+	let [notes, note, index] = await getNoteById(_id, noteId)
+
+	// check if note exists
+	if (!note) throw new NotFound('The note you are looking for does not exist')
+
+	// update the note
+	note.completed = !note.completed
+	notes[index] = note
+	await User.findOneAndUpdate({ _id }, { notes })
+
+	res.status(200).json({ message: 'Success' })
+}
+
+module.exports = { getNotes, createNote, getNote, editNote, updateNote }
