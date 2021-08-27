@@ -10,6 +10,7 @@ const errorHandlerMiddleware = require('./middlewares/error_handler')
 const app = express()
 
 // middlewares
+app.use(express.static('./public'))
 app.use(morgan('tiny'))
 app.use(express.json())
 app.use(cors({ origin: '*' }))
