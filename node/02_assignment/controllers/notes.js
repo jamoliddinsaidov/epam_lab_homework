@@ -85,4 +85,21 @@ const updateNote = async (req, res) => {
 	res.status(200).json({ message: 'Success' })
 }
 
-module.exports = { getNotes, createNote, getNote, editNote, updateNote }
+const deleteNote = async (req, res) => {
+	const { _id } = req.user
+	const noteId = req.params.id
+
+	// getting the required note
+	let [notes, note, index] = await getNoteById(_id, noteId)
+
+	// check if note exists
+	if (!note) throw new NotFound('The note you are looking for does not exist')
+
+	// delete the note
+	notes.splice(index, 1)
+	await User.findOneAndUpdate({ _id }, { notes })
+
+	res.status(200).json({ message: 'Success' })
+}
+
+module.exports = { getNotes, createNote, getNote, editNote, updateNote, deleteNote }

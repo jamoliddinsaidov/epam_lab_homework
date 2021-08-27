@@ -3,6 +3,8 @@ const router = express.Router()
 const { getUser, deleteUser, updatePassword } = require('../controllers/user')
 const authMiddleware = require('../middlewares/auth_handler')
 
-router.route('/').get(authMiddleware, getUser).delete(authMiddleware, deleteUser).patch(authMiddleware, updatePassword)
+router.use(authMiddleware)
+
+router.route('/').get(getUser).delete(deleteUser).patch(updatePassword)
 
 module.exports = router
