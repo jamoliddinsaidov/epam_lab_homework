@@ -37,7 +37,7 @@ const getNoteById = async (req, res) => {
 	const { _id } = req.user
 	const noteId = req.params.id
 
-	// getting notes
+	// getting note
 	const user = await User.findOne({ _id })
 	const { notes } = user
 	let note = notes.filter((n) => JSON.stringify(n._id) === JSON.stringify(noteId))[0]
@@ -48,4 +48,32 @@ const getNoteById = async (req, res) => {
 	res.status(200).json({ note })
 }
 
-module.exports = { getNotes, createNote, getNoteById }
+const editNoteById = async (req, res) => {
+	const { _id } = req.user
+	const noteId = req.params.id
+
+	if (Object.keys(req.body).length === 0) throw new BadRequestError('Please provide a valid note')
+	const { text } = req.body
+
+	// getting notes
+	const user = await User.findOne({ _id })
+	const { notes } = user
+	let index
+	let note = notes.filter((n, i) => {
+		if (JSON.stringify(n._id) === JSON.stringify(noteId)) {
+			index = i
+			return n
+		}
+	})[0]
+
+	if (!note) throw new NotFound('The note you are looking for does not exist')
+
+	// edit note
+	note.text = text
+	notes[index] = note
+	await User.findOneAndUpdate({ _id }, { notes })
+
+	res.status(200).json({ message: 'Success' })
+}
+
+module.exports = { getNotes, createNote, getNoteById, editNoteById }
