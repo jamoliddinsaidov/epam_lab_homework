@@ -24,13 +24,15 @@ const createNote = async (req, res) => {
 	if (Object.keys(req.body).length === 0) throw new BadRequestError('Please provide a valid note')
 	const { text } = req.body
 
+	if (text.trim().length === 0) throw new BadRequestError('Note should be at least one letter')
+
 	// add note to user's notelist
 	const user = await User.findOne({ _id })
 	const { notes } = user
 	notes.push({ userId: _id, text })
 	await User.findOneAndUpdate({ _id }, { notes })
 
-	res.status(200).json({ message: 'Success' })
+	res.status(200).json({ message: 'Success! Note has been created.' })
 }
 
 const getNote = async (req, res) => {

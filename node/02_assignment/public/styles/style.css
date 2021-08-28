@@ -34,3 +34,18 @@ body {
 .note_controllers .btn-outline-success {
 	width: 8rem;
 }
+
+/* ===== create ====== */
+.create_container {
+	margin-top: 7rem;
+}
+
+.create_form div {
+	width: 60%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.create_form button {
+	width: 30%;
+}
