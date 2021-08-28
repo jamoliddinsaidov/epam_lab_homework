@@ -1,6 +1,7 @@
 const notesList = document.querySelector('.notesList')
 const countText = document.querySelector('.count')
 const dashboardWarning = document.querySelector('.dashboard_warning')
+const logoutBtn = document.querySelector('.logout')
 
 // event listeners
 window.addEventListener('DOMContentLoaded', async () => {
@@ -40,6 +41,11 @@ window.addEventListener('DOMContentLoaded', async () => {
 		dashboardWarning.style.display = 'block'
 		dashboardWarning.innerText = error
 	}
+})
+
+logoutBtn.addEventListener('click', () => {
+	localStorage.removeItem('token')
+	window.location.href = '/'
 })
 
 // functions

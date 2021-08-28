@@ -27,7 +27,7 @@ const updatePassword = async (req, res) => {
 		throw new BadRequest('Please provide a valid password')
 	}
 
-	res.status(200).json({ message: 'Success' })
+	res.status(200).json({ message: 'Success! Password has been changed.' })
 }
 
 module.exports = { getUser, deleteUser, updatePassword }

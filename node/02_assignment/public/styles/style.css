@@ -22,7 +22,8 @@ body {
 	width: 100%;
 }
 
-.sign_in_container span {
+.sign_in_container span,
+.passwrod_edit_form span {
 	width: 20%;
 }
 
@@ -50,14 +51,16 @@ body {
 }
 
 .create_form div,
-.edit_form div {
+.edit_form div,
+.passwrod_edit_form div {
 	width: 60%;
 	margin-right: auto;
 	margin-left: auto;
 }
 
 .create_form button,
-.edit_form button {
+.edit_form button,
+.passwrod_edit_form button {
 	width: 30%;
 }
 
