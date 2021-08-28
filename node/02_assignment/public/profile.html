@@ -14,9 +14,9 @@
 		/>
 		<link rel="stylesheet" href="./styles/style.css" />
 
-		<title>Simplenote | Create</title>
+		<title>Simplenote | Profile</title>
 	</head>
-	<body>
+	<body class="">
 		<div class="container">
 			<nav class="navbar navbar-expand-lg navbar-light my-5 d-flex justify-content-between">
 				<h4 class="text-primary fw-bold"><i class="bi bi-journals"></i> Simplenote</h4>
@@ -26,26 +26,28 @@
 						<a class="nav-link" aria-current="page" href="./dashboard.html">Dashboard</a>
 					</li>
 					<li class="nav-item fs-5">
-						<a class="nav-link" href="./profile.html">Profile</a>
+						<a class="nav-link active" href="#">Profile</a>
 					</li>
 					<li class="nav-item fs-5">
-						<a class="nav-link active" href="#">Create</a>
+						<a class="nav-link" href="./create.html">Create</a>
 					</li>
 				</ul>
 			</nav>
 
-			<div class="create_container">
-				<h3 class="mb-3 text-center">Create a new note</h3>
+			<h3 class="mb-3">Detailed info about user</h3>
 
-				<form class="create_form text-center">
-					<div class="mb-3 input-group">
-						<span class="input-group-text" id="addon">Text</span>
-						<input type="text" class="form-control" id="textInput" />
-					</div>
-					<button type="submit" class="btn btn-primary mb-3">Create</button>
-					<p class="create_alert"></p>
-				</form>
+			<div class="profile_info mb-3">
+				<p class="username fs-5"></p>
+				<p class="date fs-5"></p>
+				<p class="userId fs-5"></p>
 			</div>
+
+			<div class="profile_controllers">
+				<a class="btn btn-outline-primary edit me-3" href="./password_edit.html">Edit Password</a>
+				<a class="btn btn-outline-danger delete" href="./password_edit.html">Delete Profile</a>
+			</div>
+
+			<p class="text-danger text-center profile_warning"></p>
 		</div>
 		<!-- axios -->
 		<script
@@ -54,6 +56,6 @@
 			crossorigin="anonymous"
 			referrerpolicy="no-referrer"
 		></script>
-		<script src="./scripts/create.js"></script>
+		<script src="./scripts/profile.js"></script>
 	</body>
 </html>
