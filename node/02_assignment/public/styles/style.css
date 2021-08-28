@@ -40,12 +40,14 @@ body {
 	margin-top: 7rem;
 }
 
-.create_form div {
+.create_form div,
+.edit_form div {
 	width: 60%;
 	margin-right: auto;
 	margin-left: auto;
 }
 
-.create_form button {
+.create_form button,
+.edit_form button {
 	width: 30%;
 }

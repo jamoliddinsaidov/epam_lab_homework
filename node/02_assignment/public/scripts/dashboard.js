@@ -23,7 +23,6 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 		// ========= controller selectors ===========
 		const checkBtns = document.querySelectorAll('.checkBtn')
-		const editBtns = document.querySelectorAll('.editBtn')
 		const deleteBtns = document.querySelectorAll('.deleteBtn')
 
 		checkBtns.forEach(async (btn) => {
@@ -68,8 +67,9 @@ function generateNote(note, order) {
 	controllers.appendChild(checkBtn)
 
 	// create edit btn
-	const editBtn = document.createElement('button')
+	const editBtn = document.createElement('a')
 	editBtn.classList.add(...['btn', 'btn-outline-primary', 'ms-3', 'editBtn'])
+	editBtn.setAttribute('href', `./edit_note.html?noteID=${_id}`)
 	editBtn.innerText = 'Edit'
 	controllers.appendChild(editBtn)
 

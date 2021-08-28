@@ -66,7 +66,7 @@ const editNote = async (req, res) => {
 	notes[index] = note
 	await User.findOneAndUpdate({ _id }, { notes })
 
-	res.status(200).json({ message: 'Success' })
+	res.status(200).json({ message: 'Success! Note has been edited.' })
 }
 
 const updateNote = async (req, res) => {
