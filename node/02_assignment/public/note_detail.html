@@ -14,9 +14,9 @@
 		/>
 		<link rel="stylesheet" href="./styles/style.css" />
 
-		<title>Simplenote | Edit</title>
+		<title>Simplenote | Profile</title>
 	</head>
-	<body>
+	<body class="">
 		<div class="container">
 			<nav class="navbar navbar-expand-lg navbar-light my-5 d-flex justify-content-between">
 				<h4 class="text-primary fw-bold"><i class="bi bi-journals"></i> Simplenote</h4>
@@ -34,18 +34,21 @@
 				</ul>
 			</nav>
 
-			<div class="create_container">
-				<h3 class="mb-3 text-center">Edit a note</h3>
+			<h3 class="mb-3">Detailed info about the note</h3>
 
-				<form class="edit_form text-center">
-					<div class="mb-3 input-group">
-						<span class="input-group-text" id="addon">Text</span>
-						<input type="text" class="form-control" id="textInput" />
-					</div>
-					<button type="submit" class="btn btn-primary mb-3">Save</button>
-					<p class="edit_alert"></p>
-				</form>
+			<div class="note_info mb-3">
+				<p class="note fs-5"></p>
+				<p class="is_completed fs-5"></p>
+				<p class="date fs-5"></p>
+				<p class="note_id fs-5"></p>
 			</div>
+
+			<div class="note_controllers">
+				<a class="btn btn-outline-primary edit me-3" href="#">Edit</a>
+				<a class="btn btn-outline-danger delete" href="#">Delete</a>
+			</div>
+
+			<p class="text-danger text-center note_warning"></p>
 		</div>
 		<!-- axios -->
 		<script
@@ -54,6 +57,6 @@
 			crossorigin="anonymous"
 			referrerpolicy="no-referrer"
 		></script>
-		<script src="./scripts/edit_note.js"></script>
+		<script src="./scripts/note_detail.js"></script>
 	</body>
 </html>

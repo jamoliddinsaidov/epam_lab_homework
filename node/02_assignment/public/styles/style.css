@@ -27,6 +27,15 @@ body {
 }
 
 /* ===== dashboard ===== */
+.dashboard .text-body {
+	border-bottom: 1px solid transparent;
+	transition: border-bottom 300ms ease-in-out;
+}
+
+.dashboard .text-body:hover {
+	border-bottom: 1px solid #000;
+}
+
 .dashboard_warning {
 	display: none;
 }
@@ -50,4 +59,9 @@ body {
 .create_form button,
 .edit_form button {
 	width: 30%;
+}
+
+/* ===== note_detail ===== */
+.note_controllers a {
+	width: 6rem;
 }

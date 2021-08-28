@@ -51,9 +51,10 @@ function generateNote(note, order) {
 	noteDiv.classList.add(...['d-flex', 'justify-content-between', 'align-items-center'])
 
 	// create note
-	const pText = document.createElement('p')
-	pText.classList.add(...['fs-5', 'fw-500'])
-	pText.innerText = `${order + 1}. ${text}`
+	const aText = document.createElement('a')
+	aText.classList.add(...['fs-5', 'fw-500', 'text-decoration-none', 'text-body'])
+	aText.innerText = `${order + 1}. ${text}`
+	aText.setAttribute('href', `./note_detail.html?noteID=${_id}`)
 
 	// create controllers container
 	const controllers = document.createElement('div')
@@ -79,7 +80,7 @@ function generateNote(note, order) {
 	deleteBtn.innerText = 'Delete'
 	controllers.appendChild(deleteBtn)
 
-	noteDiv.appendChild(pText)
+	noteDiv.appendChild(aText)
 	noteDiv.appendChild(controllers)
 
 	return noteDiv
