@@ -4,6 +4,7 @@ require('express-async-errors')
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
+const connectDB = require('./utils/connectDB')
 const app = express()
 
 // set up middlewares
@@ -17,8 +18,14 @@ app.get('/', (req, res) => {
 })
 
 const port = process.env.PORT || 8080
-app.listen(port, (err) => {
-	if (err) console.log(err)
+const mongoURI = process.env.MONGO_URI
+const start = async () => {
+	try {
+		await connectDB(mongoURI)
+		app.listen(port, console.log(`MongoDB connected. \nServer started on port ${port}...`))
+	} catch (error) {
+		console.log(error)
+	}
+}
 
-	console.log(`Server started on port ${port}`)
-})
+start()
