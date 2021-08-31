@@ -5,6 +5,7 @@ const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
 const connectDB = require('./utils/connectDB')
+const { errorHandlerMiddleware, notFoundMiddleware } = require('./middlewares')
 const app = express()
 
 // set up middlewares
@@ -16,6 +17,9 @@ app.use(cors({ origin: '*' }))
 app.get('/', (req, res) => {
 	res.send('hello')
 })
+
+app.use(notFoundMiddleware)
+app.use(errorHandlerMiddleware)
 
 const port = process.env.PORT || 8080
 const mongoURI = process.env.MONGO_URI
