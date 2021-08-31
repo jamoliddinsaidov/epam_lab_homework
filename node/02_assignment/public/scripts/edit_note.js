@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 		const token = localStorage.getItem('token')
 		const { data } = await axios.get(`/api/notes/${noteID}`, {
 			headers: {
-				Authorization: `Bearer ${token}`,
+				Authorization: `JWT ${token}`,
 			},
 		})
 
@@ -33,7 +33,7 @@ formDOM.addEventListener('submit', async (e) => {
 			{ text },
 			{
 				headers: {
-					Authorization: `Bearer ${token}`,
+					Authorization: `JWT ${token}`,
 				},
 			}
 		)
@@ -42,7 +42,6 @@ formDOM.addEventListener('submit', async (e) => {
 		formAlert.classList.remove('text-danger')
 		formAlert.classList.add('text-success')
 		formAlert.innerText = data.message
-		textInput.value = ''
 
 		setTimeout(() => {
 			formAlert.style.display = 'none'

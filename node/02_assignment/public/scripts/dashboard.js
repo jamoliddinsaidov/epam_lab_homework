@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 		const token = localStorage.getItem('token')
 		const { data } = await axios.get('/api/notes', {
 			headers: {
-				Authorization: `Bearer ${token}`,
+				Authorization: `JWT ${token}`,
 			},
 		})
 
@@ -57,7 +57,7 @@ loadMoreBtn.addEventListener('click', async () => {
 		const token = localStorage.getItem('token')
 		const { data } = await axios.get('/api/notes', {
 			headers: {
-				Authorization: `Bearer ${token}`,
+				Authorization: `JWT ${token}`,
 			},
 			params: { offset: 10 * loadMoreClicked, limit: 10 * (loadMoreClicked + 1) },
 		})
@@ -132,7 +132,7 @@ async function checkBtnHandler(event, token) {
 			{},
 			{
 				headers: {
-					Authorization: `Bearer ${token}`,
+					Authorization: `JWT ${token}`,
 				},
 			}
 		)
@@ -147,7 +147,7 @@ async function deleteBtnHandler(event, token) {
 		const noteID = event.target.parentElement.getAttribute('data-id')
 		await axios.delete(`/api/notes/${noteID}`, {
 			headers: {
-				Authorization: `Bearer ${token}`,
+				Authorization: `JWT ${token}`,
 			},
 		})
 		location.reload()

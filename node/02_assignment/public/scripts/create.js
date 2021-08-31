@@ -13,7 +13,7 @@ formDOM.addEventListener('submit', async (e) => {
 			{ text },
 			{
 				headers: {
-					Authorization: `Bearer ${token}`,
+					Authorization: `JWT ${token}`,
 				},
 			}
 		)

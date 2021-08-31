@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 		const token = localStorage.getItem('token')
 		const { data } = await axios.get('/api/users/me', {
 			headers: {
-				Authorization: `Bearer ${token}`,
+				Authorization: `JWT ${token}`,
 			},
 		})
 
@@ -28,7 +28,7 @@ deleteBtn.addEventListener('click', async () => {
 		const token = localStorage.getItem('token')
 		await axios.delete('/api/users/me', {
 			headers: {
-				Authorization: `Bearer ${token}`,
+				Authorization: `JWT ${token}`,
 			},
 		})
 

@@ -84,7 +84,7 @@ const updateNote = async (req, res) => {
 	notes[index] = note
 	await User.findOneAndUpdate({ _id }, { notes })
 
-	res.status(200).json({ message: 'Success' })
+	res.status(200).json({ message: 'Success! The note has been updated.' })
 }
 
 const deleteNote = async (req, res) => {
@@ -101,7 +101,7 @@ const deleteNote = async (req, res) => {
 	notes.splice(index, 1)
 	await User.findOneAndUpdate({ _id }, { notes })
 
-	res.status(200).json({ message: 'Success' })
+	res.status(200).json({ message: 'Success! The note has been deleted.' })
 }
 
 module.exports = { getNotes, createNote, getNote, editNote, updateNote, deleteNote }

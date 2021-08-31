@@ -13,7 +13,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 		const token = localStorage.getItem('token')
 		const { data } = await axios.get(`/api/notes/${noteID}`, {
 			headers: {
-				Authorization: `Bearer ${token}`,
+				Authorization: `JWT ${token}`,
 			},
 		})
 
@@ -35,7 +35,7 @@ deleteBtn.addEventListener('click', async () => {
 		const token = localStorage.getItem('token')
 		await axios.delete(`/api/notes/${noteID}`, {
 			headers: {
-				Authorization: `Bearer ${token}`,
+				Authorization: `JWT ${token}`,
 			},
 		})
 		window.location.href = './dashboard.html'

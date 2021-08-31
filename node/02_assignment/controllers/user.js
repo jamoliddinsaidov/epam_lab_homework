@@ -9,7 +9,7 @@ const getUser = (req, res) => {
 
 const deleteUser = async (req, res) => {
 	await User.findOneAndRemove({ _id: req.user._id })
-	res.status(200).json({ message: 'Success' })
+	res.status(200).json({ message: 'Success! User has been deleted.' })
 }
 
 const updatePassword = async (req, res) => {

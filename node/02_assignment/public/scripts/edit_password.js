@@ -16,7 +16,7 @@ formDOM.addEventListener('submit', async (e) => {
 			{ oldPassword, newPassword },
 			{
 				headers: {
-					Authorization: `Bearer ${token}`,
+					Authorization: `JWT ${token}`,
 				},
 			}
 		)
