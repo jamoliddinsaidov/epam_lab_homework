@@ -10,6 +10,7 @@ const truckSchema = new mongoose.Schema({
 	assigned_to: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
+		default: null,
 	},
 	type: {
 		type: String,

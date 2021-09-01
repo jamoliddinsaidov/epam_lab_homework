@@ -2,14 +2,17 @@ const { Truck, validateTruck } = require('../models/truck')
 const { BadRequest, NotFound } = require('../errors')
 
 const getTrucks = async (req, res) => {
-	const { _id } = req.user
+	// validate user role
+	const { _id, role } = req.user
+	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
+
 	const trucks = await Truck.find({ created_by: _id })
 
 	res.status(200).json({ trucks })
 }
 
 const createTruck = async (req, res) => {
-	// validate user inputs
+	// validate user input
 	const { error } = validateTruck(req.body)
 	if (error) throw new BadRequest(error.details[0].message)
 
@@ -28,9 +31,10 @@ const createTruck = async (req, res) => {
 }
 
 const getTruckById = async (req, res) => {
-	// get required IDs
-	const { _id } = req.user
+	// get required IDs and validate user role
+	const { _id, role } = req.user
 	const { id } = req.params
+	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
 
 	// find and validate the truck
 	const truck = await Truck.findOne({ created_by: _id, _id: id })
@@ -39,4 +43,23 @@ const getTruckById = async (req, res) => {
 	res.status(200).json({ truck })
 }
 
-module.exports = { createTruck, getTrucks, getTruckById }
+const updateTruck = async (req, res) => {
+	// validate user input
+	const { error } = validateTruck(req.body)
+	if (error) throw new BadRequest(error.details[0].message)
+
+	// get required IDs and validate user role
+	const { _id, role } = req.user
+	const { id } = req.params
+	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
+
+	// find and validate the truck
+	const truck = await Truck.findOne({ created_by: _id, _id: id })
+	if (!truck) throw new NotFound(`Truck with ID ${id} does not exist.`)
+
+	const { type } = req.body
+	await Truck.findOneAndUpdate({ created_by: _id, _id: id }, { type })
+	res.status(200).json({ message: 'Truck details changed successfully.' })
+}
+
+module.exports = { createTruck, getTrucks, getTruckById, updateTruck }
