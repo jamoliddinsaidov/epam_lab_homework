@@ -71,4 +71,19 @@ const deleteTruck = async (req, res) => {
 	res.status(200).json({ message: 'Truck has been deleted successfully.' })
 }
 
-module.exports = { createTruck, getTrucks, getTruckById, updateTruck, deleteTruck }
+const assignTruck = async (req, res) => {
+	// get required IDs and validate user role
+	const { _id, role } = req.user
+	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
+
+	// find and validate the truck
+	const { id } = req.params
+	const truck = await Truck.findOne({ created_by: _id, _id: id })
+	if (!truck) throw new NotFound(`Truck with ID ${id} does not exist.`)
+
+	await Truck.findOneAndUpdate({ created_by: _id, _id: id }, { assigned_to: _id })
+
+	res.status(200).json({ message: 'Truck has been assigned successfully.' })
+}
+
+module.exports = { createTruck, getTrucks, getTruckById, updateTruck, deleteTruck, assignTruck }
