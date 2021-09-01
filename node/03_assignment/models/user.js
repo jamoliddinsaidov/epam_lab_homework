@@ -38,4 +38,13 @@ const validateUser = (user) => {
 	return schema.validate(user)
 }
 
-module.exports = { User, validateUser }
+const validateLogin = (user) => {
+	const schema = Joi.object({
+		email: Joi.string().min(3).required().email(),
+		password: Joi.string().min(4).max(20).allow('').allow(null).required(),
+	})
+
+	return schema.validate(user)
+}
+
+module.exports = { User, validateUser, validateLogin }
