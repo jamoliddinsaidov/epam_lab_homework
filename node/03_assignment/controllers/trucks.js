@@ -4,7 +4,7 @@ const { BadRequest, NotFound } = require('../errors')
 const getTrucks = async (req, res) => {
 	// validate user role
 	const { _id, role } = req.user
-	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
+	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can see trucks.')
 
 	const trucks = await Truck.find({ created_by: _id }).select(['-__v'])
 	res.status(200).json({ trucks })
@@ -32,7 +32,7 @@ const createTruck = async (req, res) => {
 const getTruckById = async (req, res) => {
 	// get required IDs and validate user role
 	const { _id, role } = req.user
-	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
+	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can get trucks by id.')
 
 	// find and validate the truck
 	const { id } = req.params
@@ -49,12 +49,15 @@ const updateTruck = async (req, res) => {
 
 	// get required IDs and validate user role
 	const { _id, role } = req.user
-	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
+	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can update trucks.')
 
 	// find and validate the truck
 	const { id } = req.params
 	const truck = await Truck.findOne({ created_by: _id, _id: id })
+
 	if (!truck) throw new NotFound(`Truck with ID ${id} does not exist.`)
+	if (!truck.status === 'OL') throw new BadRequest('You can not update trucks On Load.')
+	if (!truck.created_by === !truck.assigned_to) throw new BadRequest('You can only update trucks that are not assigned to you.')
 
 	const { type } = req.body
 	await Truck.findOneAndUpdate({ created_by: _id, _id: id }, { type })
@@ -64,9 +67,16 @@ const updateTruck = async (req, res) => {
 const deleteTruck = async (req, res) => {
 	// get required IDs and validate user role
 	const { _id, role } = req.user
-	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
+	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can delete trucks.')
 
+	// find and validate the truck
 	const { id } = req.params
+	const truck = await Truck.findOne({ created_by: _id, _id: id })
+
+	if (!truck) throw new NotFound(`Truck with ID ${id} does not exist.`)
+	if (!truck.status === 'OL') throw new BadRequest('You can not delete trucks On Load.')
+	if (!truck.created_by === !truck.assigned_to) throw new BadRequest('You can only delete trucks that are not assigned to you.')
+
 	await Truck.findOneAndDelete({ created_by: _id, _id: id })
 	res.status(200).json({ message: 'Truck has been deleted successfully.' })
 }
@@ -74,12 +84,15 @@ const deleteTruck = async (req, res) => {
 const assignTruck = async (req, res) => {
 	// get required IDs and validate user role
 	const { _id, role } = req.user
-	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
+	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can assign trucks.')
 
 	// find and validate the truck
 	const { id } = req.params
 	const truck = await Truck.findOne({ created_by: _id, _id: id })
+
 	if (!truck) throw new NotFound(`Truck with ID ${id} does not exist.`)
+	if (!truck.status === 'OL') throw new BadRequest('You can not assign trucks On Load.')
+	if (!truck.created_by === !truck.assigned_to) throw new BadRequest('You can only assign trucks that are not assigned to you.')
 
 	await Truck.findOneAndUpdate({ created_by: _id, _id: id }, { assigned_to: _id })
 
