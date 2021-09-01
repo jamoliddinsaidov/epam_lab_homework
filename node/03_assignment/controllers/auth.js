@@ -35,6 +35,7 @@ const login = async (req, res) => {
 		{
 			_id: user._id,
 			email: user.email,
+			role: user.role,
 			created_date: user.created_date,
 		},
 		process.env.SECRET_KEY
