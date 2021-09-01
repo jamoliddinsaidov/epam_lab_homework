@@ -6,8 +6,7 @@ const getTrucks = async (req, res) => {
 	const { _id, role } = req.user
 	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
 
-	const trucks = await Truck.find({ created_by: _id })
-
+	const trucks = await Truck.find({ created_by: _id }).select(['-__v'])
 	res.status(200).json({ trucks })
 }
 
@@ -33,11 +32,11 @@ const createTruck = async (req, res) => {
 const getTruckById = async (req, res) => {
 	// get required IDs and validate user role
 	const { _id, role } = req.user
-	const { id } = req.params
 	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
 
 	// find and validate the truck
-	const truck = await Truck.findOne({ created_by: _id, _id: id })
+	const { id } = req.params
+	const truck = await Truck.findOne({ created_by: _id, _id: id }).select(['-__v'])
 	if (!truck) throw new NotFound(`Truck with ID ${id} does not exist.`)
 
 	res.status(200).json({ truck })
@@ -50,10 +49,10 @@ const updateTruck = async (req, res) => {
 
 	// get required IDs and validate user role
 	const { _id, role } = req.user
-	const { id } = req.params
 	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
 
 	// find and validate the truck
+	const { id } = req.params
 	const truck = await Truck.findOne({ created_by: _id, _id: id })
 	if (!truck) throw new NotFound(`Truck with ID ${id} does not exist.`)
 
@@ -62,4 +61,14 @@ const updateTruck = async (req, res) => {
 	res.status(200).json({ message: 'Truck details changed successfully.' })
 }
 
-module.exports = { createTruck, getTrucks, getTruckById, updateTruck }
+const deleteTruck = async (req, res) => {
+	// get required IDs and validate user role
+	const { _id, role } = req.user
+	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
+
+	const { id } = req.params
+	await Truck.findOneAndDelete({ created_by: _id, _id: id })
+	res.status(200).json({ message: 'Truck has been deleted successfully.' })
+}
+
+module.exports = { createTruck, getTrucks, getTruckById, updateTruck, deleteTruck }
