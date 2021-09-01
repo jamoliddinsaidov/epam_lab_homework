@@ -18,7 +18,7 @@ const authMiddleware = async (req, res, next) => {
 		req.user = { _id, username, createdDate, password }
 		next()
 	} catch (error) {
-		throw new UnauthenticatedError('Not authorized to access to this route')
+		throw new Unauthorized('Not authorized to access to this route')
 	}
 }
 

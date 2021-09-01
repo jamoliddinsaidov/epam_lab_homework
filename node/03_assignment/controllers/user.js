@@ -25,4 +25,9 @@ const changePassword = async (req, res) => {
 	res.status(200).json({ message: 'Success! Password has been changed.' })
 }
 
-module.exports = { getUser, changePassword }
+const deleteUser = async (req, res) => {
+	await User.findByIdAndRemove({ _id: req.user._id })
+	res.status(200).json({ message: 'Success! User has been deleted.' })
+}
+
+module.exports = { getUser, changePassword, deleteUser }
