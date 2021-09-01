@@ -31,7 +31,7 @@ const User = mongoose.model('User', userSchema)
 const validateUser = (user) => {
 	const schema = Joi.object({
 		email: Joi.string().min(3).required().email(),
-		password: Joi.string().min(4).max(20).allow('').allow(null).required(),
+		password: Joi.string().min(4).max(20).required(),
 		role: Joi.string().valid('DRIVER', 'SHIPPER'),
 	})
 
@@ -41,10 +41,19 @@ const validateUser = (user) => {
 const validateLogin = (user) => {
 	const schema = Joi.object({
 		email: Joi.string().min(3).required().email(),
-		password: Joi.string().min(4).max(20).allow('').allow(null).required(),
+		password: Joi.string().min(4).max(20).required(),
 	})
 
 	return schema.validate(user)
 }
 
-module.exports = { User, validateUser, validateLogin }
+const validatePassword = (password) => {
+	const schema = Joi.object({
+		oldPassword: Joi.string().min(4).max(20).required(),
+		newPassword: Joi.string().min(4).max(20).required(),
+	})
+
+	return schema.validate(password)
+}
+
+module.exports = { User, validateUser, validateLogin, validatePassword }
