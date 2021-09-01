@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-import Joi from 'joi'
+const Joi = require('joi')
 
 const userSchema = new mongoose.Schema({
 	email: {
@@ -30,13 +30,9 @@ const User = mongoose.model('User', userSchema)
 
 const validateUser = (user) => {
 	const schema = Joi.object({
-		email: Joi.string()
-			.min(2)
-			.max(30)
-			.regex(/^[a-zA-Z0-9_]+$/)
-			.required(),
+		email: Joi.string().min(3).required().email(),
 		password: Joi.string().min(4).max(20).allow('').allow(null).required(),
-		role: Joi.string().required(),
+		role: Joi.string().valid('DRIVER', 'SHIPPER'),
 	})
 
 	return schema.validate(user)

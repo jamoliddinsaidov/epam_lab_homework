@@ -14,9 +14,7 @@ app.use(express.json())
 app.use(cors({ origin: '*' }))
 
 // routes
-app.get('/', (req, res) => {
-	res.send('hello')
-})
+app.use('/api/auth', require('./routes/auth'))
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
