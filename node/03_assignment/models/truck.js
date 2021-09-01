@@ -17,7 +17,7 @@ const truckSchema = new mongoose.Schema({
 			values: ['SPRINTER', 'SMALL STRAIGHT', 'LARGE STRAIGHT'],
 			message: '{VALUE} is not supported',
 		},
-		required: [true, 'Please provide a type'],
+		required: [true, 'Please provide a type of the truck'],
 	},
 	status: {
 		type: String,
