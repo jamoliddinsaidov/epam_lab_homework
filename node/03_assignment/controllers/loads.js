@@ -14,17 +14,16 @@ const getLoads = async (req, res) => {
 	else if (limit > 50) throw new BadRequest('Limit cannot be more than 50')
 
 	// getting loads
-	let result
 	if (role === 'SHIPPER') {
-		result = Load.find({ created_by: _id })
+		let loads = await Load.find({ created_by: _id }).select(['-__v']).skip(offset).limit(limit)
+		return res.status(200).json({ loads })
 	} else {
-		if (status) result = Load.find({ assigned_to: _id, status: status })
-		else result = Load.find({ assigned_to: _id })
+		let activeLoad = await Load.findOne({ assigned_to: _id, status: 'ASSIGNED' })
+		let completedLoads = await Load.findOne({ assigned_to: _id, status: 'SHIPPED' }).skip(offset).limit(limit)
+		console.log(completedLoads)
+		const loads = [activeLoad, ...completedLoads]
+		return res.status(200).json({ loads })
 	}
-
-	const loads = await result.select(['-__v']).skip(offset).limit(limit)
-
-	res.status(200).json({ loads })
 }
 
 const createLoad = async (req, res) => {
@@ -100,4 +99,8 @@ const deleteLoadById = async (req, res) => {
 	res.status(200).json({ message: 'Load has been deleted successfully.' })
 }
 
-module.exports = { createLoad, getLoads, getLoadById, updateLoadById, deleteLoadById }
+const postLoadById = async (req, res) => {
+	res.status(200).json({ message, driver_found })
+}
+
+module.exports = { createLoad, getLoads, getLoadById, updateLoadById, deleteLoadById, postLoadById }

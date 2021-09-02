@@ -6,7 +6,7 @@ const getTrucks = async (req, res) => {
 	const { _id, role } = req.user
 	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can see trucks.')
 
-	const trucks = await Truck.find({ created_by: _id }).select(['-__v'])
+	const trucks = await Truck.find({ created_by: _id }).select(['-__v', '-dimensions', '-payload'])
 	res.status(200).json({ trucks })
 }
 
@@ -19,10 +19,40 @@ const createTruck = async (req, res) => {
 	const { _id, role } = req.user
 	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can add trucks.')
 
+	const { type } = req.body
+	let payload
+	let dimensions = {}
+
+	// set dimension and payload properties of a truck
+	if (type === 'SPRINTER') {
+		payload = 1700
+		dimensions = {
+			width: 300,
+			length: 250,
+			height: 170,
+		}
+	} else if (type === 'SMALL STRAIGHT') {
+		payload = 2500
+		dimensions = {
+			width: 500,
+			length: 250,
+			height: 170,
+		}
+	} else if (type === 'LARGE STRAIGHT') {
+		payload = 4000
+		dimensions = {
+			width: 700,
+			length: 350,
+			height: 200,
+		}
+	}
+
 	// create truck
 	const truck = new Truck({
 		created_by: _id,
-		type: req.body.type,
+		type,
+		payload,
+		dimensions,
 	})
 	await truck.save()
 
@@ -36,7 +66,7 @@ const getTruckById = async (req, res) => {
 
 	// find and validate the truck
 	const { id } = req.params
-	const truck = await Truck.findOne({ created_by: _id, _id: id }).select(['-__v'])
+	const truck = await Truck.findOne({ created_by: _id, _id: id }).select(['-__v', '-dimensions', '-payload'])
 	if (!truck) throw new NotFound(`Truck with ID ${id} does not exist.`)
 
 	res.status(200).json({ truck })

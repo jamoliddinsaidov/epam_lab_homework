@@ -28,6 +28,20 @@ const truckSchema = new mongoose.Schema({
 		},
 		default: 'IS',
 	},
+	payload: {
+		type: Number,
+	},
+	dimensions: {
+		width: {
+			type: Number,
+		},
+		length: {
+			type: Number,
+		},
+		height: {
+			type: Number,
+		},
+	},
 	created_date: {
 		type: Date,
 		default: Date.now(),
