@@ -23,10 +23,16 @@ const loadSchema = new mongoose.Schema({
 	state: {
 		type: String,
 		enum: {
-			values: ['En route to Pick Up', 'Arrived to Pick Up', 'En route to delivery', 'Arrived to delivery'],
+			values: [
+				'Load is waiting to be assigned...',
+				'En route to Pick Up',
+				'Arrived to Pick Up',
+				'En route to delivery',
+				'Arrived to delivery',
+			],
 			message: '{VALUE} is not supported',
 		},
-		default: 'En route to Pick Up',
+		default: 'Load is waiting to be assigned...',
 	},
 	name: {
 		type: String,

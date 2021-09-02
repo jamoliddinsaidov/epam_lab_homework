@@ -64,6 +64,26 @@ const getLoadById = async (req, res) => {
 	res.status(200).json({ load })
 }
 
+const updateLoadById = async (req, res) => {
+	// validate user input
+	const { error } = validateLoad(req.body)
+	if (error) throw new BadRequest(error.details[0].message)
+
+	const { _id, role } = req.user
+	const { id } = req.params
+
+	// validate user's role
+	if (role === 'DRIVER') throw new BadRequest('Only Shippers can edit loads.')
+
+	// validate load
+	const load = await Load.findOne({ _id: id, created_by: _id })
+	if (!load) throw new NotFound(`Load with ID ${id} doesn't exist.`)
+	if (load.status !== 'NEW') throw new BadRequest('You can only edit loads with status NEW.')
+
+	await Load.findOneAndUpdate({ _id: id, created_by: _id }, req.body)
+	res.status(200).json({ message: 'Load details have been changed successfully' })
+}
+
 const deleteLoadById = async (req, res) => {
 	const { _id, role } = req.user
 	const { id } = req.params
@@ -80,4 +100,4 @@ const deleteLoadById = async (req, res) => {
 	res.status(200).json({ message: 'Load has been deleted successfully.' })
 }
 
-module.exports = { createLoad, getLoads, getLoadById, deleteLoadById }
+module.exports = { createLoad, getLoads, getLoadById, updateLoadById, deleteLoadById }
