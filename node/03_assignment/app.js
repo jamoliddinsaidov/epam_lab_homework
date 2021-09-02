@@ -17,6 +17,7 @@ app.use(cors({ origin: '*' }))
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/users/me', require('./routes/user'))
 app.use('/api/trucks', require('./routes/trucks'))
+app.use('/api/loads', require('./routes/loads'))
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)

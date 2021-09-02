@@ -1,17 +1,6 @@
 const mongoose = require('mongoose')
 const Joi = require('joi')
 
-const logSchema = new mongoose.Schema({
-	message: {
-		type: String,
-		default: 'Load is waiting to be assigned...',
-	},
-	time: {
-		type: Date,
-		default: Date.now(),
-	},
-})
-
 const loadSchema = new mongoose.Schema({
 	created_by: {
 		type: mongoose.Schema.Types.ObjectId,
@@ -69,7 +58,15 @@ const loadSchema = new mongoose.Schema({
 			required: [true, 'Please provide a height of the load.'],
 		},
 	},
-	logs: [logSchema],
+	logs: {
+		type: Array,
+		message: String,
+		time: Date,
+		default: {
+			message: 'Load is waiting to be assigned...',
+			time: Date.now(),
+		},
+	},
 	created_date: {
 		type: Date,
 		default: Date.now(),
