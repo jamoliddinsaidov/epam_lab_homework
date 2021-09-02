@@ -51,4 +51,33 @@ const createLoad = async (req, res) => {
 	res.status(200).json({ message: 'Load has been created successfully' })
 }
 
-module.exports = { createLoad, getLoads }
+const getLoadById = async (req, res) => {
+	const { _id, role } = req.user
+	const { id } = req.params
+	let load
+
+	if (role === 'SHIPPER') load = await Load.findOne({ created_by: _id, _id: id })
+	else load = await Load.findOne({ assigned_to: _id, _id: id })
+
+	if (!load) throw new NotFound(`Load with ID ${id} doesn't exist.`)
+
+	res.status(200).json({ load })
+}
+
+const deleteLoadById = async (req, res) => {
+	const { _id, role } = req.user
+	const { id } = req.params
+
+	// validate user's role
+	if (role === 'DRIVER') throw new BadRequest('Only Shippers can delete loads.')
+
+	// validate load
+	const load = await Load.findOne({ _id: id, created_by: _id })
+	if (!load) throw new NotFound(`Load with ID ${id} doesn't exist.`)
+	if (load.status !== 'NEW') throw new BadRequest('You can only delete loads with status NEW.')
+
+	await Load.findOneAndRemove({ _id: id, created_by: _id })
+	res.status(200).json({ message: 'Load has been deleted successfully.' })
+}
+
+module.exports = { createLoad, getLoads, getLoadById, deleteLoadById }
