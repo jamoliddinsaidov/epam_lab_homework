@@ -56,7 +56,7 @@ const createTruck = async (req, res) => {
 	})
 	await truck.save()
 
-	res.status(200).json({ message: 'Truck created successfully' })
+	res.status(200).json({ message: 'Truck has been created successfully' })
 }
 
 const getTruckById = async (req, res) => {
@@ -116,10 +116,13 @@ const assignTruck = async (req, res) => {
 	const { _id, role } = req.user
 	if (role === 'SHIPPER') throw new BadRequest('Only Drivers can assign trucks.')
 
+	// check if driver has a truck
+	const assignedTruck = await Truck.findOne({ assigned_to: _id })
+	if (assignedTruck) throw new BadRequest('You have already been assigned to another truck.')
+
 	// find and validate the truck
 	const { id } = req.params
 	const truck = await Truck.findOne({ created_by: _id, _id: id })
-
 	if (!truck) throw new NotFound(`Truck with ID ${id} does not exist.`)
 	if (!truck.status === 'OL') throw new BadRequest('You can not assign trucks On Load.')
 	if (!truck.created_by === !truck.assigned_to) throw new BadRequest('You can only assign trucks that are not assigned to you.')

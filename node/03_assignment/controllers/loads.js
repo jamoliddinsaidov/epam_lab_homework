@@ -7,6 +7,8 @@ const getLoads = async (req, res) => {
 
 	// getting query params
 	const { status } = req.query
+	const queryObj = {}
+	if (status) queryObj.status = status
 	const offset = Number(req.query.offset) || 0
 	let limit = Number(req.query.limit)
 
@@ -16,7 +18,8 @@ const getLoads = async (req, res) => {
 
 	// getting loads
 	if (role === 'SHIPPER') {
-		let loads = await Load.find({ created_by: _id }).select(['-__v']).skip(offset).limit(limit)
+		queryObj.created_by = _id
+		let loads = await Load.find(queryObj).select(['-__v']).skip(offset).limit(limit)
 		return res.status(200).json({ loads })
 	} else {
 		let activeLoad = await Load.findOne({ assigned_to: _id, status: 'ASSIGNED' })
@@ -68,13 +71,12 @@ const updateLoadById = async (req, res) => {
 	const { error } = validateLoad(req.body)
 	if (error) throw new BadRequest(error.details[0].message)
 
-	const { _id, role } = req.user
-	const { id } = req.params
-
 	// validate user's role
+	const { _id, role } = req.user
 	if (role === 'DRIVER') throw new BadRequest('Only Shippers can edit loads.')
 
 	// validate load
+	const { id } = req.params
 	const load = await Load.findOne({ _id: id, created_by: _id })
 	if (!load) throw new NotFound(`Load with ID ${id} doesn't exist.`)
 	if (load.status !== 'NEW') throw new BadRequest('You can only edit loads with status NEW.')
@@ -84,8 +86,8 @@ const updateLoadById = async (req, res) => {
 }
 
 const deleteLoadById = async (req, res) => {
-	const { _id, role } = req.user
 	// validate user's role
+	const { _id, role } = req.user
 	if (role === 'DRIVER') throw new BadRequest('Only Shippers can delete loads.')
 
 	// validate load
@@ -114,7 +116,7 @@ const postLoadById = async (req, res) => {
 	await load.save()
 
 	// get, filter available trucks and assign load
-	let isLoadAssigned = false
+	// let isLoadAssigned = false
 	const availableTrucks = await Truck.find({ status: 'IS', assigned_to: { $ne: null } })
 	availableTrucks.some(async (truck) => {
 		if (
@@ -128,13 +130,12 @@ const postLoadById = async (req, res) => {
 			load.state = 'En route to Pick Up'
 			load.status = 'ASSIGNED'
 			load.logs.push({
-				message: `Load assigned to driver with ID ${truck.assigned_to}`,
+				message: `Load is assigned to driver with ID ${truck.assigned_to}`,
 				time: new Date(Date.now()),
 			})
 			truck.status = 'OL'
 		}
 
-		isLoadAssigned = true
 		await truck.save()
 		return true
 	})
@@ -144,7 +145,7 @@ const postLoadById = async (req, res) => {
 	let driver_found = true
 
 	// if driver isn't found
-	if (!isLoadAssigned) {
+	if (!load.assigned_to) {
 		load.status = 'NEW'
 		load.logs.push({
 			message: 'No driver found. Status is changed back to NEW.',
@@ -159,4 +160,20 @@ const postLoadById = async (req, res) => {
 	res.status(200).json({ message, driver_found })
 }
 
-module.exports = { createLoad, getLoads, getLoadById, updateLoadById, deleteLoadById, postLoadById }
+const getShippingInfo = async (req, res) => {
+	// validate user's role
+	const { _id, role } = req.user
+	if (role === 'DRIVER') throw new BadRequest('Only Shippers can see shipping info.')
+
+	// validate load
+	const { id } = req.params
+	const load = await Load.findOne({ _id: id, created_by: _id })
+	if (!load) throw new NotFound(`Load with ID ${id} doesn't exist.`)
+
+	// get assigned truck
+	let truck = await Truck.findOne({ assigned_to: load.assigned_to })
+
+	res.status(200).json({ load, truck })
+}
+
+module.exports = { createLoad, getLoads, getLoadById, updateLoadById, deleteLoadById, postLoadById, getShippingInfo }
