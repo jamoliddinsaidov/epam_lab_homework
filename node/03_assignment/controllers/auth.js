@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const { User, validateUser, validateLogin, validateEmail } = require('../models/user')
 const { BadRequest } = require('../errors')
-const nodemailer = require('nodemailer')
 const ProtonMail = require('protonmail-api')
 
 const register = async (req, res) => {
