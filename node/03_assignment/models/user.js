@@ -56,4 +56,12 @@ const validatePassword = (password) => {
 	return schema.validate(password)
 }
 
-module.exports = { User, validateUser, validateLogin, validatePassword }
+const validateEmail = (email) => {
+	const schema = Joi.object({
+		email: Joi.string().min(3).required().email(),
+	})
+
+	return schema.validate(email)
+}
+
+module.exports = { User, validateUser, validateLogin, validatePassword, validateEmail }
