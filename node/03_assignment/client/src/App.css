@@ -1,0 +1,25 @@
+/* ===== general styling ====== */
+.app {
+	background-color: #f5f5f5;
+	min-height: 100vh;
+}
+
+/* ===== signIn/signUp ===== */
+.sign_in_body {
+	min-height: 90vh;
+}
+
+.sign_in_container {
+	width: 50%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.sign_in_container button {
+	width: 100%;
+}
+
+.sign_in_container span,
+.passwrod_edit_form span {
+	width: 20%;
+}
