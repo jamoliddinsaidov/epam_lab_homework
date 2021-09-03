@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { checkIsUserSignedIn } from '../../utils/localStorageConfig'
+import { getToken } from '../../utils/localStorageConfig'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-	const isSignedIn = checkIsUserSignedIn()
+	const isSignedIn = getToken()
 
 	return (
 		<Route

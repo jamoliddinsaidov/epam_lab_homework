@@ -1,33 +1,60 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
+import { saveToken } from '../../utils/localStorageConfig'
 
 const SignIn = () => {
-	return (
-		<div class='d-flex flex-column align-items-center justify-content-center sign_in_body'>
-			<div class='container my-5 sign_in_container'>
-				<h2 class='text-center'>Sign in</h2>
+	const emailRef = useRef(null)
+	const passwordRef = useRef(null)
+	const { signin, setIsSignedIn } = useAuth()
+	const [error, setError] = useState('')
+	const history = useHistory()
 
-				<form class='my-5 form'>
-					<div class='mb-3 input-group'>
-						<span class='input-group-text' id='addon'>
-							Username
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+
+		const email = emailRef.current.value
+		const password = passwordRef.current.value
+
+		try {
+			// login user and save the token
+			const { data } = await signin(email, password)
+			saveToken(data.jwt_token)
+			setIsSignedIn(true)
+			history.push('/')
+		} catch (error) {
+			setIsSignedIn(false)
+			setError('Wrong email or password')
+		}
+	}
+
+	return (
+		<div className='d-flex flex-column align-items-center justify-content-center sign_in_body'>
+			<div className='container my-5 sign_in_container'>
+				<h2 className='text-center'>Sign in</h2>
+
+				<form className='my-5 form' onSubmit={handleSubmit}>
+					<div className='mb-3 input-group'>
+						<span className='input-group-text' id='addon'>
+							Email
 						</span>
-						<input type='text' class='form-control' id='usernameInput' />
+						<input type='email' className='form-control' id='usernameInput' ref={emailRef} />
 					</div>
 
-					<div class='mb-3 input-group'>
-						<span class='input-group-text' id='addon'>
+					<div className='mb-3 input-group'>
+						<span className='input-group-text' id='addon'>
 							Password
 						</span>
-						<input type='password' class='form-control' id='passwordInput' />
+						<input type='password' className='form-control' id='passwordInput' ref={passwordRef} />
 					</div>
 
-					<button type='submit' class='btn btn-primary mb-3'>
+					<button type='submit' className='btn btn-primary mb-3'>
 						Sign In
 					</button>
-					<div class='text-small form-alert text-center'></div>
+					{error && <div className='text-small form-alert text-center text-danger'>{error}</div>}
 				</form>
 
-				<p class='text-center'>
+				<p className='text-center'>
 					Need an account? <a href='/signup'>Sign up</a>
 				</p>
 			</div>
