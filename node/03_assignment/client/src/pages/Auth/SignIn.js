@@ -6,7 +6,7 @@ import { saveToken } from '../../utils/localStorageConfig'
 const SignIn = () => {
 	const emailRef = useRef(null)
 	const passwordRef = useRef(null)
-	const { signin, setIsSignedIn } = useAuth()
+	const { signin } = useAuth()
 	const [error, setError] = useState('')
 	const history = useHistory()
 
@@ -20,10 +20,8 @@ const SignIn = () => {
 			// login user and save the token
 			const { data } = await signin(email, password)
 			saveToken(data.jwt_token)
-			setIsSignedIn(true)
 			history.push('/')
 		} catch (error) {
-			setIsSignedIn(false)
 			setError('Wrong email or password')
 		}
 	}

@@ -1,6 +1,7 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Switch, Route, useLocation } from 'react-router-dom'
 import { getToken } from './utils/localStorageConfig'
+
 // components
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import Nav from './components/Navbar/Nav'
@@ -9,22 +10,28 @@ import Nav from './components/Navbar/Nav'
 import SignUp from './pages/Auth/SignUp'
 import SignIn from './pages/Auth/SignIn'
 import ForgotPassword from './pages/Auth/ForgotPassword'
-import Dashboard from './pages/Dashboard/Dashboard'
+import Profile from './pages/Profile/Profile'
 
 // styles
 import './App.css'
 
 const App = () => {
-	const isSignedIn = getToken()
+	const pathname = useLocation().pathname
+	const [isSignedIn, setIsSignedIn] = useState(false)
+
+	useEffect(() => {
+		if (getToken()) setIsSignedIn(true)
+		else setIsSignedIn(false)
+	}, [pathname])
 
 	return (
-		<div className='app container-fluid'>
+		<div className='app'>
 			{isSignedIn && <Nav />}
 			<Switch>
 				<Route path='/signup' component={SignUp} />
 				<Route path='/signin' component={SignIn} />
 				<Route path='/forgotpassword' component={ForgotPassword} />
-				<PrivateRoute exact path='/' component={Dashboard} />
+				<PrivateRoute exact path='/' component={Profile} />
 			</Switch>
 		</div>
 	)
