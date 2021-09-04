@@ -5,7 +5,7 @@ import ProfileDetails from '../../components/ProfileDetails/ProfileDetails'
 
 const Profile = () => {
 	return (
-		<div className='container'>
+		<div className='container profile_container'>
 			<ProfileDetails />
 		</div>
 	)

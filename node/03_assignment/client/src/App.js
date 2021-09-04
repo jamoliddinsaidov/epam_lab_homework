@@ -11,7 +11,7 @@ import SignUp from './pages/Auth/SignUp'
 import SignIn from './pages/Auth/SignIn'
 import ForgotPassword from './pages/Auth/ForgotPassword'
 import Profile from './pages/Profile/Profile'
-
+import ChangePassword from './pages/Auth/ChangePassword'
 // styles
 import './App.css'
 
@@ -31,6 +31,7 @@ const App = () => {
 				<Route path='/signup' component={SignUp} />
 				<Route path='/signin' component={SignIn} />
 				<Route path='/forgotpassword' component={ForgotPassword} />
+				<Route path='/profile/changepassword' component={ChangePassword} />
 				<PrivateRoute exact path='/' component={Profile} />
 			</Switch>
 		</div>

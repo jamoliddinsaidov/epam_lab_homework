@@ -35,7 +35,7 @@ const ProfileDetails = () => {
 		<>
 			{user && (
 				<div className='container'>
-					<h3 className='text-center text-primary fw-bold'>Detailed Profile Info</h3>
+					<h3 className='text-center text-primary fw-bold my-5'>Detailed Profile Info</h3>
 
 					{/* detailed info */}
 					<div>

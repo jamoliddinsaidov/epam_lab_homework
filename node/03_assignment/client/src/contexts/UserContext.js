@@ -21,9 +21,22 @@ export const UserProvider = ({ children }) => {
 		})
 	}
 
+	const changePassword = async (token, oldPassword, newPassword) => {
+		return await axios.patch(
+			'http://localhost:8080/api/users/me/password',
+			{ oldPassword, newPassword },
+			{
+				headers: {
+					Authorization: `JWT ${token}`,
+				},
+			}
+		)
+	}
+
 	const values = {
 		getUser,
 		deleteUser,
+		changePassword,
 	}
 
 	return <UserContext.Provider value={values}> {children}</UserContext.Provider>
