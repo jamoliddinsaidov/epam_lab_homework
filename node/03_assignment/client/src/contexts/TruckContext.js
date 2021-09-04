@@ -4,6 +4,15 @@ import axios from 'axios'
 const TruckContext = React.createContext()
 
 export const TruckProvider = ({ children }) => {
+	// functions
+	const getTrucks = async (token) => {
+		return await axios.get('http://localhost:8080/api/trucks', {
+			headers: {
+				Authorization: `JWT ${token}`,
+			},
+		})
+	}
+
 	const createTruck = async (token, type) => {
 		return await axios.post(
 			'http://localhost:8080/api/trucks',
@@ -16,7 +25,7 @@ export const TruckProvider = ({ children }) => {
 		)
 	}
 
-	const values = { createTruck }
+	const values = { createTruck, getTrucks }
 	return <TruckContext.Provider value={values}>{children}</TruckContext.Provider>
 }
 

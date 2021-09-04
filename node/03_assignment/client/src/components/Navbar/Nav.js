@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useHistory, useLocation, Link } from 'react-router-dom'
+import { deleteToken } from '../../utils/localStorageConfig'
 
 const Nav = () => {
 	const pathname = useLocation().pathname
 	const [location, setLocation] = useState(pathname)
+	const history = useHistory()
 
 	useEffect(() => {
 		setLocation(pathname)
 	}, [pathname])
+
+	const handleLogOut = () => {
+		deleteToken()
+		history.push('/signin')
+	}
 
 	return (
 		<div className='bg-dark py-3 mb-4'>
@@ -71,7 +78,7 @@ const Nav = () => {
 						</ul>
 					</li>
 					<li className='nav-item fs-5'>
-						<Link className='nav-link' to='#'>
+						<Link className='nav-link' to='#' onClick={handleLogOut}>
 							Log Out
 						</Link>
 					</li>
