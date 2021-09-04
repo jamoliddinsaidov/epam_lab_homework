@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { saveToken } from '../../utils/localStorageConfig'
 
@@ -33,7 +33,7 @@ const SignIn = () => {
 			<div className='container my-5 sign_in_container'>
 				<h2 className='text-center'>Sign in</h2>
 
-				<form className='my-5 form' onSubmit={handleSubmit}>
+				<form className='mt-5 mb-3 form' onSubmit={handleSubmit}>
 					<div className='mb-3 input-group'>
 						<span className='input-group-text' id='addon'>
 							Email
@@ -55,7 +55,10 @@ const SignIn = () => {
 				</form>
 
 				<p className='text-center'>
-					Need an account? <a href='/signup'>Sign up</a>
+					Need an account? <Link to='/signup'>Sign up</Link>
+				</p>
+				<p className='text-center'>
+					<Link to='/forgotpassword'>Forgot your password?</Link>
 				</p>
 			</div>
 		</div>

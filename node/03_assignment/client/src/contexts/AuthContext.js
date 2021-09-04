@@ -18,6 +18,10 @@ export const AuthProvider = ({ children }) => {
 		return await axios.post(`http://localhost:8080/api/auth/login`, { email, password })
 	}
 
+	const forgotPassword = async (email) => {
+		return await axios.post('http://localhost:8080/api/auth/forgot_password', { email })
+	}
+
 	useEffect(() => {
 		async function fetchData() {
 			const token = getToken()
@@ -36,6 +40,7 @@ export const AuthProvider = ({ children }) => {
 		user,
 		signup,
 		signin,
+		forgotPassword,
 		setIsSignedIn,
 	}
 
