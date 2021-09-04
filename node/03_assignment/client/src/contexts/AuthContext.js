@@ -41,6 +41,7 @@ export const AuthProvider = ({ children }) => {
 		signup,
 		signin,
 		forgotPassword,
+		isSignedIn,
 		setIsSignedIn,
 	}
 
