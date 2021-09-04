@@ -13,8 +13,17 @@ export const UserProvider = ({ children }) => {
 		})
 	}
 
+	const deleteUser = async (token) => {
+		return await axios.delete('http://localhost:8080/api/users/me', {
+			headers: {
+				Authorization: `JWT ${token}`,
+			},
+		})
+	}
+
 	const values = {
 		getUser,
+		deleteUser,
 	}
 
 	return <UserContext.Provider value={values}> {children}</UserContext.Provider>

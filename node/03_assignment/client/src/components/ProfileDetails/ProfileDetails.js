@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 // utils
 import { useUser } from '../../contexts/UserContext'
@@ -8,7 +8,9 @@ import { getToken } from '../../utils/localStorageConfig'
 
 const ProfileDetails = () => {
 	const [user, setUser] = useState(null)
-	const { getUser } = useUser()
+	const { getUser, deleteUser } = useUser()
+	const [error, setError] = useState('')
+	const history = useHistory()
 
 	useEffect(() => {
 		const getData = async () => {
@@ -18,6 +20,16 @@ const ProfileDetails = () => {
 
 		getData()
 	}, [getUser])
+
+	const deleteUserHandler = async () => {
+		try {
+			await deleteUser(getToken())
+			localStorage.removeItem('token')
+			history.push('/signin')
+		} catch (error) {
+			setError('Something went wrong. Please try again later.')
+		}
+	}
 
 	return (
 		<>
@@ -55,9 +67,9 @@ const ProfileDetails = () => {
 					<div
 						className='modal fade'
 						id='exampleModal'
-						tabindex='-1'
-						ariaLabelledby='exampleModalLabel'
-						ariaHidden='true'>
+						tabIndex='-1'
+						aria-labelledby='exampleModalLabel'
+						aria-hidden='true'>
 						<div className='modal-dialog'>
 							<div className='modal-content'>
 								<div className='modal-header'>
@@ -71,7 +83,11 @@ const ProfileDetails = () => {
 									<button type='button' className='btn btn-secondary' data-bs-dismiss='modal'>
 										Close
 									</button>
-									<button type='button' className='btn btn-danger delete'>
+									<button
+										type='button'
+										className='btn btn-danger delete'
+										data-bs-dismiss='modal'
+										onClick={deleteUserHandler}>
 										Delete
 									</button>
 								</div>
@@ -79,7 +95,7 @@ const ProfileDetails = () => {
 						</div>
 					</div>
 
-					<p class='text-danger text-center profile_warning'></p>
+					{error && <div className='text-small form-alert text-center text-danger mt-5'>{error}</div>}
 				</div>
 			)}
 		</>
