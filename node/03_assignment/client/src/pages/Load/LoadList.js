@@ -13,35 +13,56 @@ const LoadList = () => {
 		'Driver',
 		'Status',
 		'State',
-		'Pickup',
-		'Deliver',
+		'Pickup Address',
+		'Delivery Address',
 		'Payload',
-		'W-H-L',
+		'Dimensions (W-H-L)',
 		'Created date',
 		'Post',
 		'Edit',
 		'Delete',
 	]
-	const { getLoads } = useLoad()
+	const { getLoads, deleteLoad } = useLoad()
 	const { getUserEmail } = useUser()
 	const [loads, setLoads] = useState([])
 	const [userEmail, setUserEmail] = useState('')
 	const [success, setSuccess] = useState('')
 	const [error, setError] = useState('')
+	const token = getToken()
 
 	// handlers
+	const deleteHandler = async (id) => {
+		try {
+			const { data } = await deleteLoad(token, id)
+			setError('')
+			setSuccess(data.message)
+
+			setTimeout(() => {
+				setSuccess('')
+				window.location.reload()
+			}, 500)
+		} catch (error) {
+			setSuccess('')
+			setError('Something went wrong, please try again.')
+
+			setTimeout(() => {
+				setError('')
+			}, 500)
+		}
+	}
+
 	useEffect(() => {
 		const fetchTrucks = async () => {
-			const { data } = await getLoads(getToken())
+			const { data } = await getLoads(token)
 			setLoads(data.loads)
-			const email = await getUserEmail(getToken())
+			const email = await getUserEmail(token)
 			setUserEmail(email)
 		}
 		fetchTrucks()
-	}, [getUserEmail, getLoads])
+	}, [getUserEmail, getLoads, token])
 
 	return (
-		<div className='container-fluid px-4'>
+		<div className='container'>
 			{loads.length > 0 && (
 				<>
 					<h2 className='text-center my-4 fw-bold'>The list of loads</h2>
@@ -50,7 +71,7 @@ const LoadList = () => {
 					{error && <div className='text-small form-alert text-center text-danger my-3'>{error}</div>}
 
 					<div className='table-responsive'>
-						<table className='table table-hover'>
+						<table className='table table-hover load_table'>
 							<thead>
 								<tr>
 									{headers.map((header, idx) => (
@@ -91,7 +112,7 @@ const LoadList = () => {
 										<td>
 											<button
 												className='btn btn-outline-dark'
-												truck-id={load._id}
+												onClick={() => deleteHandler(load._id)}
 												disabled={load.assigned_to ? true : false}>
 												<i className='bi bi-trash'></i>
 											</button>

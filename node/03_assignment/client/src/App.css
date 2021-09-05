@@ -46,3 +46,8 @@ body::-webkit-scrollbar-thumb {
 	margin-right: auto;
 	margin-left: auto;
 }
+
+/* ===== load pages ===== */
+.load_table {
+	width: 150%;
+}

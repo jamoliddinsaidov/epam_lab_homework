@@ -21,7 +21,15 @@ export const LoadProvider = ({ children }) => {
 		})
 	}
 
-	const values = { createLoad, getLoads }
+	const deleteLoad = async (token, id) => {
+		return await axios.delete(`http://localhost:8080/api/loads/${id}`, {
+			headers: {
+				Authorization: `JWT ${token}`,
+			},
+		})
+	}
+
+	const values = { createLoad, getLoads, deleteLoad }
 	return <LoadContext.Provider value={values}>{children}</LoadContext.Provider>
 }
 

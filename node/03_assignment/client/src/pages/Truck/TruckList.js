@@ -15,9 +15,8 @@ const TruckList = () => {
 	const [error, setError] = useState('')
 
 	// handlers
-	const deleteHandler = async (e) => {
+	const deleteHandler = async (id) => {
 		const token = getToken()
-		const id = e.target.getAttribute('truck-id')
 
 		try {
 			const { data } = await deleteTruck(token, id)
@@ -38,9 +37,8 @@ const TruckList = () => {
 		}
 	}
 
-	const assignHandler = async (e) => {
+	const assignHandler = async (id) => {
 		const token = getToken()
-		const id = e.target.getAttribute('truck-id')
 
 		try {
 			const { data } = await assignTruck(token, id)
@@ -100,8 +98,7 @@ const TruckList = () => {
 									<td>
 										<button
 											className={`btn btn-outline-dark ${truck.assigned_to ? 'active' : ''}`}
-											truck-id={truck._id}
-											onClick={assignHandler}>
+											onClick={() => assignHandler(truck._id)}>
 											<i className='bi bi-truck'></i>
 										</button>
 									</td>
@@ -115,8 +112,7 @@ const TruckList = () => {
 									<td>
 										<button
 											className='btn btn-outline-dark'
-											truck-id={truck._id}
-											onClick={deleteHandler}
+											onClick={() => deleteHandler(truck._id)}
 											disabled={truck.assigned_to ? true : false}>
 											<i className='bi bi-trash'></i>
 										</button>
