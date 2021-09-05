@@ -16,6 +16,7 @@ import CreateTruck from './pages/Truck/CreateTruck'
 import EditTruck from './pages/Truck/EditTruck'
 import TruckList from './pages/Truck/TruckList'
 import CreateLoad from './pages/Load/CreateLoad'
+import EditLoad from './pages/Load/EditLoad'
 import LoadList from './pages/Load/LoadList'
 
 // styles
@@ -43,6 +44,7 @@ const App = () => {
 				<PrivateRoute path='/trucks/list' component={TruckList} />
 				<PrivateRoute path='/loads/create' component={CreateLoad} />
 				<PrivateRoute path='/loads/list' component={LoadList} />
+				<PrivateRoute path='/loads/edit/:id' component={EditLoad} />
 				<PrivateRoute exact path='/' component={Profile} />
 			</Switch>
 		</div>

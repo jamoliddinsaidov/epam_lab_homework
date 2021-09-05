@@ -105,7 +105,7 @@ const LoadList = () => {
 										<td>
 											<Link
 												className={`btn btn-outline-dark ${load.assigned_to ? 'disabled' : ''}`}
-												to={`/trucks/edit/${load._id}`}>
+												to={`/loads/edit/${load._id}`}>
 												<i className='bi bi-pencil'></i>
 											</Link>
 										</td>

@@ -21,6 +21,22 @@ export const LoadProvider = ({ children }) => {
 		})
 	}
 
+	const getLoadById = async (token, id) => {
+		return await axios.get(`http://localhost:8080/api/loads/${id}`, {
+			headers: {
+				Authorization: `JWT ${token}`,
+			},
+		})
+	}
+
+	const editLoad = async (token, newLoad, id) => {
+		return await axios.put(`http://localhost:8080/api/loads/${id}`, newLoad, {
+			headers: {
+				Authorization: `JWT ${token}`,
+			},
+		})
+	}
+
 	const deleteLoad = async (token, id) => {
 		return await axios.delete(`http://localhost:8080/api/loads/${id}`, {
 			headers: {
@@ -29,7 +45,7 @@ export const LoadProvider = ({ children }) => {
 		})
 	}
 
-	const values = { createLoad, getLoads, deleteLoad }
+	const values = { getLoads, createLoad, getLoadById, editLoad, deleteLoad }
 	return <LoadContext.Provider value={values}>{children}</LoadContext.Provider>
 }
 

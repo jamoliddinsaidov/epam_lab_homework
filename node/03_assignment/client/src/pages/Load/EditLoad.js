@@ -1,28 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLoad } from '../../contexts/LoadContext'
 import { getToken } from '../../utils/localStorageConfig'
+import { useParams } from 'react-router-dom'
 
 // components
 import LoadForm from '../../components/Forms/LoadForm'
 
-const CreateLoad = () => {
-	// states
+const EditLoad = () => {
+	//  states
 	const [name, setName] = useState('')
-	const [payload, setPayload] = useState('')
+	const [payload, setPayload] = useState(0)
 	const [pickup, setPickup] = useState('')
 	const [delivery, setDelivery] = useState('')
-	const [width, setWidth] = useState('')
-	const [height, setHeight] = useState('')
-	const [length, setLength] = useState('')
+	const [width, setWidth] = useState(0)
+	const [height, setHeight] = useState(0)
+	const [length, setLength] = useState(0)
 	const [error, setError] = useState('')
 	const [success, setSuccess] = useState('')
-	const { createLoad } = useLoad()
+	const { getLoadById, editLoad } = useLoad()
+	const { id } = useParams()
+	const token = getToken()
 
 	// handlers
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		const token = getToken()
-		const load = {
+		const newLoad = {
 			name,
 			payload,
 			pickup_address: pickup,
@@ -35,17 +37,9 @@ const CreateLoad = () => {
 		}
 
 		try {
-			const { data } = await createLoad(token, load)
+			const { data } = await editLoad(token, newLoad, id)
 			setError('')
 			setSuccess(data.message)
-
-			setName('')
-			setPayload('')
-			setPickup('')
-			setDelivery('')
-			setWidth('')
-			setHeight('')
-			setLength('')
 
 			setTimeout(() => {
 				setSuccess('')
@@ -56,7 +50,22 @@ const CreateLoad = () => {
 		}
 	}
 
-	const title = 'Create a new load'
+	useEffect(() => {
+		const getLoad = async () => {
+			const { data } = await getLoadById(token, id)
+			const { name, payload, pickup_address, delivery_address } = data.load
+			setName(name)
+			setPayload(payload)
+			setPickup(pickup_address)
+			setDelivery(delivery_address)
+			setWidth(data.load.dimensions.width)
+			setHeight(data.load.dimensions.height)
+			setLength(data.load.dimensions.length)
+		}
+		getLoad()
+	}, [getLoadById, id, token])
+
+	const title = 'Edit the load'
 	return (
 		<LoadForm
 			title={title}
@@ -77,9 +86,9 @@ const CreateLoad = () => {
 			setHeight={setHeight}
 			length={length}
 			setLength={setLength}
-			isEdit={false}
+			isEdit={true}
 		/>
 	)
 }
 
-export default CreateLoad
+export default EditLoad
