@@ -18,6 +18,7 @@ const LoadList = () => {
 		'Payload',
 		'Dimensions (W-H-L)',
 		'Created date',
+		'View',
 		'Post',
 		'Edit',
 		'Delete',
@@ -117,7 +118,7 @@ const LoadList = () => {
 										<th scope='row'>{idx + 1}</th>
 										<td>{load.name}</td>
 										<td>{userEmail}</td>
-										<td>{load.assigned_to === null ? 'None' : ''}</td>
+										<td>{load.assigned_to === null ? 'None' : load.assigned_to}</td>
 										<td>{load.status}</td>
 										<td>{load.state}</td>
 										<td>{load.pickup_address}</td>
@@ -125,6 +126,11 @@ const LoadList = () => {
 										<td>{load.payload}</td>
 										<td>{`${load.dimensions.width}-${load.dimensions.height}-${load.dimensions.length}`}</td>
 										<td>{formatDate(load.created_date)}</td>
+										<td>
+											<Link to={`/loads/${load._id}/shipping_info`} className='btn btn-outline-dark'>
+												<i class='bi bi-eye'></i>
+											</Link>
+										</td>
 										<td>
 											<button
 												className={`btn btn-outline-dark ${load.assigned_to ? 'active' : ''}`}

@@ -57,7 +57,15 @@ export const LoadProvider = ({ children }) => {
 		)
 	}
 
-	const values = { getLoads, createLoad, getLoadById, editLoad, deleteLoad, postLoad }
+	const getShippingInfo = async (token, id) => {
+		return await axios.get(`http://localhost:8080/api/loads/${id}/shipping_info`, {
+			headers: {
+				Authorization: `JWT ${token}`,
+			},
+		})
+	}
+
+	const values = { getLoads, createLoad, getLoadById, editLoad, deleteLoad, postLoad, getShippingInfo }
 	return <LoadContext.Provider value={values}>{children}</LoadContext.Provider>
 }
 
