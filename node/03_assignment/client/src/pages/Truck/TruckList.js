@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useUser } from '../../contexts/UserContext'
 import { useTruck } from '../../contexts/TruckContext'
 import { getToken } from '../../utils/localStorageConfig'
 import { formatDate } from '../../utils/formatDate'
@@ -7,7 +8,9 @@ import { formatDate } from '../../utils/formatDate'
 const TruckList = () => {
 	const headers = [`#`, 'Created by', 'Assigned to', 'Type', 'Status', 'Created date', 'Assign', 'Edit', 'Delete']
 	const { getTrucks, deleteTruck, assignTruck } = useTruck()
+	const { getUserEmail } = useUser()
 	const [trucks, setTrucks] = useState([])
+	const [userEmail, setUserEmail] = useState('')
 	const [success, setSuccess] = useState('')
 	const [error, setError] = useState('')
 
@@ -62,9 +65,11 @@ const TruckList = () => {
 		const fetchTrucks = async () => {
 			const { data } = await getTrucks(getToken())
 			setTrucks(data.trucks)
+			const email = await getUserEmail(getToken())
+			setUserEmail(email)
 		}
 		fetchTrucks()
-	}, [getTrucks])
+	}, [getTrucks, getUserEmail])
 
 	return (
 		<div className='container'>
@@ -87,8 +92,8 @@ const TruckList = () => {
 							{trucks.map((truck, idx) => (
 								<tr key={idx}>
 									<td>{idx + 1}</td>
-									<td>{truck.created_by}</td>
-									<td>{truck.assigned_to === null ? 'None' : truck.assigned_to}</td>
+									<td>{userEmail}</td>
+									<td>{truck.assigned_to === null ? 'None' : userEmail}</td>
 									<td>{truck.type}</td>
 									<td>{truck.status}</td>
 									<td>{formatDate(truck.created_date)}</td>
