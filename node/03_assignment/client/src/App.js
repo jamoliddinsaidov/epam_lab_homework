@@ -15,6 +15,7 @@ import ChangePassword from './pages/Auth/ChangePassword'
 import CreateTruck from './pages/Truck/CreateTruck'
 import EditTruck from './pages/Truck/EditTruck'
 import TruckList from './pages/Truck/TruckList'
+import CreateLoad from './pages/Load/CreateLoad'
 
 // styles
 import './App.css'
@@ -39,6 +40,7 @@ const App = () => {
 				<PrivateRoute path='/trucks/create' component={CreateTruck} />
 				<PrivateRoute path='/trucks/edit/:id' component={EditTruck} />
 				<PrivateRoute path='/trucks/list' component={TruckList} />
+				<PrivateRoute path='/loads/create' component={CreateLoad} />
 				<PrivateRoute exact path='/' component={Profile} />
 			</Switch>
 		</div>

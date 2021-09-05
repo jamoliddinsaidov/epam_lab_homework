@@ -36,14 +36,14 @@ const SignUp = () => {
 						<span className='input-group-text' id='addon'>
 							Email
 						</span>
-						<input type='email' className='form-control' id='usernameInput' ref={emailRef} />
+						<input type='email' className='form-control' id='usernameInput' ref={emailRef} required />
 					</div>
 
 					<div className='mb-3 input-group'>
 						<span className='input-group-text' id='addon'>
 							Password
 						</span>
-						<input type='password' className='form-control' id='passwordInput' ref={passwordRef} />
+						<input type='password' className='form-control' id='passwordInput' ref={passwordRef} required />
 					</div>
 
 					<div className='mb-3 input-group'>

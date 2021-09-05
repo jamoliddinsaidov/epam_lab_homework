@@ -36,14 +36,14 @@ const ChangePassword = () => {
 						<span className='input-group-text' id='addon'>
 							Old password
 						</span>
-						<input type='text' className='form-control' id='oldPasswordInput' ref={oldPasswordRef} />
+						<input type='text' className='form-control' id='oldPasswordInput' ref={oldPasswordRef} required />
 					</div>
 
 					<div className='mb-3 input-group'>
 						<span className='input-group-text' id='addon'>
 							New password
 						</span>
-						<input type='text' className='form-control' id='newPasswordInput' ref={newPasswordRef} />
+						<input type='text' className='form-control' id='newPasswordInput' ref={newPasswordRef} required />
 					</div>
 
 					<button type='submit' className='btn btn-primary mb-3'>

@@ -35,7 +35,7 @@ const ForgotPassword = () => {
 						<span className='input-group-text' id='addon'>
 							Email
 						</span>
-						<input type='email' className='form-control' id='usernameInput' ref={emailRef} />
+						<input type='email' className='form-control' id='usernameInput' ref={emailRef} required />
 					</div>
 
 					<button type='submit' className='btn btn-primary mb-3' disabled={loading}>

@@ -5,15 +5,18 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { UserProvider } from './contexts/UserContext'
 import { TruckProvider } from './contexts/TruckContext'
+import { LoadProvider } from './contexts/LoadContext'
 
 ReactDOM.render(
 	<React.StrictMode>
 		<AuthProvider>
 			<UserProvider>
 				<TruckProvider>
-					<BrowserRouter>
-						<App />
-					</BrowserRouter>
+					<LoadProvider>
+						<BrowserRouter>
+							<App />
+						</BrowserRouter>
+					</LoadProvider>
 				</TruckProvider>
 			</UserProvider>
 		</AuthProvider>
