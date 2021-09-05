@@ -45,7 +45,15 @@ export const TruckProvider = ({ children }) => {
 		)
 	}
 
-	const values = { getTrucks, createTruck, getTruckById, editTruck }
+	const deleteTruck = async (token, id) => {
+		return await axios.delete(`http://localhost:8080/api/trucks/${id}`, {
+			headers: {
+				Authorization: `JWT ${token}`,
+			},
+		})
+	}
+
+	const values = { getTrucks, createTruck, getTruckById, editTruck, deleteTruck }
 	return <TruckContext.Provider value={values}>{children}</TruckContext.Provider>
 }
 

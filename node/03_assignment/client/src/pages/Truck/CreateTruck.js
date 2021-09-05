@@ -24,7 +24,7 @@ const CreateTruck = () => {
 
 			setTimeout(() => {
 				setSuccess('')
-			}, 2000)
+			}, 800)
 		} catch (error) {
 			setSuccess('')
 			setError(error.message)

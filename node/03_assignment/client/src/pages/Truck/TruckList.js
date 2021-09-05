@@ -5,8 +5,34 @@ import { getToken } from '../../utils/localStorageConfig'
 import { formatDate } from '../../utils/formatDate'
 
 const TruckList = () => {
-	const { getTrucks } = useTruck()
+	const headers = [`#`, 'Created by', 'Assigned to', 'Type', 'Status', 'Created date', 'Assign', 'Edit', 'Delete']
+	const { getTrucks, deleteTruck } = useTruck()
 	const [trucks, setTrucks] = useState([])
+	const [success, setSuccess] = useState('')
+	const [error, setError] = useState('')
+
+	const deleteHandler = async (e) => {
+		const token = getToken()
+		const id = e.target.getAttribute('truck-id')
+
+		try {
+			const { data } = await deleteTruck(token, id)
+			setError('')
+			setSuccess(data.message)
+
+			setTimeout(() => {
+				setSuccess('')
+				window.location.reload()
+			}, 500)
+		} catch (error) {
+			setSuccess('')
+			setError('Something went wrong, please try again.')
+
+			setTimeout(() => {
+				setError('')
+			}, 500)
+		}
+	}
 
 	useEffect(() => {
 		const fetchTrucks = async () => {
@@ -21,17 +47,16 @@ const TruckList = () => {
 			{trucks.length > 0 && (
 				<>
 					<h2 className='text-center my-4 fw-bold'>The list of trucks</h2>
+
+					{success && <div className='text-small form-alert text-center text-success mt-3'>{success}</div>}
+					{error && <div className='text-small form-alert text-center text-danger mt-3'>{error}</div>}
+
 					<table className='table'>
 						<thead>
 							<tr>
-								<th>N</th>
-								<th>Created by</th>
-								<th>Assigned to</th>
-								<th>Type</th>
-								<th>Status</th>
-								<th>Created date</th>
-								<th>Assign</th>
-								<th>Edit</th>
+								{headers.map((header, idx) => (
+									<th key={idx}>{header}</th>
+								))}
 							</tr>
 						</thead>
 						<tbody>
@@ -44,14 +69,19 @@ const TruckList = () => {
 									<td>{truck.status}</td>
 									<td>{formatDate(truck.created_date)}</td>
 									<td>
-										<Link to={`/trucks/${truck._id}`} className='btn btn-outline-dark'>
-											<i class='bi bi-truck'></i>
+										<Link to='#' className='btn btn-outline-dark'>
+											<i className='bi bi-truck'></i>
 										</Link>
 									</td>
 									<td>
 										<Link to={`/trucks/edit/${truck._id}`} className='btn btn-outline-dark'>
-											<i class='bi bi-pencil'></i>
+											<i className='bi bi-pencil'></i>
 										</Link>
+									</td>
+									<td>
+										<button className='btn btn-outline-dark' truck-id={truck._id} onClick={deleteHandler}>
+											<i className='bi bi-trash'></i>
+										</button>
 									</td>
 								</tr>
 							))}
