@@ -45,7 +45,19 @@ export const LoadProvider = ({ children }) => {
 		})
 	}
 
-	const values = { getLoads, createLoad, getLoadById, editLoad, deleteLoad }
+	const postLoad = async (token, id) => {
+		return await axios.post(
+			`http://localhost:8080/api/loads/${id}/post`,
+			{},
+			{
+				headers: {
+					Authorization: `JWT ${token}`,
+				},
+			}
+		)
+	}
+
+	const values = { getLoads, createLoad, getLoadById, editLoad, deleteLoad, postLoad }
 	return <LoadContext.Provider value={values}>{children}</LoadContext.Provider>
 }
 

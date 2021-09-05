@@ -22,7 +22,7 @@ const LoadList = () => {
 		'Edit',
 		'Delete',
 	]
-	const { getLoads, deleteLoad } = useLoad()
+	const { getLoads, deleteLoad, postLoad } = useLoad()
 	const { getUserEmail } = useUser()
 	const [loads, setLoads] = useState([])
 	const [userEmail, setUserEmail] = useState('')
@@ -47,7 +47,37 @@ const LoadList = () => {
 
 			setTimeout(() => {
 				setError('')
-			}, 500)
+			}, 1000)
+		}
+	}
+
+	const postLoadHandler = async (id) => {
+		try {
+			const { data } = await postLoad(token, id)
+
+			if (data.driver_found) {
+				setError('')
+				setSuccess(data.message)
+
+				setTimeout(() => {
+					setSuccess('')
+					window.location.reload()
+				}, 800)
+			} else {
+				setSuccess('')
+				setError(data.message)
+
+				setTimeout(() => {
+					setError('')
+				}, 1000)
+			}
+		} catch (error) {
+			setSuccess('')
+			setError(error.message)
+
+			setTimeout(() => {
+				setError('')
+			}, 1000)
 		}
 	}
 
@@ -98,7 +128,7 @@ const LoadList = () => {
 										<td>
 											<button
 												className={`btn btn-outline-dark ${load.assigned_to ? 'active' : ''}`}
-												truck-id={load._id}>
+												onClick={() => postLoadHandler(load._id)}>
 												<i className='bi bi-truck'></i>
 											</button>
 										</td>
