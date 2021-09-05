@@ -13,6 +13,7 @@ import ForgotPassword from './pages/Auth/ForgotPassword'
 import Profile from './pages/Profile/Profile'
 import ChangePassword from './pages/Auth/ChangePassword'
 import CreateTruck from './pages/Truck/CreateTruck'
+import EditTruck from './pages/Truck/EditTruck'
 import TruckList from './pages/Truck/TruckList'
 
 // styles
@@ -36,6 +37,7 @@ const App = () => {
 				<Route path='/forgotpassword' component={ForgotPassword} />
 				<PrivateRoute path='/profile/changepassword' component={ChangePassword} />
 				<PrivateRoute path='/trucks/create' component={CreateTruck} />
+				<PrivateRoute path='/trucks/edit/:id' component={EditTruck} />
 				<PrivateRoute path='/trucks/list' component={TruckList} />
 				<PrivateRoute exact path='/' component={Profile} />
 			</Switch>

@@ -19,42 +19,45 @@ const TruckList = () => {
 	return (
 		<div className='container'>
 			{trucks.length > 0 && (
-				<table className='table'>
-					<thead>
-						<tr>
-							<th>N</th>
-							<th>Created by</th>
-							<th>Assigned to</th>
-							<th>Type</th>
-							<th>Status</th>
-							<th>Created date</th>
-							<th></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						{trucks.map((truck, idx) => (
-							<tr key={idx}>
-								<td>{idx + 1}</td>
-								<td>{truck.created_by}</td>
-								<td>{truck.assigned_to === null ? 'None' : truck.assigned_to}</td>
-								<td>{truck.type}</td>
-								<td>{truck.status}</td>
-								<td>{formatDate(truck.created_date)}</td>
-								<td>
-									<Link to={`/trucks/${truck._id}`} className='btn btn-outline-dark'>
-										<i class='bi bi-eye'></i>
-									</Link>
-								</td>
-								<td>
-									<Link to={`/trucks/edit/${truck._id}`} className='btn btn-outline-dark'>
-										<i class='bi bi-pencil'></i>
-									</Link>
-								</td>
+				<>
+					<h2 className='text-center my-4 fw-bold'>The list of trucks</h2>
+					<table className='table'>
+						<thead>
+							<tr>
+								<th>N</th>
+								<th>Created by</th>
+								<th>Assigned to</th>
+								<th>Type</th>
+								<th>Status</th>
+								<th>Created date</th>
+								<th>Assign</th>
+								<th>Edit</th>
 							</tr>
-						))}
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							{trucks.map((truck, idx) => (
+								<tr key={idx}>
+									<td>{idx + 1}</td>
+									<td>{truck.created_by}</td>
+									<td>{truck.assigned_to === null ? 'None' : truck.assigned_to}</td>
+									<td>{truck.type}</td>
+									<td>{truck.status}</td>
+									<td>{formatDate(truck.created_date)}</td>
+									<td>
+										<Link to={`/trucks/${truck._id}`} className='btn btn-outline-dark'>
+											<i class='bi bi-truck'></i>
+										</Link>
+									</td>
+									<td>
+										<Link to={`/trucks/edit/${truck._id}`} className='btn btn-outline-dark'>
+											<i class='bi bi-pencil'></i>
+										</Link>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</>
 			)}
 		</div>
 	)
