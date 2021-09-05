@@ -80,7 +80,7 @@ const TruckList = () => {
 					{success && <div className='text-small form-alert text-center text-success my-3'>{success}</div>}
 					{error && <div className='text-small form-alert text-center text-danger my-3'>{error}</div>}
 
-					<table className='table'>
+					<table className='table table-hover'>
 						<thead>
 							<tr>
 								{headers.map((header, idx) => (

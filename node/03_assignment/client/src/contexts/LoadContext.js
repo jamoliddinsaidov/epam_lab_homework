@@ -5,6 +5,14 @@ const LoadContext = React.createContext()
 
 export const LoadProvider = ({ children }) => {
 	// functions
+	const getLoads = async (token) => {
+		return await axios.get('http://localhost:8080/api/loads', {
+			headers: {
+				Authorization: `JWT ${token}`,
+			},
+		})
+	}
+
 	const createLoad = async (token, load) => {
 		return await axios.post('http://localhost:8080/api/loads', load, {
 			headers: {
@@ -13,7 +21,7 @@ export const LoadProvider = ({ children }) => {
 		})
 	}
 
-	const values = { createLoad }
+	const values = { createLoad, getLoads }
 	return <LoadContext.Provider value={values}>{children}</LoadContext.Provider>
 }
 

@@ -39,6 +39,14 @@ const CreateLoad = () => {
 			setError('')
 			setSuccess(data.message)
 
+			nameRef.current.value = ''
+			payloadRef.current.value = ''
+			pickupRef.current.value = ''
+			deliveryRef.current.value = ''
+			widthRef.current.value = ''
+			lengthRef.current.value = ''
+			heightRef.current.value = ''
+
 			setTimeout(() => {
 				setSuccess('')
 			}, 800)
