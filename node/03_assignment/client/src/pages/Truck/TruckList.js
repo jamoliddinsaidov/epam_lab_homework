@@ -6,11 +6,12 @@ import { formatDate } from '../../utils/formatDate'
 
 const TruckList = () => {
 	const headers = [`#`, 'Created by', 'Assigned to', 'Type', 'Status', 'Created date', 'Assign', 'Edit', 'Delete']
-	const { getTrucks, deleteTruck } = useTruck()
+	const { getTrucks, deleteTruck, assignTruck } = useTruck()
 	const [trucks, setTrucks] = useState([])
 	const [success, setSuccess] = useState('')
 	const [error, setError] = useState('')
 
+	// handlers
 	const deleteHandler = async (e) => {
 		const token = getToken()
 		const id = e.target.getAttribute('truck-id')
@@ -34,6 +35,29 @@ const TruckList = () => {
 		}
 	}
 
+	const assignHandler = async (e) => {
+		const token = getToken()
+		const id = e.target.getAttribute('truck-id')
+
+		try {
+			const { data } = await assignTruck(token, id)
+			setError('')
+			setSuccess(data.message)
+
+			setTimeout(() => {
+				setSuccess('')
+				window.location.reload()
+			}, 500)
+		} catch (error) {
+			setSuccess('')
+			setError('You already have an assigned truck.')
+
+			setTimeout(() => {
+				setError('')
+			}, 500)
+		}
+	}
+
 	useEffect(() => {
 		const fetchTrucks = async () => {
 			const { data } = await getTrucks(getToken())
@@ -48,8 +72,8 @@ const TruckList = () => {
 				<>
 					<h2 className='text-center my-4 fw-bold'>The list of trucks</h2>
 
-					{success && <div className='text-small form-alert text-center text-success mt-3'>{success}</div>}
-					{error && <div className='text-small form-alert text-center text-danger mt-3'>{error}</div>}
+					{success && <div className='text-small form-alert text-center text-success my-3'>{success}</div>}
+					{error && <div className='text-small form-alert text-center text-danger my-3'>{error}</div>}
 
 					<table className='table'>
 						<thead>
@@ -69,17 +93,26 @@ const TruckList = () => {
 									<td>{truck.status}</td>
 									<td>{formatDate(truck.created_date)}</td>
 									<td>
-										<Link to='#' className='btn btn-outline-dark'>
+										<button
+											className={`btn btn-outline-dark ${truck.assigned_to ? 'active' : ''}`}
+											truck-id={truck._id}
+											onClick={assignHandler}>
 											<i className='bi bi-truck'></i>
-										</Link>
+										</button>
 									</td>
 									<td>
-										<Link to={`/trucks/edit/${truck._id}`} className='btn btn-outline-dark'>
+										<Link
+											className={`btn btn-outline-dark ${truck.assigned_to ? 'disabled' : ''}`}
+											to={`/trucks/edit/${truck._id}`}>
 											<i className='bi bi-pencil'></i>
 										</Link>
 									</td>
 									<td>
-										<button className='btn btn-outline-dark' truck-id={truck._id} onClick={deleteHandler}>
+										<button
+											className='btn btn-outline-dark'
+											truck-id={truck._id}
+											onClick={deleteHandler}
+											disabled={truck.assigned_to ? true : false}>
 											<i className='bi bi-trash'></i>
 										</button>
 									</td>

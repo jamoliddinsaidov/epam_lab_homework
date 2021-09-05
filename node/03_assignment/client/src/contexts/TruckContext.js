@@ -53,7 +53,19 @@ export const TruckProvider = ({ children }) => {
 		})
 	}
 
-	const values = { getTrucks, createTruck, getTruckById, editTruck, deleteTruck }
+	const assignTruck = async (token, id) => {
+		return await axios.post(
+			`http://localhost:8080/api/trucks/${id}/assign`,
+			{},
+			{
+				headers: {
+					Authorization: `JWT ${token}`,
+				},
+			}
+		)
+	}
+
+	const values = { getTrucks, createTruck, getTruckById, editTruck, deleteTruck, assignTruck }
 	return <TruckContext.Provider value={values}>{children}</TruckContext.Provider>
 }
 
