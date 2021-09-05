@@ -34,7 +34,7 @@ const ProfileDetails = () => {
 	return (
 		<>
 			{user && (
-				<div className='container'>
+				<div className='container mx-5'>
 					<h3 className='text-center fw-bold my-5'>Detailed Profile Info</h3>
 
 					{/* detailed info */}

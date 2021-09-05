@@ -21,6 +21,26 @@ export const LoadProvider = ({ children }) => {
 		})
 	}
 
+	const getActiveLoad = async (token) => {
+		return await axios.get('http://localhost:8080/api/loads/active', {
+			headers: {
+				Authorization: `JWT ${token}`,
+			},
+		})
+	}
+
+	const iterateToNextState = async (token) => {
+		return await axios.patch(
+			'http://localhost:8080/api/loads/active/state',
+			{},
+			{
+				headers: {
+					Authorization: `JWT ${token}`,
+				},
+			}
+		)
+	}
+
 	const getLoadById = async (token, id) => {
 		return await axios.get(`http://localhost:8080/api/loads/${id}`, {
 			headers: {
@@ -65,7 +85,17 @@ export const LoadProvider = ({ children }) => {
 		})
 	}
 
-	const values = { getLoads, createLoad, getLoadById, editLoad, deleteLoad, postLoad, getShippingInfo }
+	const values = {
+		getLoads,
+		createLoad,
+		getActiveLoad,
+		iterateToNextState,
+		getLoadById,
+		editLoad,
+		deleteLoad,
+		postLoad,
+		getShippingInfo,
+	}
 	return <LoadContext.Provider value={values}>{children}</LoadContext.Provider>
 }
 

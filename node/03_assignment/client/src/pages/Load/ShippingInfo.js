@@ -3,23 +3,31 @@ import { useParams } from 'react-router-dom'
 import { useLoad } from '../../contexts/LoadContext'
 import { getToken } from '../../utils/localStorageConfig'
 import { formatDate } from '../../utils/formatDate'
+import { useUser } from '../../contexts/UserContext'
 
 const ShippingInfo = () => {
 	const [load, setLoad] = useState(null)
 	const [truck, setTruck] = useState(null)
+	const [userRole, setUserRole] = useState('')
+	const { getUserRole } = useUser()
+	const { getShippingInfo, getLoadById } = useLoad()
 	const token = getToken()
 	const { id } = useParams()
-	const { getShippingInfo, getLoadById } = useLoad()
 
 	useEffect(() => {
 		const getLoad = async () => {
 			const { data } = await getLoadById(token, id)
 			setLoad(data.load)
-			const truckData = await getShippingInfo(token, id)
-			setTruck(truckData.data.truck)
+
+			const role = await getUserRole(token)
+			setUserRole(role)
+			if (role === 'SHIPPER') {
+				const truckData = await getShippingInfo(token, id)
+				setTruck(truckData.data.truck)
+			}
 		}
 		getLoad()
-	}, [getShippingInfo, token, id, getLoadById])
+	}, [getShippingInfo, token, id, getLoadById, getUserRole])
 
 	return (
 		<div className='container'>
@@ -67,21 +75,23 @@ const ShippingInfo = () => {
 						{formatDate(load.created_date)}
 					</p>
 
-					<div className='logs'>
-						<h3 className='text-center fw-bold my-3'>Logs</h3>
-						{load.logs.map((log, idx) => (
-							<div key={idx}>
-								<p className='fs-5'>
-									<span className='fw-bold'>Message: </span> {log.message}
-								</p>
-								<p className='fs-5'>
-									<span className='fw-bold'>Created date: </span>
-									{formatDate(log.time)}
-								</p>
-								<hr />
-							</div>
-						))}
-					</div>
+					{userRole === 'SHIPPER' && (
+						<div className='logs'>
+							<h3 className='text-center fw-bold my-3'>Logs</h3>
+							{load.logs.map((log, idx) => (
+								<div key={idx}>
+									<p className='fs-5'>
+										<span className='fw-bold'>Message: </span> {log.message}
+									</p>
+									<p className='fs-5'>
+										<span className='fw-bold'>Created date: </span>
+										{formatDate(log.time)}
+									</p>
+									<hr />
+								</div>
+							))}
+						</div>
+					)}
 
 					{truck && (
 						<div className='truck'>

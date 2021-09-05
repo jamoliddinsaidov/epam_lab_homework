@@ -23,8 +23,13 @@ const getLoads = async (req, res) => {
 		return res.status(200).json({ loads })
 	} else {
 		let activeLoad = await Load.findOne({ assigned_to: _id, status: 'ASSIGNED' })
-		let completedLoads = await Load.findOne({ assigned_to: _id, status: 'SHIPPED' }).skip(offset).limit(limit)
-		const loads = [activeLoad, ...completedLoads]
+		let completedLoads = await Load.find({ assigned_to: _id, status: 'SHIPPED' }).skip(offset).limit(limit)
+		let loads = []
+		console.log(completedLoads)
+
+		if (activeLoad && completedLoads) loads = [activeLoad, ...completedLoads]
+		else if (completedLoads) loads = [...completedLoads]
+		else if (activeLoad) loads = [activeLoad]
 		return res.status(200).json({ loads })
 	}
 }

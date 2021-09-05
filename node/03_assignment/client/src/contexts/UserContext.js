@@ -38,11 +38,17 @@ export const UserProvider = ({ children }) => {
 		return data.user.email
 	}
 
+	const getUserRole = async (token) => {
+		const { data } = await getUser(token)
+		return data.user.role
+	}
+
 	const values = {
 		getUser,
 		deleteUser,
 		changePassword,
 		getUserEmail,
+		getUserRole,
 	}
 
 	return <UserContext.Provider value={values}> {children}</UserContext.Provider>

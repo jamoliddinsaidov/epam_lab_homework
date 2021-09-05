@@ -5,28 +5,29 @@ import { useLoad } from '../../contexts/LoadContext'
 import { getToken } from '../../utils/localStorageConfig'
 import { formatDate } from '../../utils/formatDate'
 
+const headers = [
+	`#`,
+	'Name',
+	'Creator',
+	'Driver',
+	'Status',
+	'State',
+	'Pickup Address',
+	'Delivery Address',
+	'Payload',
+	'Dimensions (W-H-L)',
+	'Created date',
+	'View',
+	'Post',
+	'Edit',
+	'Delete',
+]
+
 const LoadList = () => {
-	const headers = [
-		`#`,
-		'Name',
-		'Creator',
-		'Driver',
-		'Status',
-		'State',
-		'Pickup Address',
-		'Delivery Address',
-		'Payload',
-		'Dimensions (W-H-L)',
-		'Created date',
-		'View',
-		'Post',
-		'Edit',
-		'Delete',
-	]
 	const { getLoads, deleteLoad, postLoad } = useLoad()
-	const { getUserEmail } = useUser()
+	const { getUserEmail, getUserRole } = useUser()
 	const [loads, setLoads] = useState([])
-	const [userEmail, setUserEmail] = useState('')
+	const [userRole, setUserRole] = useState('')
 	const [success, setSuccess] = useState('')
 	const [error, setError] = useState('')
 	const token = getToken()
@@ -86,11 +87,11 @@ const LoadList = () => {
 		const fetchTrucks = async () => {
 			const { data } = await getLoads(token)
 			setLoads(data.loads)
-			const email = await getUserEmail(token)
-			setUserEmail(email)
+			const role = await getUserRole(token)
+			setUserRole(role)
 		}
 		fetchTrucks()
-	}, [getUserEmail, getLoads, token])
+	}, [getUserEmail, getLoads, token, getUserRole])
 
 	return (
 		<div className='container'>
@@ -117,8 +118,12 @@ const LoadList = () => {
 									<tr key={idx}>
 										<th scope='row'>{idx + 1}</th>
 										<td>{load.name}</td>
-										<td>{userEmail}</td>
-										<td>{load.assigned_to === null ? 'None' : load.assigned_to}</td>
+										<td>{load.created_by}</td>
+										{userRole === 'SHIPPER' ? (
+											<td>{load.assigned_to === null ? 'None' : load.assigned_to}</td>
+										) : (
+											<td>You</td>
+										)}
 										<td>{load.status}</td>
 										<td>{load.state}</td>
 										<td>{load.pickup_address}</td>
@@ -127,20 +132,25 @@ const LoadList = () => {
 										<td>{`${load.dimensions.width}-${load.dimensions.height}-${load.dimensions.length}`}</td>
 										<td>{formatDate(load.created_date)}</td>
 										<td>
-											<Link to={`/loads/${load._id}/shipping_info`} className='btn btn-outline-dark'>
-												<i class='bi bi-eye'></i>
+											<Link
+												to={`/loads/${load._id}/shipping_info`}
+												className={`btn btn-outline-dark ${userRole === 'DRIVER' ? 'disabled' : ''}`}>
+												<i className='bi bi-eye'></i>
 											</Link>
 										</td>
 										<td>
 											<button
 												className={`btn btn-outline-dark ${load.assigned_to ? 'active' : ''}`}
-												onClick={() => postLoadHandler(load._id)}>
+												onClick={() => postLoadHandler(load._id)}
+												disabled={userRole === 'DRIVER'}>
 												<i className='bi bi-truck'></i>
 											</button>
 										</td>
 										<td>
 											<Link
-												className={`btn btn-outline-dark ${load.assigned_to ? 'disabled' : ''}`}
+												className={`btn btn-outline-dark ${
+													load.assigned_to || userRole === 'DRIVER' ? 'disabled' : ''
+												}`}
 												to={`/loads/edit/${load._id}`}>
 												<i className='bi bi-pencil'></i>
 											</Link>
@@ -149,7 +159,7 @@ const LoadList = () => {
 											<button
 												className='btn btn-outline-dark'
 												onClick={() => deleteHandler(load._id)}
-												disabled={load.assigned_to ? true : false}>
+												disabled={load.assigned_to || userRole === 'DRIVER' ? true : false}>
 												<i className='bi bi-trash'></i>
 											</button>
 										</td>
