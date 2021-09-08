@@ -13,11 +13,10 @@ const TruckList = () => {
 	const [userEmail, setUserEmail] = useState('')
 	const [success, setSuccess] = useState('')
 	const [error, setError] = useState('')
+	const token = getToken()
 
 	// handlers
 	const deleteHandler = async (id) => {
-		const token = getToken()
-
 		try {
 			const { data } = await deleteTruck(token, id)
 			setError('')
@@ -38,8 +37,6 @@ const TruckList = () => {
 	}
 
 	const assignHandler = async (id) => {
-		const token = getToken()
-
 		try {
 			const { data } = await assignTruck(token, id)
 			setError('')
@@ -61,13 +58,13 @@ const TruckList = () => {
 
 	useEffect(() => {
 		const fetchTrucks = async () => {
-			const { data } = await getTrucks(getToken())
+			const { data } = await getTrucks(token)
 			setTrucks(data.trucks)
-			const email = await getUserEmail(getToken())
+			const email = await getUserEmail(token)
 			setUserEmail(email)
 		}
 		fetchTrucks()
-	}, [getTrucks, getUserEmail])
+	}, [getTrucks, getUserEmail, token])
 
 	return (
 		<div className='container'>

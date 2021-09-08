@@ -18,6 +18,7 @@ app.use('/api/auth', require('./routes/auth'))
 app.use('/api/users/me', require('./routes/user'))
 app.use('/api/trucks', require('./routes/trucks'))
 app.use('/api/loads', require('./routes/loads'))
+app.use('/api/service/users/', require('./routes/anotherUser'))
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)

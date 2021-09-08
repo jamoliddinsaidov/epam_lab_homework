@@ -25,8 +25,10 @@ const headers = [
 
 const LoadList = () => {
 	const { getLoads, deleteLoad, postLoad } = useLoad()
-	const { getUserEmail, getUserRole } = useUser()
+	const { getUserEmailById, getUserRole } = useUser()
 	const [loads, setLoads] = useState([])
+	const [creators, setCreators] = useState([])
+	const [drivers, setDrivers] = useState([])
 	const [userRole, setUserRole] = useState('')
 	const [success, setSuccess] = useState('')
 	const [error, setError] = useState('')
@@ -85,17 +87,30 @@ const LoadList = () => {
 
 	useEffect(() => {
 		const fetchTrucks = async () => {
+			// get loads from db
 			const { data } = await getLoads(token)
 			setLoads(data.loads)
+
+			// get emails
+			data.loads.forEach(async (load) => {
+				const shipperEmail = await getUserEmailById(token, load.created_by)
+				const emailShipper = shipperEmail.data.userEmail
+				setCreators((prev) => [...prev, emailShipper])
+
+				const driverEmail = await getUserEmailById(token, load.assigned_to ?? 0)
+				const emailDriver = driverEmail.data.userEmail
+				setDrivers((prev) => [...prev, emailDriver])
+			})
+
 			const role = await getUserRole(token)
 			setUserRole(role)
 		}
 		fetchTrucks()
-	}, [getUserEmail, getLoads, token, getUserRole])
+	}, [getLoads, token, getUserRole, getUserEmailById])
 
 	return (
-		<div className='container'>
-			{loads.length > 0 && (
+		<div className='container-fluid px-5'>
+			{loads.length > 0 && creators.length > 0 ? (
 				<>
 					<h2 className='text-center my-4 fw-bold'>The list of loads</h2>
 
@@ -118,12 +133,8 @@ const LoadList = () => {
 									<tr key={idx}>
 										<th scope='row'>{idx + 1}</th>
 										<td>{load.name}</td>
-										<td>{load.created_by}</td>
-										{userRole === 'SHIPPER' ? (
-											<td>{load.assigned_to === null ? 'None' : load.assigned_to}</td>
-										) : (
-											<td>You</td>
-										)}
+										<td>{creators[0]}</td>
+										{userRole === 'SHIPPER' ? <td>{drivers[idx] === null ? 'None' : drivers[idx]}</td> : <td>You</td>}
 										<td>{load.status}</td>
 										<td>{load.state}</td>
 										<td>{load.pickup_address}</td>
@@ -169,6 +180,8 @@ const LoadList = () => {
 						</table>
 					</div>
 				</>
+			) : (
+				''
 			)}
 		</div>
 	)

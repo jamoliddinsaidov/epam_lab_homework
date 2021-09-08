@@ -38,6 +38,14 @@ export const UserProvider = ({ children }) => {
 		return data.user.email
 	}
 
+	const getUserEmailById = async (token, id) => {
+		return await axios.get(`http://localhost:8080/api/service/users/email/${id}`, {
+			headers: {
+				Authorization: `JWT ${token}`,
+			},
+		})
+	}
+
 	const getUserRole = async (token) => {
 		const { data } = await getUser(token)
 		return data.user.role
@@ -49,6 +57,7 @@ export const UserProvider = ({ children }) => {
 		changePassword,
 		getUserEmail,
 		getUserRole,
+		getUserEmailById,
 	}
 
 	return <UserContext.Provider value={values}> {children}</UserContext.Provider>
