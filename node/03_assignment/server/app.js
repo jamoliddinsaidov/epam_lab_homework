@@ -9,6 +9,7 @@ const { errorHandlerMiddleware, notFoundMiddleware } = require('./middlewares')
 const app = express()
 
 // set up middlewares
+app.use(express.static('./public'))
 app.use(morgan('tiny'))
 app.use(express.json())
 app.use(cors({ origin: '*' }))
