@@ -4,23 +4,27 @@ const { BadRequest, NotFound } = require('../errors')
 
 const getLoads = async (req, res) => {
 	const { _id, role } = req.user
+	// console.log(req.query)
 
 	// getting query params
 	const { status } = req.query
 	const queryObj = {}
-	if (status) queryObj.status = status
+	if (status) {
+		queryObj.status = status
+	}
+
 	const offset = Number(req.query.offset) || 0
 	let limit = Number(req.query.limit)
 
 	// validate limit
-	if (limit < 10) limit = 10
+	if (limit < 10 || isNaN(limit)) limit = 10
 	else if (limit > 50) throw new BadRequest('Limit cannot be more than 50')
 
 	// getting loads
 	if (role === 'SHIPPER') {
 		queryObj.created_by = _id
 		let loads = await Load.find(queryObj).select(['-__v']).skip(offset).limit(limit)
-		return res.status(200).json({ loads })
+		return res.status(200).json({ count: loads.length, loads })
 	} else {
 		let activeLoad = await Load.findOne({ assigned_to: _id, status: 'ASSIGNED' })
 		let completedLoads = await Load.find({ assigned_to: _id, status: 'SHIPPED' }).skip(offset).limit(limit)
