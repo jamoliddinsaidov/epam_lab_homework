@@ -12,19 +12,19 @@ import { GlobalStyles } from './components/GlobalStyles'
 import { checkLocalStorage } from './utils'
 
 const App = () => {
-	// states
-	const [todos, setTodos] = useState(checkLocalStorage())
+  // states
+  const [todos, setTodos] = useState(checkLocalStorage())
 
-	return (
-		<>
-			<GlobalStyles />
-			<div className='app'>
-				<Header name={'Todo List'} />
-				<TodoForm todos={todos} setTodos={setTodos} />
-				<TodoList todos={todos} setTodos={setTodos} />
-			</div>
-		</>
-	)
+  return (
+    <>
+      <GlobalStyles />
+      <div className='app'>
+        <Header name={'Todo List'} />
+        <TodoForm todos={todos} setTodos={setTodos} />
+        <TodoList todos={todos} setTodos={setTodos} />
+      </div>
+    </>
+  )
 }
 
 export default App

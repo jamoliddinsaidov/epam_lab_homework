@@ -6,79 +6,73 @@ import { Link } from 'react-router-dom'
 import DashboardTitle from '../Titles/DashboardTitle'
 
 // utils
-import {
-	checkLocalStorageCurrentUser,
-	clearNotification,
-} from '../../utils/localStorageConfig'
+import { checkLocalStorageCurrentUser, clearNotification } from '../../utils/localStorageConfig'
 import { StyledDashboardUsersList } from '../ListComponents/DashboardUsersList'
 import { StyledDashboardUser } from './SingleContainers/DashboardUser'
 import { v4 as uuidv4 } from 'uuid'
 
 const DashboardNotificationsContainer = () => {
-	const user = checkLocalStorageCurrentUser()
-	const notifications = user.notifications
+  const user = checkLocalStorageCurrentUser()
+  const notifications = user.notifications
 
-	useEffect(() => {
-		// called only when the component is going to unmount
-		return () => {
-			clearNotification(user.id)
-		}
-	}, [user.id])
+  useEffect(() => {
+    // called only when the component is going to unmount
+    return () => {
+      clearNotification(user.id)
+    }
+  }, [user.id])
 
-	return (
-		<StyledDashboardNotifications>
-			<div className='line'></div>
-			<DashboardTitle title='Notifications' />
-			{notifications?.map((notification, index) => (
-				<StyledNotification key={uuidv4()}>
-					<p>
-						{' '}
-						{index + 1}. <span>{notification.friendName}</span> recommends you
-						to watch{' '}
-						<Link to={`/shows/${notification.movieId}`}>
-							{notification.movieName}
-						</Link>
-					</p>
-				</StyledNotification>
-			))}
-		</StyledDashboardNotifications>
-	)
+  return (
+    <StyledDashboardNotifications>
+      <div className='line'></div>
+      <DashboardTitle title='Notifications' />
+      {notifications?.map((notification, index) => (
+        <StyledNotification key={uuidv4()}>
+          <p>
+            {' '}
+            {index + 1}. <span>{notification.friendName}</span> recommends you to watch{' '}
+            <Link to={`/shows/${notification.movieId}`}>{notification.movieName}</Link>
+          </p>
+        </StyledNotification>
+      ))}
+    </StyledDashboardNotifications>
+  )
 }
 
 const StyledDashboardNotifications = styled(StyledDashboardUsersList)`
-	width: 55%;
-	margin: 0 auto;
-	padding-bottom: 1em;
-	animation: appear 300ms ease;
+  width: 55%;
+  margin: 0 auto;
+  padding-bottom: 1em;
+  animation: appear 300ms ease;
 
-	@media screen and (max-width: 1024px) {
-		width: 65%;
-	}
+  @media screen and (max-width: 1024px) {
+    width: 65%;
+  }
 
-	@media screen and (max-width: 924px) {
-		width: 75%;
-	}
+  @media screen and (max-width: 924px) {
+    width: 75%;
+  }
 
-	@media screen and (max-width: 768px) {
-		width: 85%;
-	}
+  @media screen and (max-width: 768px) {
+    width: 85%;
+  }
 
-	@media screen and (max-width: 480px) {
-		width: 90%;
-	}
+  @media screen and (max-width: 480px) {
+    width: 90%;
+  }
 `
 
 const StyledNotification = styled(StyledDashboardUser)`
-	p {
-		font-size: 1.1rem;
-		opacity: 1;
+  p {
+    font-size: 1.1rem;
+    opacity: 1;
 
-		span,
-		a {
-			font-weight: 700;
-			font-family: inherit;
-		}
-	}
+    span,
+    a {
+      font-weight: 700;
+      font-family: inherit;
+    }
+  }
 `
 
 export default DashboardNotificationsContainer

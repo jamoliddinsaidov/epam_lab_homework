@@ -15,37 +15,35 @@ import LoadSpinner from '../../components/LoadSpinner'
 import { Container } from '../../components/GlobalStyles'
 
 const DetailedMovie = () => {
-	const { id } = useParams()
-	const location = useLocation()
+  const { id } = useParams()
+  const location = useLocation()
 
-	// fetching data
-	const dispatch = useDispatch()
+  // fetching data
+  const dispatch = useDispatch()
 
-	useEffect(() => {
-		dispatch(LoadMovieById(id))
-	}, [dispatch, id, location])
+  useEffect(() => {
+    dispatch(LoadMovieById(id))
+  }, [dispatch, id, location])
 
-	const { details, isLoading } = useSelector((state) => state.detailedMovie)
+  const { details, isLoading } = useSelector((state) => state.detailedMovie)
 
-	return (
-		<div>
-			{!isLoading ? (
-				<StyledDetailedMovieContainer>
-					<HeaderTitle title={details.name} />
-					{details.image?.original && (
-						<DetailedMovieContainer details={details} />
-					)}
-				</StyledDetailedMovieContainer>
-			) : (
-				<LoadSpinner />
-			)}
-		</div>
-	)
+  return (
+    <div>
+      {!isLoading ? (
+        <StyledDetailedMovieContainer>
+          <HeaderTitle title={details.name} />
+          {details.image?.original && <DetailedMovieContainer details={details} />}
+        </StyledDetailedMovieContainer>
+      ) : (
+        <LoadSpinner />
+      )}
+    </div>
+  )
 }
 
 const StyledDetailedMovieContainer = styled(Container)`
-	width: 90%;
-	margin: 2em auto;
+  width: 90%;
+  margin: 2em auto;
 `
 
 export default DetailedMovie

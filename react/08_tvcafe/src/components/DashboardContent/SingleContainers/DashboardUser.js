@@ -4,104 +4,104 @@ import styled from 'styled-components'
 // utils
 import { colors } from '../../GlobalStyles'
 import {
-	followFriend,
-	unfollowFriend,
-	checkIsFollowed,
-	checkLocalStorageUsers,
-	checkLocalStorageCurrentUser,
+  followFriend,
+  unfollowFriend,
+  checkIsFollowed,
+  checkLocalStorageUsers,
+  checkLocalStorageCurrentUser,
 } from '../../../utils/localStorageConfig'
 
 const DashboardUser = ({ user, setUser, setUsers, isUserFriends }) => {
-	//states
-	const isFollowed = checkIsFollowed(user.id)
-	const [text, setText] = useState(isFollowed ? 'Unfollow' : 'Follow')
+  //states
+  const isFollowed = checkIsFollowed(user.id)
+  const [text, setText] = useState(isFollowed ? 'Unfollow' : 'Follow')
 
-	// handlers
-	const followHandler = () => {
-		if (text === 'Follow') {
-			const values = {
-				id: user.id,
-				name: user.name,
-				isFollowed: true,
-			}
+  // handlers
+  const followHandler = () => {
+    if (text === 'Follow') {
+      const values = {
+        id: user.id,
+        name: user.name,
+        isFollowed: true,
+      }
 
-			const followed = followFriend(values)
+      const followed = followFriend(values)
 
-			if (followed) {
-				setText('Unfollow')
-			}
-		} else if (text === 'Unfollow') {
-			const unfollowed = unfollowFriend(user.id)
+      if (followed) {
+        setText('Unfollow')
+      }
+    } else if (text === 'Unfollow') {
+      const unfollowed = unfollowFriend(user.id)
 
-			if (unfollowed) {
-				setText('Follow')
-			}
-		}
+      if (unfollowed) {
+        setText('Follow')
+      }
+    }
 
-		// realtime updating friends list
-		setUsers(checkLocalStorageUsers)
-		setUser(checkLocalStorageCurrentUser)
-	}
+    // realtime updating friends list
+    setUsers(checkLocalStorageUsers)
+    setUser(checkLocalStorageCurrentUser)
+  }
 
-	return (
-		<StyledDashboardUser>
-			<h4 className={isUserFriends ? 'userFriends' : ''}>{user.name}</h4>
-			{isUserFriends ? '' : <button onClick={followHandler}>{text}</button>}
-			{isUserFriends && <p>followed by you</p>}
-		</StyledDashboardUser>
-	)
+  return (
+    <StyledDashboardUser>
+      <h4 className={isUserFriends ? 'userFriends' : ''}>{user.name}</h4>
+      {isUserFriends ? '' : <button onClick={followHandler}>{text}</button>}
+      {isUserFriends && <p>followed by you</p>}
+    </StyledDashboardUser>
+  )
 }
 
 export const StyledDashboardUser = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 0em 2em;
-	margin-bottom: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0em 2em;
+  margin-bottom: 1em;
 
-	h4 {
-		font-size: 1.5em;
-		font-weight: 600;
-	}
+  h4 {
+    font-size: 1.5em;
+    font-weight: 600;
+  }
 
-	button {
-		background: transparent;
-		padding: 0.2em 0.7em;
-		border-radius: 0.5em;
-		border: 2px solid ${colors.primaryColorTwo};
-		font-size: 0.9rem;
+  button {
+    background: transparent;
+    padding: 0.2em 0.7em;
+    border-radius: 0.5em;
+    border: 2px solid ${colors.primaryColorTwo};
+    font-size: 0.9rem;
 
-		&:hover {
-			background: ${colors.primaryColorTwo};
-		}
-	}
+    &:hover {
+      background: ${colors.primaryColorTwo};
+    }
+  }
 
-	p {
-		opacity: 0.5;
-		font-size: 0.8rem;
-	}
+  p {
+    opacity: 0.5;
+    font-size: 0.8rem;
+  }
 
-	@media screen and (max-width: 924px) {
-		h4 {
-			font-size: 1.3rem;
-		}
+  @media screen and (max-width: 924px) {
+    h4 {
+      font-size: 1.3rem;
+    }
 
-		button {
-			font-size: 0.8rem;
-		}
-	}
+    button {
+      font-size: 0.8rem;
+    }
+  }
 
-	@media screen and (max-width: 480px) {
-		padding: 0em 1em;
+  @media screen and (max-width: 480px) {
+    padding: 0em 1em;
 
-		h4 {
-			font-size: 1.1rem;
-		}
+    h4 {
+      font-size: 1.1rem;
+    }
 
-		p {
-			font-size: 0.7rem;
-		}
-	}
+    p {
+      font-size: 0.7rem;
+    }
+  }
 `
 
 export default DashboardUser

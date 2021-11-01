@@ -5,14 +5,14 @@ import { decreaseCount } from '../../store/actions/countAction'
 import { DetailedTodo } from './DetailedTodo'
 
 const mapStateToProps = (state) => ({
-	todos: state.todos,
-	detailedTodo: state.detailedTodo,
+  todos: state.todos,
+  detailedTodo: state.detailedTodo,
 })
 
 const mapDispatchToProps = {
-	deleteTodo,
-	decreaseCount,
-	getTodo,
+  deleteTodo,
+  decreaseCount,
+  getTodo,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailedTodo)

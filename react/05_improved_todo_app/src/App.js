@@ -17,34 +17,34 @@ import { GlobalStyles } from './GlobalStyles'
 import { checkLocalStorage } from './utils'
 
 function App() {
-	// states
-	const [todos, setTodos] = useState(checkLocalStorage())
-	const [todoCount, setTodoCount] = useState(todos[0] ? todos.length : 0)
+  // states
+  const [todos, setTodos] = useState(checkLocalStorage())
+  const [todoCount, setTodoCount] = useState(todos[0] ? todos.length : 0)
 
-	// context hook
-	const todoContextValues = useMemo(
-		() => ({ todos, setTodos, todoCount, setTodoCount }),
-		[todos, setTodos, todoCount, setTodoCount]
-	)
+  // context hook
+  const todoContextValues = useMemo(
+    () => ({ todos, setTodos, todoCount, setTodoCount }),
+    [todos, setTodos, todoCount, setTodoCount]
+  )
 
-	return (
-		<>
-			<GlobalStyles />
-			<div>
-				<Nav />
+  return (
+    <>
+      <GlobalStyles />
+      <div>
+        <Nav />
 
-				<TodoContext.Provider value={todoContextValues}>
-					<Switch>
-						<Route path='/' component={Home} exact />
-						<Route path='/create' component={Create} exact />
-						<Route path='/todolist' component={TodoList} exact />
-						<Route path='/todo/view/:id' component={DetailedTodo} exact />
-						<Route component={NotFound} />
-					</Switch>
-				</TodoContext.Provider>
-			</div>
-		</>
-	)
+        <TodoContext.Provider value={todoContextValues}>
+          <Switch>
+            <Route path='/' component={Home} exact />
+            <Route path='/create' component={Create} exact />
+            <Route path='/todolist' component={TodoList} exact />
+            <Route path='/todo/view/:id' component={DetailedTodo} exact />
+            <Route component={NotFound} />
+          </Switch>
+        </TodoContext.Provider>
+      </div>
+    </>
+  )
 }
 
 export default App

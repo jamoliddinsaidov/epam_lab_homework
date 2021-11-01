@@ -16,22 +16,22 @@ import DetailedTodo from './pages/DetailedTodo/DetailedTodo.container'
 import { GlobalStyles } from './GlobalStyles'
 
 function App() {
-	return (
-		<>
-			<GlobalStyles />
-			<div>
-				<Nav />
-				<Switch>
-					<Route path='/todo/view/:id' component={DetailedTodo} />
-					<Route path='/todo/edit/:id' component={Edit} />
-					<Route path='/create' component={Create} />
-					<Route path='/todolist' component={TodoList} />
-					<Route path='/' component={Home} exact />
-					<Route component={NotFound} />
-				</Switch>
-			</div>
-		</>
-	)
+  return (
+    <>
+      <GlobalStyles />
+      <div>
+        <Nav />
+        <Switch>
+          <Route path='/todo/view/:id' component={DetailedTodo} />
+          <Route path='/todo/edit/:id' component={Edit} />
+          <Route path='/create' component={Create} />
+          <Route path='/todolist' component={TodoList} />
+          <Route path='/' component={Home} exact />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
+    </>
+  )
 }
 
 export default App

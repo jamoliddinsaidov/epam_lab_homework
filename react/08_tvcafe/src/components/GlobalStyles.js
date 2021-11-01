@@ -1,15 +1,15 @@
 import styled, { createGlobalStyle } from 'styled-components'
 
 export const colors = {
-	bgBodyColor: '#3c414b',
-	bgNavColor: '#2A2F39',
-	primaryColorOne: '#1e90ff',
-	primaryColorTwo: '#ff5860',
-	primaryColorThree: '#ff55a5',
-	textColor: '#F4F9FF',
-	darkTextColor: '#ffffff7f',
-	dangerColor: '#ff0044',
-	successClor: '#009d00',
+  bgBodyColor: '#3c414b',
+  bgNavColor: '#2A2F39',
+  primaryColorOne: '#1e90ff',
+  primaryColorTwo: '#ff5860',
+  primaryColorThree: '#ff55a5',
+  textColor: '#F4F9FF',
+  darkTextColor: '#ffffff7f',
+  dangerColor: '#ff0044',
+  successClor: '#009d00',
 }
 
 export const GlobalStyles = createGlobalStyle`
@@ -201,10 +201,10 @@ export const GlobalStyles = createGlobalStyle`
 `
 
 export const Container = styled.div`
-	width: 90%;
-	margin: 0 auto;
+  width: 90%;
+  margin: 0 auto;
 
-	@media screen and (max-width: 1024px) {
-		width: 95%;
-	}
+  @media screen and (max-width: 1024px) {
+    width: 95%;
+  }
 `

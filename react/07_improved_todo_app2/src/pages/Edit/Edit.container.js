@@ -3,12 +3,12 @@ import { editTodo } from '../../store/actions/todoAction'
 import { Edit } from './Edit'
 
 const mapStateToProps = (state) => ({
-	todos: state.todos,
-	detailedTodo: state.detailedTodo,
+  todos: state.todos,
+  detailedTodo: state.detailedTodo,
 })
 
 const mapDispatchToProps = {
-	editTodo,
+  editTodo,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit)

@@ -16,23 +16,20 @@ import Dashboard from './pages/Dashboard/Dashboard'
 import NotFound from './pages/NotFound/NotFound'
 
 const App = () => {
-	return (
-		<>
-			<GlobalStyles />
-			<Nav />
-			<Switch>
-				<PrivateRouteSignedIn path='/signin' component={SignIn} />
-				<PrivateRouteSignedIn path='/signup' component={SignUp} />
-				<Route
-					path={['/shows/:id', '/dashboard/shows/:id']}
-					component={DetailedMovie}
-				/>
-				<PrivateRouteSignedOut path='/dashboard' component={Dashboard} />
-				<Route path='/' component={Home} exact />
-				<Route component={NotFound} />
-			</Switch>
-		</>
-	)
+  return (
+    <>
+      <GlobalStyles />
+      <Nav />
+      <Switch>
+        <PrivateRouteSignedIn path='/signin' component={SignIn} />
+        <PrivateRouteSignedIn path='/signup' component={SignUp} />
+        <Route path={['/shows/:id', '/dashboard/shows/:id']} component={DetailedMovie} />
+        <PrivateRouteSignedOut path='/dashboard' component={Dashboard} />
+        <Route path='/' component={Home} exact />
+        <Route component={NotFound} />
+      </Switch>
+    </>
+  )
 }
 
 export default App

@@ -18,121 +18,102 @@ import { LoadMovies } from '../../store/actions/movieAction'
 import { filterMovies } from '../../utils/filterMovies'
 
 const Home = () => {
-	// fetching data
-	const dispatch = useDispatch()
+  // fetching data
+  const dispatch = useDispatch()
 
-	useEffect(() => {
-		dispatch(LoadMovies())
-	}, [dispatch])
+  useEffect(() => {
+    dispatch(LoadMovies())
+  }, [dispatch])
 
-	// extracting data
-	const { scheduledForToday, popularShows, animations, allMovies, isLoading } =
-		useSelector((state) => state.movies)
+  // extracting data
+  const { scheduledForToday, popularShows, animations, allMovies, isLoading } = useSelector((state) => state.movies)
 
-	const scheduledForTodayData = useMemo(
-		() => scheduledForToday,
-		[scheduledForToday]
-	)
-	const popularShowsData = useMemo(() => popularShows, [popularShows])
-	const animationsData = useMemo(() => animations, [animations])
+  const scheduledForTodayData = useMemo(() => scheduledForToday, [scheduledForToday])
+  const popularShowsData = useMemo(() => popularShows, [popularShows])
+  const animationsData = useMemo(() => animations, [animations])
 
-	useEffect(() => {
-		setMoviesState(popularShowsData.slice(0, 8))
-		window.scroll(0, 0)
-	}, [popularShowsData])
+  useEffect(() => {
+    setMoviesState(popularShowsData.slice(0, 8))
+    window.scroll(0, 0)
+  }, [popularShowsData])
 
-	// states
-	const [moviesState, setMoviesState] = useState([])
-	const [limit, setLimit] = useState(16)
-	const [isActive, setIsActive] = useState({
-		// according to these buttons' states, the movies change in the home category section
-		popularBtn: true,
-		animationBtn: false,
-		helpBtn: false,
-	})
-	const [options, setOptions] = useState({ type: '', value: '' })
+  // states
+  const [moviesState, setMoviesState] = useState([])
+  const [limit, setLimit] = useState(16)
+  const [isActive, setIsActive] = useState({
+    // according to these buttons' states, the movies change in the home category section
+    popularBtn: true,
+    animationBtn: false,
+    helpBtn: false,
+  })
+  const [options, setOptions] = useState({ type: '', value: '' })
 
-	// handlers
-	const optionHandler = (type, value) => {
-		setOptions((prev) => ({
-			...prev,
-			type,
-			value,
-		}))
-	}
+  // handlers
+  const optionHandler = (type, value) => {
+    setOptions((prev) => ({
+      ...prev,
+      type,
+      value,
+    }))
+  }
 
-	// filtering the data according to user's selected options
-	const filteredData = useMemo(
-		() => filterMovies(allMovies, options),
-		[options, allMovies]
-	)
+  // filtering the data according to user's selected options
+  const filteredData = useMemo(() => filterMovies(allMovies, options), [options, allMovies])
 
-	const loadMoreHandler = () => {
-		setLimit((prev) => prev + 8)
+  const loadMoreHandler = () => {
+    setLimit((prev) => prev + 8)
 
-		if (isActive.popularBtn) {
-			setMoviesState(popularShowsData.slice(0, limit))
-		} else if (isActive.animationBtn) {
-			setMoviesState(animationsData.slice(0, limit))
-		} else if (isActive.helpBtn) {
-			setMoviesState(filteredData.slice(0, limit))
-		}
-	}
+    if (isActive.popularBtn) {
+      setMoviesState(popularShowsData.slice(0, limit))
+    } else if (isActive.animationBtn) {
+      setMoviesState(animationsData.slice(0, limit))
+    } else if (isActive.helpBtn) {
+      setMoviesState(filteredData.slice(0, limit))
+    }
+  }
 
-	// setting movies data according to the clicked category buttons
-	useEffect(() => {
-		if (isActive.popularBtn) {
-			setMoviesState(popularShowsData.slice(0, 8))
-		} else if (isActive.animationBtn) {
-			setMoviesState(animationsData.slice(0, 8))
-		} else if (isActive.helpBtn) {
-			setMoviesState(filteredData.slice(0, 8))
-		}
-	}, [
-		isActive.popularBtn,
-		isActive.animationBtn,
-		isActive.helpBtn,
-		popularShowsData,
-		animationsData,
-		filteredData,
-	])
+  // setting movies data according to the clicked category buttons
+  useEffect(() => {
+    if (isActive.popularBtn) {
+      setMoviesState(popularShowsData.slice(0, 8))
+    } else if (isActive.animationBtn) {
+      setMoviesState(animationsData.slice(0, 8))
+    } else if (isActive.helpBtn) {
+      setMoviesState(filteredData.slice(0, 8))
+    }
+  }, [isActive.popularBtn, isActive.animationBtn, isActive.helpBtn, popularShowsData, animationsData, filteredData])
 
-	return (
-		<StyledHome>
-			{!isLoading ? (
-				<>
-					<div>
-						<HeaderTitle title='Today on TV' className='h2' />
-						<MovieCarousel movies={scheduledForTodayData} />
-					</div>
+  return (
+    <StyledHome>
+      {!isLoading ? (
+        <>
+          <div>
+            <HeaderTitle title='Today on TV' className='h2' />
+            <MovieCarousel movies={scheduledForTodayData} />
+          </div>
 
-					<div>
-						<HomeMovieCategoryContainer
-							isActive={isActive}
-							setIsActive={setIsActive}
-							setMoviesState={setMoviesState}
-							filteredMovies={filteredData}
-						/>
-						{isActive.helpBtn && (
-							<FilterContainer optionHandler={optionHandler} />
-						)}
-						<HomeMovieList
-							movies={moviesState}
-							loadMoreHandler={loadMoreHandler}
-						/>
-					</div>
-					<Footer />
-				</>
-			) : (
-				<LoadSpinner />
-			)}
-		</StyledHome>
-	)
+          <div>
+            <HomeMovieCategoryContainer
+              isActive={isActive}
+              setIsActive={setIsActive}
+              setMoviesState={setMoviesState}
+              filteredMovies={filteredData}
+            />
+            {isActive.helpBtn && <FilterContainer optionHandler={optionHandler} />}
+            <HomeMovieList movies={moviesState} loadMoreHandler={loadMoreHandler} />
+          </div>
+          <Footer />
+        </>
+      ) : (
+        <LoadSpinner />
+      )}
+    </StyledHome>
+  )
 }
 
 const StyledHome = styled.div`
-	width: 100%;
-	position: relative;
+  width: 100%;
+  position: relative;
 `
 
 export default Home
