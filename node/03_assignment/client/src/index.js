@@ -8,18 +8,18 @@ import { TruckProvider } from './contexts/TruckContext'
 import { LoadProvider } from './contexts/LoadContext'
 
 ReactDOM.render(
-	<React.StrictMode>
-		<AuthProvider>
-			<UserProvider>
-				<TruckProvider>
-					<LoadProvider>
-						<BrowserRouter>
-							<App />
-						</BrowserRouter>
-					</LoadProvider>
-				</TruckProvider>
-			</UserProvider>
-		</AuthProvider>
-	</React.StrictMode>,
-	document.getElementById('root')
+  <React.StrictMode>
+    <AuthProvider>
+      <UserProvider>
+        <TruckProvider>
+          <LoadProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </LoadProvider>
+        </TruckProvider>
+      </UserProvider>
+    </AuthProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
 )

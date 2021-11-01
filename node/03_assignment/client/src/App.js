@@ -24,33 +24,33 @@ import ShippingInfo from './pages/Load/ShippingInfo'
 import './App.css'
 
 const App = () => {
-	const pathname = useLocation().pathname
-	const [isSignedIn, setIsSignedIn] = useState(false)
+  const pathname = useLocation().pathname
+  const [isSignedIn, setIsSignedIn] = useState(false)
 
-	useEffect(() => {
-		if (getToken()) setIsSignedIn(true)
-		else setIsSignedIn(false)
-	}, [pathname])
+  useEffect(() => {
+    if (getToken()) setIsSignedIn(true)
+    else setIsSignedIn(false)
+  }, [pathname])
 
-	return (
-		<div className='app'>
-			{isSignedIn && <Nav />}
-			<Switch>
-				<Route path='/signup' component={SignUp} />
-				<Route path='/signin' component={SignIn} />
-				<Route path='/forgotpassword' component={ForgotPassword} />
-				<PrivateRoute path='/profile/changepassword' component={ChangePassword} />
-				<PrivateRoute path='/trucks/create' component={CreateTruck} />
-				<PrivateRoute path='/trucks/edit/:id' component={EditTruck} />
-				<PrivateRoute path='/trucks/list' component={TruckList} />
-				<PrivateRoute path='/loads/create' component={CreateLoad} />
-				<PrivateRoute path='/loads/list' component={LoadList} />
-				<PrivateRoute path='/loads/edit/:id' component={EditLoad} />
-				<PrivateRoute path='/loads/:id/shipping_info' component={ShippingInfo} />
-				<PrivateRoute exact path='/' component={Profile} />
-			</Switch>
-		</div>
-	)
+  return (
+    <div className='app'>
+      {isSignedIn && <Nav />}
+      <Switch>
+        <Route path='/signup' component={SignUp} />
+        <Route path='/signin' component={SignIn} />
+        <Route path='/forgotpassword' component={ForgotPassword} />
+        <PrivateRoute path='/profile/changepassword' component={ChangePassword} />
+        <PrivateRoute path='/trucks/create' component={CreateTruck} />
+        <PrivateRoute path='/trucks/edit/:id' component={EditTruck} />
+        <PrivateRoute path='/trucks/list' component={TruckList} />
+        <PrivateRoute path='/loads/create' component={CreateLoad} />
+        <PrivateRoute path='/loads/list' component={LoadList} />
+        <PrivateRoute path='/loads/edit/:id' component={EditLoad} />
+        <PrivateRoute path='/loads/:id/shipping_info' component={ShippingInfo} />
+        <PrivateRoute exact path='/' component={Profile} />
+      </Switch>
+    </div>
+  )
 }
 
 export default App

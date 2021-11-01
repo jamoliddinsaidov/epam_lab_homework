@@ -4,41 +4,41 @@ const newPasswordInput = document.querySelector('#newPassword')
 const formAlert = document.querySelector('.edit_alert')
 
 formDOM.addEventListener('submit', async (e) => {
-	e.preventDefault()
+  e.preventDefault()
 
-	const oldPassword = oldPasswordInput.value
-	const newPassword = newPasswordInput.value
+  const oldPassword = oldPasswordInput.value
+  const newPassword = newPasswordInput.value
 
-	try {
-		const token = localStorage.getItem('token')
-		const { data } = await axios.patch(
-			'/api/users/me',
-			{ oldPassword, newPassword },
-			{
-				headers: {
-					Authorization: `JWT ${token}`,
-				},
-			}
-		)
+  try {
+    const token = localStorage.getItem('token')
+    const { data } = await axios.patch(
+      '/api/users/me',
+      { oldPassword, newPassword },
+      {
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      }
+    )
 
-		formAlert.style.display = 'block'
-		formAlert.classList.remove('text-danger')
-		formAlert.classList.add('text-success')
-		formAlert.innerText = data.message
-		oldPasswordInput.value = ''
-		newPasswordInput.value = ''
+    formAlert.style.display = 'block'
+    formAlert.classList.remove('text-danger')
+    formAlert.classList.add('text-success')
+    formAlert.innerText = data.message
+    oldPasswordInput.value = ''
+    newPasswordInput.value = ''
 
-		setTimeout(() => {
-			formAlert.style.display = 'none'
-		}, 2000)
-	} catch (error) {
-		formAlert.style.display = 'block'
-		formAlert.classList.remove('text-success')
-		formAlert.classList.add('text-danger')
-		formAlert.innerText = error
+    setTimeout(() => {
+      formAlert.style.display = 'none'
+    }, 2000)
+  } catch (error) {
+    formAlert.style.display = 'block'
+    formAlert.classList.remove('text-success')
+    formAlert.classList.add('text-danger')
+    formAlert.innerText = error
 
-		setTimeout(() => {
-			formAlert.style.display = 'none'
-		}, 2000)
-	}
+    setTimeout(() => {
+      formAlert.style.display = 'none'
+    }, 2000)
+  }
 })

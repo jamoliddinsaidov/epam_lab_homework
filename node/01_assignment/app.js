@@ -12,7 +12,7 @@ app.use(cors({ origin: '*' }))
 app.use('/api/files', require('./routes/files'))
 
 app.listen(8080, (error) => {
-	if (error) console.log(error)
+  if (error) console.log(error)
 
-	console.log('Server is running on port 8080...')
+  console.log('Server is running on port 8080...')
 })

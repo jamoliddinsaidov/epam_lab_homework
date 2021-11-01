@@ -4,8 +4,8 @@ const Unauthorized = require('./unauthorized')
 const NotFoundError = require('./not_found')
 
 module.exports = {
-	CustomErrorAPI,
-	BadRequest,
-	Unauthorized,
-	NotFoundError,
+  CustomErrorAPI,
+  BadRequest,
+  Unauthorized,
+  NotFoundError,
 }

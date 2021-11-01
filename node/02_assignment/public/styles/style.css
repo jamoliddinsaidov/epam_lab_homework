@@ -1,70 +1,70 @@
 @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css');
 
 body {
-	background-color: #f5f5f5;
-	width: 70%;
-	margin-right: auto;
-	margin-left: auto;
+  background-color: #f5f5f5;
+  width: 70%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 /* ===== signIn/signUp ===== */
 .sign_in_body {
-	min-height: 90vh;
+  min-height: 90vh;
 }
 
 .sign_in_container {
-	width: 50%;
-	margin-right: auto;
-	margin-left: auto;
+  width: 50%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .sign_in_container button {
-	width: 100%;
+  width: 100%;
 }
 
 .sign_in_container span,
 .passwrod_edit_form span {
-	width: 20%;
+  width: 20%;
 }
 
 /* ===== dashboard ===== */
 .dashboard .text-body {
-	border-bottom: 1px solid transparent;
-	transition: border-bottom 300ms ease-in-out;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 300ms ease-in-out;
 }
 
 .dashboard .text-body:hover {
-	border-bottom: 1px solid #000;
+  border-bottom: 1px solid #000;
 }
 
 .dashboard_warning {
-	display: none;
+  display: none;
 }
 
 .note_controllers .btn-outline-success {
-	width: 8rem;
+  width: 8rem;
 }
 
 /* ===== create ====== */
 .create_container {
-	margin-top: 7rem;
+  margin-top: 7rem;
 }
 
 .create_form div,
 .edit_form div,
 .passwrod_edit_form div {
-	width: 60%;
-	margin-right: auto;
-	margin-left: auto;
+  width: 60%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .create_form button,
 .edit_form button,
 .passwrod_edit_form button {
-	width: 30%;
+  width: 30%;
 }
 
 /* ===== note_detail ===== */
 .note_controllers a {
-	width: 6rem;
+  width: 6rem;
 }

@@ -27,12 +27,12 @@ app.use(errorHandlerMiddleware)
 const port = process.env.PORT || 8080
 const mongoURI = process.env.MONGO_URI
 const start = async () => {
-	try {
-		await connectDB(mongoURI)
-		app.listen(port, console.log(`MongoDB connected. \nServer started on port ${port}...`))
-	} catch (error) {
-		console.log(error)
-	}
+  try {
+    await connectDB(mongoURI)
+    app.listen(port, console.log(`MongoDB connected. \nServer started on port ${port}...`))
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 start()
